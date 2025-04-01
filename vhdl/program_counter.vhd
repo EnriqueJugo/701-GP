@@ -4,8 +4,8 @@ use ieee.std_logic_1164.all;
 entity program_counter is
     port (
         clk    : in std_logic;
-        pc_in  : in integer;
-        pc_out : out integer;
+        pc_in  : in std_logic_vector(15 downto 0);
+        pc_out : out std_logic_vector(15 downto 0)
     );
 end program_counter;
 
