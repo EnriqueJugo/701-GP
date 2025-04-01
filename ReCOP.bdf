@@ -21,9 +21,9 @@ refer to the applicable agreement for further details.
 (header "graphic" (version "1.4"))
 (pin
 	(input)
-	(rect -40 160 128 176)
+	(rect 96 160 264 176)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "CLOCK_50" (rect 5 0 61 12)(font "Arial" ))
+	(text "CLOCK_50" (rect 5 0 60 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -35,40 +35,8 @@ refer to the applicable agreement for further details.
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
-(pin
-	(output)
-	(rect 312 104 488 120)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "clk_0" (rect 90 0 115 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-)
-(pin
-	(output)
-	(rect 160 392 336 408)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "clk_1" (rect 90 0 115 17)(font "Intel Clear" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-)
 (symbol
-	(rect 344 152 544 232)
+	(rect 360 136 560 216)
 	(text "program_counter" (rect 5 0 87 12)(font "Arial" ))
 	(text "PC" (rect 8 64 23 76)(font "Arial" ))
 	(port
@@ -89,7 +57,7 @@ refer to the applicable agreement for further details.
 		(pt 200 32)
 		(output)
 		(text "pc_out[15..0]" (rect 0 0 64 12)(font "Arial" ))
-		(text "pc_out[15..0]" (rect 125 27 179 39)(font "Arial" ))
+		(text "pc_out[15..0]" (rect 125 27 189 39)(font "Arial" ))
 		(line (pt 200 32)(pt 184 32)(line_width 3))
 	)
 	(drawing
@@ -125,7 +93,7 @@ refer to the applicable agreement for further details.
 		(pt 0 32)
 		(output)
 		(text "Y[bit_width-1..0]" (rect 0 0 80 12)(font "Arial" ))
-		(text "Y[bit_width-1..0]" (rect 21 27 88 39)(font "Arial" ))
+		(text "Y[bit_width-1..0]" (rect 21 27 101 39)(font "Arial" ))
 		(line (pt 0 32)(pt 16 32)(line_width 3))
 	)
 	(parameter
@@ -137,7 +105,7 @@ refer to the applicable agreement for further details.
 		(rectangle (rect 16 16 208 96))
 	)
 	(flipy)
-	(annotation_block (parameter)(rect 560 280 729 318))
+	(annotation_block (parameter)(rect 352 264 521 302))
 )
 (symbol
 	(rect 848 336 960 384)
@@ -147,7 +115,7 @@ refer to the applicable agreement for further details.
 		(pt 0 32)
 		(output)
 		(text "result[LPM_WIDTH-1..0]" (rect 75 19 208 33)(font "Arial" (font_size 8)))
-		(text "result[]" (rect 5 19 37 33)(font "Arial" (font_size 8)))
+		(text "result[]" (rect 5 19 43 33)(font "Arial" (font_size 8)))
 		(line (pt 48 32)(pt 0 32)(line_width 3))
 	)
 	(parameter
@@ -198,63 +166,14 @@ refer to the applicable agreement for further details.
 	)
 	(flipy)
 )
-(symbol
-	(rect 152 136 288 216)
-	(text "pll" (rect 5 0 15 12)(font "Arial" ))
-	(text "inst6" (rect 8 64 30 81)(font "Intel Clear" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "inclk0" (rect 0 0 28 12)(font "Arial" ))
-		(text "inclk0" (rect 21 27 49 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 136 32)
-		(output)
-		(text "c0" (rect 0 0 11 12)(font "Arial" ))
-		(text "c0" (rect 106 27 117 39)(font "Arial" ))
-		(line (pt 136 32)(pt 120 32))
-	)
-	(port
-		(pt 136 48)
-		(output)
-		(text "c1" (rect 0 0 11 12)(font "Arial" ))
-		(text "c1" (rect 106 43 117 55)(font "Arial" ))
-		(line (pt 136 48)(pt 120 48))
-	)
-	(drawing
-		(rectangle (rect 16 16 120 64))
-	)
-)
-(connector
-	(pt 544 184)
-	(pt 584 184)
-	(bus)
-)
 (connector
 	(pt 560 352)
 	(pt 584 352)
 	(bus)
 )
 (connector
-	(pt 584 352)
-	(pt 584 184)
-	(bus)
-)
-(connector
 	(pt 560 384)
 	(pt 664 384)
-)
-(connector
-	(pt 344 200)
-	(pt 296 200)
-	(bus)
-)
-(connector
-	(pt 296 200)
-	(pt 296 352)
-	(bus)
 )
 (connector
 	(pt 296 352)
@@ -275,47 +194,26 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 128 168)
-	(pt 152 168)
+	(pt 584 168)
+	(pt 560 168)
+	(bus)
 )
 (connector
-	(pt 344 184)
-	(pt 328 184)
+	(pt 584 352)
+	(pt 584 168)
+	(bus)
 )
 (connector
-	(pt 328 168)
-	(pt 328 184)
+	(pt 296 184)
+	(pt 360 184)
+	(bus)
 )
 (connector
-	(pt 312 112)
-	(pt 304 112)
+	(pt 296 352)
+	(pt 296 184)
+	(bus)
 )
 (connector
-	(pt 304 112)
-	(pt 304 168)
+	(pt 264 168)
+	(pt 360 168)
 )
-(connector
-	(pt 288 168)
-	(pt 304 168)
-)
-(connector
-	(pt 304 168)
-	(pt 328 168)
-)
-(connector
-	(pt 288 184)
-	(pt 224 184)
-)
-(connector
-	(pt 224 352)
-	(pt 224 184)
-)
-(connector
-	(pt 160 352)
-	(pt 224 352)
-)
-(connector
-	(pt 160 352)
-	(pt 160 400)
-)
-(junction (pt 304 168))

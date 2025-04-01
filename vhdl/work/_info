@@ -1,0 +1,76 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\juane\Desktop\University\ENG_Part4\701\701-GP\vhdl
+Erecop
+Z1 w1743499313
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dC:\Users\juane\Desktop\University\ENG_Part4\701\701-GP\vhdl
+Z5 8C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd
+Z6 FC:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd
+l0
+L24
+VgSAROH^[kIOJMkE3ze1mM2
+Z7 OV;C;10.1d;51
+32
+Z8 !s108 1743499818.601000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd|
+Z10 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+!s100 05EKaQT>Mb8FNBMR;O]?S2
+!i10b 1
+Abdf_type
+R2
+R3
+Z13 DEx4 work 5 recop 0 22 gSAROH^[kIOJMkE3ze1mM2
+l80
+L33
+VI9aeMQeJiC5W]<X5K]dU72
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!s100 ZXQ;i7:g^eF<b58Hm8]8K0
+!i10b 1
+Erecop_testbench
+Z14 w1743500290
+R2
+R3
+R4
+Z15 8C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCop_Testbench.vhd
+Z16 FC:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCop_Testbench.vhd
+l0
+L4
+Vahz6d[F[F3]00=Y6g3:]V2
+!s100 1EiY>BGzVDV^PnBL8Wh;d1
+R7
+32
+!i10b 1
+Z17 !s108 1743500369.287000
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCop_Testbench.vhd|
+Z19 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCop_Testbench.vhd|
+R11
+R12
+Artl
+R13
+R2
+R3
+DEx4 work 15 recop_testbench 0 22 ahz6d[F[F3]00=Y6g3:]V2
+l18
+L7
+VIMc6D`@>2ETDk05;T956n3
+!s100 8OkCgX2bfLH9F87b9Ik[<0
+R7
+32
+!i10b 1
+R17
+R18
+R19
+R11
+R12
