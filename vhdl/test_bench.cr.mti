@@ -1,7 +1,0 @@
-C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd {0 {vcom -work work -2002 -explicit C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl/ReCOP.vhd
-Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
-** Error: (vcom-19) Failed to access library 'C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl' at "C:/Users/juane/Desktop/University/ENG_Part4/701/701-GP/vhdl".
-
-No such file or directory. (errno = ENOENT)
-
-} {3.0 4.0} {}}

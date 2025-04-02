@@ -1,0 +1,101 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 344 344)
+	(text "instruction_register" (rect 64 208 157 220)(font "Arial" ))
+	(text "inst" (rect 40 232 57 244)(font "Arial" ))
+	(port
+		(pt 0 40)
+		(input)
+		(text "clk" (rect 0 104 14 116)(font "Arial" ))
+		(text "clk" (rect 40 32 54 44)(font "Arial" ))
+		(line (pt 0 40)(pt 16 40))
+	)
+	(port
+		(pt 0 184)
+		(input)
+		(text "reset" (rect 0 104 24 116)(font "Arial" ))
+		(text "reset" (rect 24 176 48 188)(font "Arial" ))
+		(line (pt 0 184)(pt 16 184))
+	)
+	(port
+		(pt 0 200)
+		(input)
+		(text "ir_ld" (rect 0 104 20 116)(font "Arial" ))
+		(text "ir_ld" (rect 21 195 41 207)(font "Arial" ))
+		(line (pt 0 200)(pt 16 200))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "ir_data[31..0]" (rect 0 104 64 116)(font "Arial" ))
+		(text "ir_data[31..0]" (rect 21 59 85 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 152 0)
+		(output)
+		(text "addr_mode[1..0]" (rect 32 0 112 12)(font "Arial" ))
+		(text "addr_mode[1..0]" (rect 128 32 140 112)(font "Arial" )(vertical))
+		(line (pt 152 0)(pt 152 16)(line_width 3))
+	)
+	(port
+		(pt 184 0)
+		(output)
+		(text "opcode[4..0]" (rect 48 120 109 132)(font "Arial" ))
+		(text "opcode[4..0]" (rect 160 24 172 85)(font "Arial" )(vertical))
+		(line (pt 184 0)(pt 184 16)(line_width 3))
+	)
+	(port
+		(pt 280 48)
+		(output)
+		(text "operand[15..0]" (rect 64 104 134 116)(font "Arial" ))
+		(text "operand[15..0]" (rect 200 43 270 55)(font "Arial" ))
+		(line (pt 280 48)(pt 264 48)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "rz[2..0]" (rect 64 104 98 116)(font "Arial" ))
+		(text "rz[2..0]" (rect 231 75 265 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(port
+		(pt 280 112)
+		(output)
+		(text "ry[2..0]" (rect 64 104 100 116)(font "Arial" ))
+		(text "ry[2..0]" (rect 229 107 265 119)(font "Arial" ))
+		(line (pt 280 112)(pt 264 112)(line_width 3))
+	)
+	(port
+		(pt 280 144)
+		(output)
+		(text "rx[2..0]" (rect 64 104 99 116)(font "Arial" ))
+		(text "rx[2..0]" (rect 230 139 265 151)(font "Arial" ))
+		(line (pt 280 144)(pt 264 144)(line_width 3))
+	)
+	(drawing
+		(line (pt 16 32)(pt 32 40))
+		(line (pt 32 40)(pt 16 48))
+		(rectangle (rect 16 16 264 272))
+	)
+)
