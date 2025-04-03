@@ -67,7 +67,7 @@ architecture SYN of data_mem is
       width_byteena_a        : natural
     );
     port (
-      address_a : in std_logic_vector (11 downto 0);
+      address_a : in std_logic_vector (15 downto 0);
       clock0    : in std_logic;
       data_a    : in std_logic_vector (15 downto 0);
       wren_a    : in std_logic;
@@ -91,7 +91,7 @@ begin
     outdata_reg_a          => "UNREGISTERED",
     power_up_uninitialized => "FALSE",
     ram_block_type         => "M4K",
-    widthad_a              => 12,
+    widthad_a              => 16,
     width_a                => 16,
     width_byteena_a        => 1
   )

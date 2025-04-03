@@ -9,11 +9,10 @@ entity instruction_register is
     ir_ld     : in std_logic;
     ir_data   : in std_logic_vector(31 downto 0);
     addr_mode : out std_logic_vector(1 downto 0);
-    opcode    : out std_logic_vector(4 downto 0);
+    opcode    : out std_logic_vector(5 downto 0);
     operand   : out std_logic_vector(15 downto 0);
-    rz        : out std_logic_vector(2 downto 0);
-    ry        : out std_logic_vector(2 downto 0);
-    rx        : out std_logic_vector(2 downto 0)
+    rz        : out std_logic_vector(3 downto 0);
+    rx        : out std_logic_vector(3 downto 0)
   );
 end entity instruction_register;
 
@@ -48,10 +47,9 @@ begin
 
   -- Format the instructions --
   addr_mode <= ir_out(31 downto 30);
-  opcode    <= ir_out(29 downto 25);
-  operand   <= ir_out(24 downto 9);
-  rz        <= ir_out(8 downto 6);
-  ry        <= ir_out(5 downto 3);
-  rx        <= ir_out(2 downto 0);
+  opcode    <= ir_out(29 downto 24);
+  rz        <= ir_out(23 downto 20);
+  rx        <= ir_out(19 downto 16);
+  operand   <= ir_out(15 downto 0);
 
 end architecture;
