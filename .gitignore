@@ -5,3 +5,5 @@ output_files/
 *.rpt 
 *.qws
 *.bak
+*.bsf
+*.bdf
