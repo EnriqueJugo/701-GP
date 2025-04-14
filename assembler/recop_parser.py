@@ -1,6 +1,7 @@
 import os
 import re
 from instruction_table import instruction_table
+import utils
 
 class ReCOPParser:
     def __init__(self, filename):
@@ -10,7 +11,7 @@ class ReCOPParser:
         self.current_address = 0
 
     def parse(self):
-        with open(self.filename, 'r') as file:
+        with open(self.filename, 'r', encoding='utf-8') as file:
             lines = file.readlines()
 
         self.current_address = 0
@@ -28,22 +29,21 @@ class ReCOPParser:
                 line = line[0:line.find(";")]
                 line = line.strip()
 
-            if " " in line:
-                tokens = line.split(" ")# Get first part of instruction
 
-                # Check if it is an instruction
-                if tokens[0] in instruction_table.keys():
-                    instruction["instruction"] = tokens[0]
+            tokens = [token.lower() for token in line.split(" ")]
+            # Check if it is an instruction
+            if tokens[0] in instruction_table.keys():
+                instruction["instruction"] = tokens[0].lower()
 
-                    # Check arguments
-                    for curr_arg in tokens[1:]:
-                        # R(x) = Register #(x) = Immediate
-                        instruction["args"].append(curr_arg)
+                # Check arguments
+                for curr_arg in tokens[1:]:
+                    # R(x) = Register #(x) = Immediate
+                    instruction["args"].append(curr_arg.lower())
                                      
-                # Is a label
-                else:
-                    # Store address of label
-                    self.labels[tokens[0]] = self.current_address
+            # Is a label
+            else:
+                # Store address of label
+                self.labels[line] = self.current_address
 
             #TODO: Check if ENDPROG and END
             
@@ -59,9 +59,45 @@ class ReCOPParser:
         # |AM(2)|OP(6)|Rz(4)|Rx(4)|ADDR/VAL/OTHERs(16)|
         # ---------------------------------------------
 
-        opcode = instruction_table[instruction["instruction"]]
-        for args in instruction["args"]:
-            # Check if argument is a register
-            if args.startswith("R"):
-                reg_num = int(args[1:])
-                opcode = (opcode << 4) | (reg_num & 0x0F)
+        if instruction["instruction"] not in instruction_table:
+            return
+            
+        inst = instruction_table[instruction["instruction"]]
+        
+        addr_type = 0  
+        
+        # Inherit
+        if len(instruction["args"]) == 0:
+            inst = inst + '0' * 24
+            addr_type = '00'
+        
+        # Register, Immediate, Direct
+        else:
+            count = 2
+            for args in instruction["args"]:
+                # Register
+                if args.startswith("r"):
+                    reg_num = int(args[1:])
+                    inst = inst + utils.int_to_bin(reg_num, 4)
+                    addr_type = '11'
+                
+                # Immediate
+                if args.startswith("#"):
+                    operand = int(args[1:])
+                    inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
+                    addr_type = '01'
+                
+                # Direct
+                if args.startswith("$"):
+                    operand = int(args[1:])
+                    inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
+                    addr_type = '10'
+                    
+                count = count - 1
+        
+        if addr_type == 0b11:
+            inst = inst << 16
+        # Concat. address mode bits
+        inst = addr_type + inst
+                
+        self.instructions.append(inst)
