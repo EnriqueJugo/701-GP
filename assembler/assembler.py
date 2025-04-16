@@ -27,6 +27,13 @@ def main():
         print(f"File not found: {filename}")
     except Exception as e:
         print(f"Error: {e}")
+    
+    try:  
+        parser.to_mif(width=32, depth=1024)
+    except:
+        print("Error creating MIF file")
+        
+    print(f"Successfully created {parser.filename.rsplit(".", 1)[0] + ".mif"}")
 
 if __name__ == "__main__":
     main()
