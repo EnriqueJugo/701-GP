@@ -46,8 +46,6 @@ class ReCOPParser:
                 self.labels[line] = self.current_address
 
             #TODO: Check if ENDPROG and END
-            
-            self.current_address += 1
 
             self.parse_instruction(instruction)
 
@@ -74,30 +72,35 @@ class ReCOPParser:
         # Register, Immediate, Direct
         else:
             count = 2
-            for args in instruction["args"]:
+            for arg in instruction["args"]:
                 # Register
-                if args.startswith("r"):
-                    reg_num = int(args[1:])
+                if arg.startswith("r"):
+                    reg_num = int(arg[1:])
                     inst = inst + utils.int_to_bin(reg_num, 4)
                     addr_type = '11'
                 
                 # Immediate
-                if args.startswith("#"):
-                    operand = int(args[1:])
+                elif arg.startswith("#"):
+                    operand = int(arg[1:])
                     inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
                     addr_type = '01'
                 
                 # Direct
-                if args.startswith("$"):
-                    operand = int(args[1:])
+                elif arg.startswith("$"):
+                    operand = int(arg[1:])
                     inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
                     addr_type = '10'
+
+                # Immediate (Label)
+                elif arg in self.labels:
+                    label_addr = self.labels[arg]
+                    inst = inst + '0' * (4 * count)  + utils.int_to_bin(label_addr, 16)
+                    addr_type = '01'
                     
                 count = count - 1
         
-        if addr_type == 0b11:
-            inst = inst << 16
         # Concat. address mode bits
         inst = addr_type + inst
                 
-        self.instructions.append(inst)
+        self.instructions.append(utils.bits_to_hex(inst, 32))
+        self.current_address += 1

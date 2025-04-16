@@ -4,11 +4,11 @@ instruction_table = {
     "str":     "000010",
     "jmp":     "011000",
     "present": "011100",
-    "andr":    "001000",
-    "orr":     "001100",
-    "addr":    "111000",
-    "subr":    "000100",
-    "subvr":   "000011",
+    "and":    "001000",
+    "or":     "001100",
+    "add":    "111000",
+    "sub":    "000100",
+    "subv":   "000011",
 
     # Inherent instructions
     "clfz":    "010000",
