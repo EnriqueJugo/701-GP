@@ -18,7 +18,7 @@ START:
 
         ; Arithmetic operations
         ADD R0 R1     ; R4 = 1234 + 10
-        SUB R5 R3 #5     ; R5 = result - 5
+        SUBV R5 R3 #5     ; R5 = result - 5
 
         ; Bitwise operations
         AND R6 R0 #256 ; Mask lower byte
@@ -27,7 +27,7 @@ START:
         ; Control flow
         LDR R8 #3          ; Loop counter
 LOOP:
-        SUBR R8 #1          ; Decrement counter
+        SUBV R8 R8 #1          ; Decrement counter
         SZ LOOP             ; Loop until zero
 
         ; Memory-mapped I/O
@@ -45,7 +45,7 @@ HALT:
 PROCESS_DATA:
         ; Data processing example
         LDR R10 $3000      ; Load from memory
-        ADDR R10 R10 #100 ; Add offset
+        ADD R10 #100 ; Add offset
         STR R10 $3000      ; Store back
         JMP HALT            ; Return
 

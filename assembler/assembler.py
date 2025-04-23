@@ -17,7 +17,7 @@ def main():
 
         print("\n--- Machine Instructions ---")
         for i, inst in enumerate(instructions):
-            print(f"{i:04}: {inst} -- {bin(int(inst, 16))[2:].zfill(32)}")
+            print(f"{i:04}: {inst} -- {bin(int(inst, 16))[2:].zfill(32)} -- {int(bin(int(inst, 16))[2:].zfill(32)[-16:], 2)}")
 
         print("\n--- Labels ---")
         for label, address in labels.items():

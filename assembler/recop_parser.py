@@ -15,8 +15,11 @@ class ReCOPParser:
             lines = file.readlines()
 
         self._parse_labels(lines)
+
+        line_number = 0
         
         for line in lines:
+            line_number += 1
             instruction = {"instruction": "", "args": [], "addr_mode" : ""}
             # Remove multiple white spaces
             line = re.sub(' +', ' ', line) 
@@ -48,6 +51,8 @@ class ReCOPParser:
                 for curr_arg in tokens[1:]:
                     # R(x) = Register #(x) = Immediate
                     instruction["args"].append(curr_arg.lower())
+            elif len(tokens) > 1:
+                raise SyntaxError(f"Invalid instruction: {tokens[0]} line({line_number})")
                     
             instruction["addr_mode"] = ("immediate" if any('#' in a for a in instruction["args"]) or any(l in self.labels for l in instruction["args"]) else
                                         "direct" if any('$' in a for a in instruction["args"]) else
