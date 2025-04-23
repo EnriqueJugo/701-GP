@@ -71,6 +71,9 @@ class ReCOPParser:
             # Remove empty lines
             if not line:
                 continue
+            if ";" in line:  # Ignore comments on same line
+                line = line[0:line.find(";")]
+                line = line.strip()
             tokens = [token.lower() for token in line.split(" ") if token]
             num_labels = sum(":" in token for token in tokens)
             if num_labels == 1:

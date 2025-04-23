@@ -17,11 +17,11 @@ def main():
 
         print("\n--- Machine Instructions ---")
         for i, inst in enumerate(instructions):
-            print(f"{i:04}: {inst}")
+            print(f"{i:04}: {inst} -- {bin(int(inst, 16))[2:].zfill(32)}")
 
         print("\n--- Labels ---")
         for label, address in labels.items():
-            print(f"{label}: {address:04}")
+            print(f"{label}: {address:04} -- {format(address, '04X')}")
 
     except FileNotFoundError:
         print(f"File not found: {filename}")
