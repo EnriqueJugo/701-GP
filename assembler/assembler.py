@@ -33,7 +33,7 @@ def main():
     except:
         print("Error creating MIF file")
         
-    print(f"Successfully created {parser.filename.rsplit(".", 1)[0] + ".mif"}")
+    print(f"Successfully created {parser.filename.rsplit('.', 1)[0] + '.mif'}")
 
 if __name__ == "__main__":
     main()
