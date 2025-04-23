@@ -34,6 +34,12 @@ instruction_table = {
     "max":        "011110",
     "strpc":      "011101",
     "sres":       "101010",
+    "cer":        "111100",
+    "ceot":       "111110",
+    "seot":       "111111",
+    "ler":        "110110",
+    "ssvop":     "111011",
+    "max":        "011110",
 }
 
 addressing_modes = {
