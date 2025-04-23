@@ -14,8 +14,8 @@ class ReCOPParser:
         with open(self.filename, 'r', encoding='utf-8') as file:
             lines = file.readlines()
 
-        self.current_address = 0
-
+        self._parse_labels(lines)
+        
         for line in lines:
             instruction = {"instruction": "", "args": [], "addr_mode" : ""}
             # Remove multiple white spaces
@@ -36,7 +36,6 @@ class ReCOPParser:
             num_labels = sum(":" in token for token in tokens)
             if num_labels == 1:
                 # Store address of label
-                self.labels[tokens[0][:-1]] = self.current_address
                 tokens = tokens[1:]
             elif num_labels > 1:
                 raise SyntaxError("There can only be one Label per line")
@@ -62,6 +61,29 @@ class ReCOPParser:
             self._parse_instruction(instruction)
 
         return self.instructions, self.labels
+    
+    def _parse_labels(self, lines : str):
+        for line in lines:
+            # Remove multiple white spaces
+            line = re.sub(' +', ' ', line) 
+            line = line.strip()
+
+            # Remove empty lines
+            if not line:
+                continue
+            tokens = [token.lower() for token in line.split(" ") if token]
+            num_labels = sum(":" in token for token in tokens)
+            if num_labels == 1:
+                # Store address of label
+                self.labels[tokens[0][:-1]] = self.current_address
+                tokens = tokens[1:]
+            elif num_labels > 1:
+                raise SyntaxError("There can only be one Label per line")
+            
+            if any([t in instruction_table for t in tokens]):
+                self.current_address += 1
+
+        self.current_address = 0
 
     def _parse_instruction(self, instruction : dict):
         # instruction format
