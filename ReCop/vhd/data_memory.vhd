@@ -36,16 +36,17 @@ use ieee.std_logic_1164.all;
 library altera_mf;
 use altera_mf.all;
 
-entity data_mem is
+entity data_memory is
   port (
+	 clock   : in std_logic := '1';
+	 mem_write    : in std_logic;
+	 mem_read : in std_logic;
     address : in std_logic_vector (15 downto 0);
-    clock   : in std_logic := '1';
-    data    : in std_logic_vector (15 downto 0);
-    wren    : in std_logic;
-    q       : out std_logic_vector (15 downto 0)
+    write_data    : in std_logic_vector (15 downto 0);
+    read_data       : out std_logic_vector (15 downto 0)
   );
-end data_mem;
-architecture SYN of data_mem is
+end data_memory;
+architecture SYN of data_memory is
 
   signal sub_wire0 : std_logic_vector (15 downto 0);
 
@@ -76,7 +77,7 @@ architecture SYN of data_mem is
   end component;
 
 begin
-  q <= sub_wire0(15 downto 0);
+  read_data <= sub_wire0(15 downto 0);
 
   altsyncram_component : altsyncram
   generic map(
@@ -85,7 +86,7 @@ begin
     intended_device_family => "Cyclone II",
     lpm_hint               => "ENABLE_RUNTIME_MOD=NO",
     lpm_type               => "altsyncram",
-    numwords_a             => 4096,
+    numwords_a             => 65536,
     operation_mode         => "SINGLE_PORT",
     outdata_aclr_a         => "NONE",
     outdata_reg_a          => "UNREGISTERED",
@@ -99,8 +100,8 @@ begin
   (
     address_a => address,
     clock0    => clock,
-    data_a    => data,
-    wren_a    => wren,
+    data_a    => write_data,
+    wren_a    => mem_write,
     q_a       => sub_wire0
   );
 

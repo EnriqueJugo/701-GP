@@ -20,7 +20,7 @@ refer to the applicable agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 112 40 288 320)
+	(rect 64 64 240 344)
 	(text "ALU" (rect 8 0 29 12)(font "Arial" ))
 	(text "inst" (rect 48 200 65 212)(font "Arial" ))
 	(port
@@ -31,25 +31,11 @@ refer to the applicable agreement for further details.
 		(line (pt 72 0)(pt 72 16))
 	)
 	(port
-		(pt 104 0)
-		(input)
-		(text "reset" (rect -56 8 -32 20)(font "Arial" ))
-		(text "reset" (rect 96 25 108 49)(font "Arial" )(vertical))
-		(line (pt 104 0)(pt 104 16))
-	)
-	(port
-		(pt 104 280)
+		(pt 152 280)
 		(input)
 		(text "clr_z_flag" (rect -56 40 -9 52)(font "Arial" ))
-		(text "clr_z_flag" (rect 96 207 108 254)(font "Arial" )(vertical))
-		(line (pt 104 280)(pt 104 264))
-	)
-	(port
-		(pt 72 280)
-		(input)
-		(text "alu_operation[2..0]" (rect -56 40 34 52)(font "Arial" ))
-		(text "alu_operation[2..0]" (rect 64 164 76 254)(font "Arial" )(vertical))
-		(line (pt 72 280)(pt 72 264)(line_width 3))
+		(text "clr_z_flag" (rect 144 207 156 254)(font "Arial" )(vertical))
+		(line (pt 152 280)(pt 152 264))
 	)
 	(port
 		(pt 0 80)
@@ -66,17 +52,31 @@ refer to the applicable agreement for further details.
 		(line (pt 0 168)(pt 16 168)(line_width 3))
 	)
 	(port
+		(pt 104 0)
+		(input)
+		(text "alu_reset" (rect -56 8 -12 20)(font "Arial" ))
+		(text "alu_reset" (rect 96 24 108 68)(font "Arial" )(vertical))
+		(line (pt 104 0)(pt 104 16))
+	)
+	(port
+		(pt 104 280)
+		(input)
+		(text "alu_op[2..0]" (rect -56 40 1 52)(font "Arial" ))
+		(text "alu_op[2..0]" (rect 96 200 108 257)(font "Arial" )(vertical))
+		(line (pt 104 280)(pt 104 264)(line_width 3))
+	)
+	(port
 		(pt 176 112)
 		(output)
 		(text "alu_result[15..0]" (rect -56 24 23 36)(font "Arial" ))
-		(text "alu_result[15..0]" (rect 89 107 155 119)(font "Arial" ))
+		(text "alu_result[15..0]" (rect 89 107 168 119)(font "Arial" ))
 		(line (pt 176 112)(pt 160 112)(line_width 3))
 	)
 	(port
 		(pt 176 136)
 		(output)
 		(text "z_flag" (rect -56 24 -27 36)(font "Arial" ))
-		(text "z_flag" (rect 131 131 155 143)(font "Arial" ))
+		(text "z_flag" (rect 131 131 160 143)(font "Arial" ))
 		(line (pt 176 136)(pt 160 136))
 	)
 	(drawing
