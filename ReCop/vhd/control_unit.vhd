@@ -42,10 +42,10 @@ entity control_unit is
     -- Program Counter controls
     pc_sel : out std_logic_vector(1 downto 0);
 
-    -- DCPR controls
-    dcpr_ld      : out std_logic;
-    dcpr_reset   : out std_logic;
-    dcpr_low_sel : out std_logic;
+    -- DPCR controls
+    dpcr_ld      : out std_logic;
+    dpcr_reset   : out std_logic;
+    dpcr_low_sel : out std_logic;
 
     -- SIP
     sip_ld    : out std_logic;
@@ -327,8 +327,8 @@ begin
         rf_b_sel     <= "00";
         rf_a_re      <= '1';
         rf_b_re      <= '1';
-        dcpr_low_sel <= '0';
-        dcpr_ld      <= '1';
+        dpcr_low_sel <= '0';
+        dpcr_ld      <= '1';
 
         next_state <= FETCH1;
 
@@ -337,8 +337,8 @@ begin
         rf_a_sel     <= '1';
         rf_a_re      <= '1';
         rf_b_re      <= '0';
-        dcpr_low_sel <= '1';
-        dcpr_ld      <= '1';
+        dpcr_low_sel <= '1';
+        dpcr_ld      <= '1';
         next_state   <= FETCH1;
 
       when EXEC_MAX =>
