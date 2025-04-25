@@ -6,5 +6,3 @@ output_files/
 *.qws
 *.bak
 assembler/__pychace__/
-*.bsf
-*.bdf
