@@ -40,7 +40,7 @@ begin
   end process;
 
   -- Read ports (conditionally driven based on enable signals)
-  read_data_a <= regs(read_reg_a) when rf_a_re = '1' else (others => 'Z');
-  read_data_b <= regs(read_reg_b) when rf_b_re = '1' else (others => 'Z');
+  read_data_a <= regs(read_reg_a);
+  read_data_b <= regs(read_reg_b);
 
 end architecture;

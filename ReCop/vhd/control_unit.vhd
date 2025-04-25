@@ -29,9 +29,10 @@ entity control_unit is
     rf_b_re     : out std_logic;
 
     -- ALU inputs / memory controls
-    rb_sel    : out std_logic_vector(1 downto 0); -- select B input for ALU
-    mem_read  : out std_logic;
-    mem_write : out std_logic;
+    alu_rb_sel : out std_logic_vector(1 downto 0); -- select B input for ALU
+    alu_ra_sel : out std_logic_vector(1 downto 0);
+    mem_read   : out std_logic;
+    mem_write  : out std_logic;
 
     -- ALU
     reset_alu  : out std_logic;
@@ -97,7 +98,10 @@ architecture fsm of control_unit is
     EXEC_DATACALL_IMM,
     EXEC_MAX,
     EXEC_STRPC,
-    EXEC_SRES
+    EXEC_SRES,
+
+    MEM_ACCESS,
+    WRITE_BACK
   );
   signal state, next_state : state_type;
 
@@ -151,7 +155,7 @@ begin
       wr_data_sel <= "00";
       rf_reset    <= '0';
       rf_wr       <= '0';
-      rb_sel      <= (others => '0');
+      alu_rb_sel  <= (others => '0');
       address_sel <= '0';
       mem_read    <= '0';
       mem_write   <= '0';
@@ -174,6 +178,7 @@ begin
         mar_sel <= "00"; -- PC
         pc_sel  <= "10"; -- PC+1
         mar_ld  <= '1';
+        rf_wr   <= '0';
 
         next_state <= FETCH2;
 
@@ -187,12 +192,33 @@ begin
       when DECODE =>
         -- T2: decode opcode
         if opcode = OP_LDR then
+          case addressing_mode is
+            when addr_mode_immediate => -- Immediate
+              wr_data_sel <= "00";
+            when addr_mode_direct => -- Direct
+              mar_sel     <= "01";
+              mar_ld      <= '1';
+              mem_read    <= '1';
+              wr_data_sel <= "01";
+            when addr_mode_register => -- Register
+              mar_sel     <= "00";
+              mar_ld      <= '1';
+              mem_read    <= '1';
+              wr_data_sel <= "01";
+            when others =>
+              null;
+          end case;
           next_state <= EXEC_LDR;
         elsif opcode = OP_STR then
           next_state <= EXEC_STR;
         elsif opcode = OP_JMP then
           next_state <= EXEC_JMP;
         elsif opcode = OP_PRESENT then
+          -- Rb is from zero register
+          rf_a_re    <= '0';
+          rf_b_re    <= '1';
+          alu_ra_sel <= "00";
+          alu_rb_sel <= "00";
           next_state <= EXEC_PRESENT;
         elsif opcode = OP_ANDR then
           next_state <= EXEC_ANDR;
@@ -203,6 +229,18 @@ begin
         elsif opcode = OP_SUBR then
           next_state <= EXEC_SUBR;
         elsif opcode = OP_SUBVR then
+          rf_a_re <= '1';
+          rf_b_re <= '1';
+          case addressing_mode is
+            when addr_mode_immediate =>
+              alu_ra_sel <= "01";
+              alu_rb_sel <= "10";
+            when addr_mode_register =>
+              alu_ra_sel <= "00";
+              alu_rb_sel <= "00";
+            when others =>
+              null;
+          end case;
           next_state <= EXEC_SUBVR;
         elsif opcode = OP_CLFZ then
           next_state <= EXEC_CLFZ;
@@ -233,37 +271,33 @@ begin
         end if;
 
       when EXEC_LDR =>
-        case addressing_mode is
-          when "01" => -- Immediate
-            wr_data_sel <= "00";
-            rf_wr       <= '1';
-            next_state  <= FETCH1;
-          when "10" => -- Direct
-            mar_sel     <= "01";
-            mar_ld      <= '1';
-            mem_read    <= '1';
-            wr_data_sel <= "01";
-            rf_wr       <= '1';
-            next_state  <= FETCH1;
-          when "11" => -- Indirect
-            mar_sel     <= "00";
-            mar_ld      <= '1';
-            mem_read    <= '1';
-            wr_data_sel <= "01";
-            rf_wr       <= '1';
-            next_state  <= FETCH1;
-          when others =>
-            next_state <= FETCH1;
-        end case;
+        -- case addressing_mode is
+        --   when addr_mode_immediate => -- Immediate
+        --     wr_data_sel <= "00";
+        --   when addr_mode_direct => -- Direct
+        --     mar_sel     <= "01";
+        --     mar_ld      <= '1';
+        --     mem_read    <= '1';
+        --     wr_data_sel <= "01";
+        --   when addr_mode_register => -- Register
+        --     mar_sel     <= "00";
+        --     mar_ld      <= '1';
+        --     mem_read    <= '1';
+        --     wr_data_sel <= "01";
+        --   when others =>
+        --     null;
+        -- end case;
+
+        next_state <= WRITE_BACK;
       when EXEC_STR =>
         -- T3: compute EA
-        rb_sel    <= "01";
-        reset_alu <= '1';
-        alu_op    <= alu_add;
-        mar_sel   <= "01";
-        mar_ld    <= '1';
+        alu_rb_sel <= "01";
+        reset_alu  <= '1';
+        alu_op     <= alu_add;
+        mar_sel    <= "01";
+        mar_ld     <= '1';
         -- T4: store data
-        rb_sel      <= "01"; -- Rx
+        alu_rb_sel  <= "01"; -- Rx
         address_sel <= '1';
         mem_write   <= '1';
         next_state  <= FETCH1;
@@ -296,7 +330,7 @@ begin
 
       when EXEC_JMP =>
         -- T3: PC ← target
-        rb_sel     <= "01";
+        alu_rb_sel <= "01";
         reset_alu  <= '1';
         alu_op     <= alu_add;
         pc_sel     <= "01";
@@ -318,11 +352,7 @@ begin
 
       when EXEC_PRESENT =>
         -- T3: TEST PRESENT Rz, Rx
-        rf_a_sel  <= '0';
-        rf_a_re   <= '1';
-        rb_sel    <= "00";
-        reset_alu <= '1';
-        alu_op    <= alu_add;
+        alu_op <= alu_add;
         if z_flag = '1' then
           pc_sel     <= "01";
           clr_z_flag <= '1';
@@ -336,7 +366,7 @@ begin
             rf_a_sel    <= '1';
             rf_a_re     <= '1';
             rf_b_re     <= '0';
-            rb_sel      <= "01";
+            alu_rb_sel  <= "01";
             alu_op      <= alu_and;
             reset_alu   <= '1';
             wr_data_sel <= "10";
@@ -349,7 +379,7 @@ begin
             rf_a_re     <= '1';
             rf_b_re     <= '0';
             reset_alu   <= '1';
-            rb_sel      <= "11";
+            alu_rb_sel  <= "11";
             alu_op      <= alu_and;
             wr_data_sel <= "10";
             rf_wr       <= '1';
@@ -360,18 +390,18 @@ begin
 
       when EXEC_ORR =>
         case addressing_mode is
-          when "01" => -- Immediate
+          when addr_mode_immediate => -- Immediate
             rf_a_sel    <= '1';
             rf_a_re     <= '1';
             rf_b_re     <= '0';
-            rb_sel      <= "01";
+            alu_rb_sel  <= "01";
             alu_op      <= alu_or;
             reset_alu   <= '1';
             wr_data_sel <= "10";
             rf_wr       <= '1';
 
             next_state <= FETCH1;
-          when "10" => -- Direct
+          when addr_mode_register => -- Direct
             next_state <= FETCH1;
           when others =>
             next_state <= FETCH1;
@@ -379,7 +409,14 @@ begin
 
       when EXEC_ADDR =>
         -- T3: Rz ← Rz + (#imm/Rx)
-        rb_sel     <= "10"; -- imm or Rx
+        case addressing_mode is
+          when addr_mode_immediate =>
+            alu_rb_sel <= "10";
+          when addr_mode_register =>
+            alu_rb_sel <= "01";
+          when others =>
+            null;
+        end case;
         reset_alu  <= '1';
         alu_op     <= alu_add;
         rf_wr      <= '1';
@@ -387,20 +424,16 @@ begin
 
       when EXEC_SUBR =>
         -- T3: Rz ← Rz - Rx
-        rb_sel     <= "01";
+        alu_rb_sel <= "01";
         reset_alu  <= '1';
         alu_op     <= alu_sub;
-        rf_wr      <= '1';
         next_state <= FETCH1;
 
+        -- TODO: Go to write back
       when EXEC_SUBVR =>
         -- T3: Rz ← Rz - #imm
-        rb_sel     <= "10";
-        reset_alu  <= '1';
         alu_op     <= alu_sub;
-        rf_wr      <= '1';
-        next_state <= FETCH1;
-
+        next_state <= WRITE_BACK;
       when EXEC_CLFZ =>
         -- T3: clear Z flag
         clr_z_flag <= '1';
@@ -413,7 +446,7 @@ begin
         -- TODO: If zero flag is 1 then jump to operand else nothing
       when EXEC_SZ =>
         -- Set Z-flag based on immediate
-        rb_sel     <= "10"; -- Immediate value
+        alu_rb_sel <= "10"; -- Immediate value
         alu_op     <= alu_sub; -- SUB operation to test for zero
         reset_alu  <= '1';
         next_state <= FETCH1;
@@ -454,7 +487,7 @@ begin
 
       when EXEC_MAX =>
         -- MAX Rz, #imm
-        rb_sel     <= "10"; -- Immediate
+        alu_rb_sel <= "10"; -- Immediate
         alu_op     <= alu_max; -- SUB (to compare)
         reset_alu  <= '1';
         rf_wr      <= '1'; -- Conditionally done (assuming internal logic)
@@ -477,6 +510,38 @@ begin
         reset_alu  <= '1';
         next_state <= FETCH1;
 
+      when MEM_ACCESS =>
+
+        next_state <= WRITE_BACK;
+
+      when WRITE_BACK =>
+        case opcode is
+            -- Loads
+          when OP_LDR =>
+            case addressing_mode is
+              when addr_mode_immediate =>
+                wr_data_sel <= "00"; -- immediate
+              when addr_mode_direct | addr_mode_register =>
+                wr_data_sel <= "01"; -- memory
+              when others =>
+                wr_data_sel <= "00"; -- default
+            end case;
+            -- ALU operations (write ALU result)
+          when OP_ANDR | OP_ORR | OP_ADDR | OP_SUBR | OP_SUBVR | OP_MAX =>
+            wr_data_sel <= "10"; -- ALU result
+            -- Other special cases
+          when OP_LER =>
+            wr_data_sel <= "10"; -- ALU
+          when OP_SZ =>
+            wr_data_sel <= "10"; -- ALU
+          when others =>
+            wr_data_sel <= "00"; -- default safe
+        end case;
+
+        rf_wr      <= '1'; -- Always write in WRITE_BACK
+        rf_a_re    <= '0';
+        rf_b_re    <= '0';
+        next_state <= FETCH1;
       when others =>
         next_state <= FETCH1;
     end case;

@@ -35,13 +35,16 @@ entity datapath is
     sop_reset : in std_logic;
     sop_ld    : in std_logic;
 
-    sip_reset  : in std_logic;
-    sip_ld     : in std_logic;
-    sip_in     : in std_logic_vector(15 downto 0);
+    sip_reset : in std_logic;
+    sip_ld    : in std_logic;
+    sip_in    : in std_logic_vector(15 downto 0);
+
+    -- ALU
     alu_reset  : in std_logic;
     alu_op     : in std_logic_vector(2 downto 0);
-    alu_rb_sel : in std_logic_vector(1 downto 0);
     addr_sel   : in std_logic;
+    alu_ra_sel : in std_logic_vector(1 downto 0);
+    alu_rb_sel : in std_logic_vector(1 downto 0);
 
     clr_z_flag : in std_logic;
 
@@ -255,6 +258,13 @@ architecture rtl of datapath is
   signal s_rz_mux_out : std_logic_vector(3 downto 0);
   signal s_rx_mux_out : std_logic_vector(3 downto 0);
 
+  signal s_sip_data      : std_logic_vector(15 downto 0);
+  signal s_data_mem_data : std_logic_vector(15 downto 0);
+  signal s_alu_result    : std_logic_vector(15 downto 0);
+
+  signal s_alu_ra : std_logic_vector(15 downto 0);
+  signal s_alu_rb : std_logic_vector(15 downto 0);
+
 begin
 
   program_counter_inst : entity work.program_counter
@@ -297,7 +307,8 @@ begin
       q       => s_instruction
     );
 
-  inst_out <= s_instruction;
+  inst_out  <= s_instruction;
+  addr_mode <= s_addr_mode;
 
   instruction_register_inst : entity work.instruction_register
     port map
@@ -313,27 +324,30 @@ begin
       rz        => s_rz
     );
 
-  s_rz_integer <= to_integer(unsigned(s_rz_mux_out));
-  s_rx_integer <= to_integer(unsigned(s_rx_mux_out));
+  s_rz_integer <= to_integer(unsigned(s_rz));
+  s_rx_integer <= to_integer(unsigned(s_rx));
 
-  mux_3_4bit_inst : entity work.mux_3_4bit
+  --   mux_3_4bit_inst : entity work.mux_3_4bit
+  --     port map
+  --     (
+  --       data0x => "0111",
+  --       data1x => s_rz,
+  --       data2x => s_rx,
+  --       sel    => rf_b_sel,
+  --       result => s_rx_mux_out
+  --     );
+
+  reg_file_data_in : entity work.mux_4
     port map
     (
-      data0x => "0111",
-      data1x => s_rz,
-      data2x => s_rx,
-      sel    => rf_b_sel,
-      result => s_rx_mux_out
+      data0x => s_operand,
+      data1x => s_data_mem_data,
+      data2x => s_alu_result,
+      data3x => s_sip_data,
+      sel    => wr_data_sel,
+      result => s_rf_data_in
     );
 
-  mux_2_4bit_inst : entity work.mux_2_4bit
-    port map
-    (
-      sel    => rf_a_sel,
-      data0x => s_rz,
-      data1x => s_rx,
-      result => s_rz_mux_out
-    );
   register_file_inst : entity work.register_file
     port map
     (
@@ -348,6 +362,38 @@ begin
       write_data  => s_rf_data_in,
       read_data_a => s_rf_ra_data,
       read_data_b => s_rf_rb_data
+    );
+
+  mux_rb : entity work.mux_3
+    port map
+    (
+      data0x => s_rf_rb_data,
+      data1x => s_rf_ra_data,
+      data2x => s_operand,
+      sel    => alu_rb_sel,
+      result => s_alu_rb
+    );
+
+  mux_ra : entity work.mux_3
+    port map
+    (
+      data0x => s_rf_ra_data,
+      data1x => s_rf_rb_data,
+      data2x => s_operand,
+      sel    => alu_ra_sel,
+      result => s_alu_ra
+    );
+  ALU_inst : entity work.ALU
+    port map
+    (
+      clk        => clk,
+      alu_reset  => alu_reset,
+      clr_z_flag => clr_z_flag,
+      alu_op     => alu_op,
+      ra         => s_alu_ra,
+      rb         => s_alu_rb,
+      alu_result => s_alu_result,
+      z_flag     => z_flag
     );
 
 end rtl;

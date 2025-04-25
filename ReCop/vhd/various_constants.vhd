@@ -13,4 +13,9 @@ package various_constants is
   constant alu_idle : bit_3 := "100";
   constant alu_max  : bit_3 := "101";
   constant alu_xor  : bit_3 := "111";
+
+  constant addr_mode_inherit   : bit_2 := "00";
+  constant addr_mode_immediate : bit_2 := "01";
+  constant addr_mode_direct    : bit_2 := "10";
+  constant addr_mode_register  : bit_2 := "11";
 end various_constants;
