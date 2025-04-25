@@ -54,10 +54,11 @@ entity control_unit is
     -- SOP
     sop_ld    : out std_logic;
     sop_reset : out std_logic;
-	 
-	 -- GOSH DARN IT
-	 pc_reset : out std_logic;
-	 address_sel : out std_logic
+
+    -- GOSH DARN IT
+    pc_reset    : out std_logic;
+    address_sel : out std_logic;
+    z_flag      : in std_logic
   );
 end entity control_unit;
 
@@ -144,7 +145,7 @@ begin
     rf_reset    <= '0';
     rf_wr       <= '0';
     rb_sel      <= (others => '0');
-	 address_sel <= '0';
+    address_sel <= '0';
     mem_read    <= '0';
     mem_write   <= '0';
     reset_alu   <= '0';
@@ -163,6 +164,7 @@ begin
 
       when FETCH2 =>
         -- T1: IR ← ProgMem[MAR]
+        mar_ld     <= '0';
         mem_read   <= '1';
         ir_ld      <= '1';
         next_state <= DECODE;
@@ -216,19 +218,26 @@ begin
         end if;
 
       when EXEC_LDR =>
-        -- T3: compute EA = Rx
-        rb_sel    <= "01"; -- Rx
-        reset_alu <= '1';
-        alu_op    <= "000"; -- ADD
-        mar_sel   <= "01"; -- ALU result
-        mar_ld    <= '1';
-		  address_sel <= '1';
-        -- T4: read data
-        mem_read <= '1';
-        -- T5: write back to Rz
-        rf_wr      <= '1';
-        next_state <= FETCH1;
-
+        case addressing_mode is
+          when "01" => -- Immediate
+            wr_data_sel <= "00";
+            rf_wr       <= '1';
+            next_state  <= FETCH1;
+          when "10" => -- Direct
+            mar_sel     <= "01";
+            mar_ld      <= '1';
+            mem_read    <= '1';
+            wr_data_sel <= "01";
+            rf_wr       <= '1';
+            next_state  <= FETCH1;
+          when "11" => -- Indirect
+            mar_sel     <= "00";
+            mar_ld      <= '1';
+            mem_read    <= '1';
+            wr_data_sel <= "01";
+            rf_wr       <= '1';
+            next_state  <= FETCH1;
+        end case;
       when EXEC_STR =>
         -- T3: compute EA
         rb_sel    <= "01";
@@ -237,10 +246,34 @@ begin
         mar_sel   <= "01";
         mar_ld    <= '1';
         -- T4: store data
-        rb_sel     <= "01"; -- Rx
-		  address_sel <= '1';
-        mem_write  <= '1';
-        next_state <= FETCH1;
+        rb_sel      <= "01"; -- Rx
+        address_sel <= '1';
+        mem_write   <= '1';
+        next_state  <= FETCH1;
+        case addressing_mode is
+          when "01" => -- Immediate
+            rf_b_sel   <= "01";
+            rf_a_sel   <= '1';
+            rf_a_re    <= '0';
+            rf_b_re    <= '1';
+            mar_sel    <= "01";
+            mar_ld     <= '1';
+            mem_write  <= '1';
+            mem_read   <= '0';
+            next_state <= FETCH1;
+          when "10" => -- Direct
+            rf_b_sel   <= "01";
+            rf_a_sel   <= '1';
+            rf_a_re    <= '0';
+            rf_b_re    <= '1';
+            mar_sel    <= "01";
+            mar_ld     <= '1';
+            mem_write  <= '1';
+            mem_read   <= '0';
+            next_state <= FETCH1;
+          when "11" => -- Indirect
+            next_state <= FETCH1;
+        end case;
 
       when EXEC_JMP =>
         -- T3: PC ← target
@@ -250,29 +283,74 @@ begin
         pc_sel     <= "01";
         next_state <= FETCH1;
 
+        case addressing_mode is
+          when "01" => -- Immediate
+            pc_sel     <= "01";
+            next_state <= FETCH1;
+          when "10" => -- Direct
+            mar_sel    <= "01";
+            mar_ld     <= '1';
+            mem_read   <= '1';
+            pc_sel     <= "11";
+            next_state <= FETCH1;
+        end case;
+
       when EXEC_PRESENT =>
         -- T3: TEST PRESENT Rz, Rx
-        rb_sel    <= "01"; -- Rx
+        rf_a_sel  <= '0';
+        rf_a_re   <= '1';
+        rb_sel    <= "00";
         reset_alu <= '1';
-        alu_op    <= "110"; -- SUB to test zero?
-        -- set flag or write-to-sys? use sel_data_in, rf etc.
+        alu_op    <= "000";
+        if z_flag = '1' then
+          pc_sel     <= "01";
+          clr_z_flag <= '1';
+        end if;
         next_state <= FETCH1;
 
       when EXEC_ANDR =>
         -- T3: Rz ← Rz AND Rx
-        rb_sel     <= "01";
-        reset_alu  <= '1';
-        alu_op     <= "010";
-        rf_wr      <= '1';
-        next_state <= FETCH1;
+        case addressing_mode is
+          when "01" => -- Immediate
+            rf_a_sel    <= '1';
+            rf_a_re     <= '1';
+            rf_b_re     <= '0';
+            rb_sel      <= "01";
+            alu_op      <= "010";
+            reset_alu   <= '1';
+            wr_data_sel <= "10";
+            rf_wr       <= '1';
+
+            next_state <= FETCH1;
+
+          when "10" => -- Direct
+            rf_a_sel    <= '1';
+            rf_a_re     <= '1';
+            rf_b_re     <= '0';
+            reset_alu   <= '1';
+            rb_sel      <= "11";
+            alu_op      <= "010";
+            wr_data_sel <= "10";
+            rf_wr       <= '1';
+            next_state  <= FETCH1;
+        end case;
 
       when EXEC_ORR =>
-        -- T3: Rz ← Rz OR Rx
-        rb_sel     <= "01";
-        reset_alu  <= '1';
-        alu_op     <= "011";
-        rf_wr      <= '1';
-        next_state <= FETCH1;
+        case addressing_mode is
+          when "01" => -- Immediate
+            rf_a_sel    <= '1';
+            rf_a_re     <= '1';
+            rf_b_re     <= '0';
+            rb_sel      <= "01";
+            alu_op      <= "010";
+            reset_alu   <= '1';
+            wr_data_sel <= "10";
+            rf_wr       <= '1';
+
+            next_state <= FETCH1;
+          when "10" => -- Direct
+            next_state <= FETCH1;
+        end case;
 
       when EXEC_ADDR =>
         -- T3: Rz ← Rz + (#imm/Rx)
@@ -358,12 +436,12 @@ begin
 
       when EXEC_STRPC =>
         -- Store PC to Address
-        mar_sel    <= "10"; -- Immediate address
-        mar_ld     <= '1';
-		  address_sel <= '1';
-        mem_write  <= '1';
-        pc_sel     <= "00"; -- Current PC
-        next_state <= FETCH1;
+        mar_sel     <= "10"; -- Immediate address
+        mar_ld      <= '1';
+        address_sel <= '1';
+        mem_write   <= '1';
+        pc_sel      <= "00"; -- Current PC
+        next_state  <= FETCH1;
 
       when EXEC_SRES =>
         -- System Reset
