@@ -18,7 +18,7 @@
 -- the top level entity of the current Quartus project .The user can use this   
 -- testbench to simulate his design using a third-party simulation tool .       
 -- *****************************************************************************
--- Generated on "04/02/2025 15:54:49"
+-- Generated on "04/25/2025 12:32:57"
                                                              
 -- Vhdl Test Bench(with test vectors) for design  :          ReCOP
 -- 
@@ -33,31 +33,40 @@ END ReCOP_vhd_vec_tst;
 ARCHITECTURE ReCOP_arch OF ReCOP_vhd_vec_tst IS
 -- constants                                                 
 -- signals                                                   
-SIGNAL CLOCK_50 : STD_LOGIC;
-SIGNAL cosntant_1 : STD_LOGIC;
+SIGNAL alu_reset : STD_LOGIC;
+SIGNAL clock : STD_LOGIC;
+SIGNAL instruction : STD_LOGIC_VECTOR(31 DOWNTO 0);
+SIGNAL pc_out : STD_LOGIC_VECTOR(15 DOWNTO 0);
+SIGNAL sip_in : STD_LOGIC_VECTOR(15 DOWNTO 0);
 COMPONENT ReCOP
 	PORT (
-	CLOCK_50 : IN STD_LOGIC;
-	cosntant_1 : OUT STD_LOGIC
+	alu_reset : IN STD_LOGIC;
+	clock : IN STD_LOGIC;
+	instruction : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+	pc_out : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+	sip_in : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
 	);
 END COMPONENT;
 BEGIN
 	i1 : ReCOP
 	PORT MAP (
 -- list connections between master ports and signals
-	CLOCK_50 => CLOCK_50,
-	cosntant_1 => cosntant_1
+	alu_reset => alu_reset,
+	clock => clock,
+	instruction => instruction,
+	pc_out => pc_out,
+	sip_in => sip_in
 	);
 
--- CLOCK_50
-t_prcs_CLOCK_50: PROCESS
+-- clock
+t_prcs_clock: PROCESS
 BEGIN
 LOOP
-	CLOCK_50 <= '0';
+	clock <= '0';
 	WAIT FOR 5000 ps;
-	CLOCK_50 <= '1';
+	clock <= '1';
 	WAIT FOR 5000 ps;
 	IF (NOW >= 1000000 ps) THEN WAIT; END IF;
 END LOOP;
-END PROCESS t_prcs_CLOCK_50;
+END PROCESS t_prcs_clock;
 END ReCOP_arch;

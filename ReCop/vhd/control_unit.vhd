@@ -53,7 +53,11 @@ entity control_unit is
 
     -- SOP
     sop_ld    : out std_logic;
-    sop_reset : out std_logic
+    sop_reset : out std_logic;
+	 
+	 -- GOSH DARN IT
+	 pc_reset : out std_logic;
+	 address_sel : out std_logic
   );
 end entity control_unit;
 
@@ -140,6 +144,7 @@ begin
     rf_reset    <= '0';
     rf_wr       <= '0';
     rb_sel      <= (others => '0');
+	 address_sel <= '0';
     mem_read    <= '0';
     mem_write   <= '0';
     reset_alu   <= '0';
@@ -217,6 +222,7 @@ begin
         alu_op    <= "000"; -- ADD
         mar_sel   <= "01"; -- ALU result
         mar_ld    <= '1';
+		  address_sel <= '1';
         -- T4: read data
         mem_read <= '1';
         -- T5: write back to Rz
@@ -232,6 +238,7 @@ begin
         mar_ld    <= '1';
         -- T4: store data
         rb_sel     <= "01"; -- Rx
+		  address_sel <= '1';
         mem_write  <= '1';
         next_state <= FETCH1;
 
@@ -353,6 +360,7 @@ begin
         -- Store PC to Address
         mar_sel    <= "10"; -- Immediate address
         mar_ld     <= '1';
+		  address_sel <= '1';
         mem_write  <= '1';
         pc_sel     <= "00"; -- Current PC
         next_state <= FETCH1;

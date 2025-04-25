@@ -106,7 +106,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 936 888 952 1064)
 	(text "INPUT" (rect 6 133 21 175)(font "Arial" (font_size 6))(vertical))
-	(text "rf_reset" (rect 4 9 20 66)(font "Arial" )(vertical))
+	(text "rf_reset" (rect 5 8 21 65)(font "Arial" )(vertical))
 	(pt 8 176)
 	(drawing
 		(line (pt 4 92)(pt 4 117))
@@ -505,7 +505,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 1904 1160 2088 1176)
 	(text "INPUT" (rect 141 0 183 15)(font "Arial" (font_size 6)))
-	(text "address_sel" (rect 5 0 96 16)(font "Arial" ))
+	(text "address_sel" (rect 5 0 95 16)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -516,6 +516,23 @@ refer to the applicable agreement for further details.
 		(line (pt 125 12)(pt 129 8))
 	)
 	(text "VCC" (rect 144 7 173 22)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 760 272 928 288)
+	(text "INPUT" (rect 1 0 43 15)(font "Arial" (font_size 6)))
+	(text "pc_reset" (rect 85 0 149 16)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 84 12)(pt 59 12))
+		(line (pt 84 4)(pt 59 4))
+		(line (pt 55 8)(pt 0 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 59 4)(pt 55 8))
+		(line (pt 59 12)(pt 55 8))
+	)
+	(flipy)
+	(text "VCC" (rect 11 7 40 22)(font "Arial" (font_size 6)))
 )
 (pin
 	(output)
@@ -620,7 +637,7 @@ refer to the applicable agreement for further details.
 	(output)
 	(rect 360 48 376 272)
 	(text "OUTPUT" (rect 6 185 21 242)(font "Arial" (font_size 6))(vertical))
-	(text "pc_out_tb[15..0]" (rect 5 5 21 127)(font "Arial" )(vertical))
+	(text "pc_out_tb[15..0]" (rect 5 5 21 126)(font "Arial" )(vertical))
 	(pt 8 224)
 	(drawing
 		(line (pt 8 224)(pt 8 172))
@@ -632,6 +649,22 @@ refer to the applicable agreement for further details.
 		(line (pt 4 146)(pt 8 142))
 	)
 	(flipx_rotate90)
+)
+(pin
+	(output)
+	(rect 2568 1200 2811 1216)
+	(text "OUTPUT" (rect 1 0 58 15)(font "Arial" (font_size 6)))
+	(text "read_data_tb[15..0]" (rect 90 0 237 16)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
 )
 (symbol
 	(rect 320 384 400 568)
@@ -1023,36 +1056,6 @@ refer to the applicable agreement for further details.
 		(line (pt 56 200)(pt 112 144))
 		(line (pt 112 112)(pt 112 144))
 	)
-)
-(symbol
-	(rect 520 240 720 320)
-	(text "program_counter" (rect 113 0 241 16)(font "Arial" ))
-	(text "pc" (rect 175 64 192 80)(font "Arial" ))
-	(port
-		(pt 200 32)
-		(input)
-		(text "clk" (rect 0 0 20 16)(font "Arial" ))
-		(text "clk" (rect 165 27 185 43)(font "Arial" ))
-		(line (pt 200 32)(pt 184 32))
-	)
-	(port
-		(pt 200 48)
-		(input)
-		(text "pc_in[15..0]" (rect 0 0 87 16)(font "Arial" ))
-		(text "pc_in[15..0]" (rect 122 43 209 59)(font "Arial" ))
-		(line (pt 200 48)(pt 184 48)(line_width 3))
-	)
-	(port
-		(pt 0 32)
-		(output)
-		(text "pc_out[15..0]" (rect 0 0 97 16)(font "Arial" ))
-		(text "pc_out[15..0]" (rect 21 27 118 43)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32)(line_width 3))
-	)
-	(drawing
-		(rectangle (rect 16 16 184 64))
-	)
-	(flipy)
 )
 (symbol
 	(rect 520 368 808 448)
@@ -1706,6 +1709,43 @@ refer to the applicable agreement for further details.
 	)
 	(rotate270)
 )
+(symbol
+	(rect 520 216 720 328)
+	(text "program_counter" (rect 67 0 195 16)(font "Arial" ))
+	(text "pc" (rect 175 96 192 112)(font "Arial" ))
+	(port
+		(pt 200 32)
+		(input)
+		(text "clk" (rect 0 0 20 16)(font "Arial" ))
+		(text "clk" (rect 159 27 179 43)(font "Arial" ))
+		(line (pt 200 32)(pt 184 32))
+	)
+	(port
+		(pt 200 48)
+		(input)
+		(text "pc_in[15..0]" (rect 0 0 87 16)(font "Arial" ))
+		(text "pc_in[15..0]" (rect 92 43 179 59)(font "Arial" ))
+		(line (pt 200 48)(pt 184 48)(line_width 3))
+	)
+	(port
+		(pt 200 64)
+		(input)
+		(text "pc_reset" (rect 0 0 64 16)(font "Arial" ))
+		(text "pc_reset" (rect 115 59 179 75)(font "Arial" ))
+		(line (pt 200 64)(pt 184 64))
+	)
+	(port
+		(pt 0 32)
+		(output)
+		(text "pc_out[15..0]" (rect 0 0 97 16)(font "Arial" ))
+		(text "pc_out[15..0]" (rect 21 27 103 43)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 184 96))
+	)
+	(flipy)
+)
 (connector
 	(pt 1000 1176)
 	(pt 816 1176)
@@ -1745,10 +1785,6 @@ refer to the applicable agreement for further details.
 	(pt 1040 1520)
 	(pt 1072 1520)
 	(bus)
-)
-(connector
-	(pt 720 272)
-	(pt 728 272)
 )
 (connector
 	(pt 520 400)
@@ -1842,16 +1878,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 896 1128)
 	(pt 896 1064)
-)
-(connector
-	(pt 1112 1424)
-	(pt 2544 1424)
-	(bus)
-)
-(connector
-	(pt 2544 1064)
-	(pt 2496 1064)
-	(bus)
 )
 (connector
 	(pt 2264 1128)
@@ -2030,27 +2056,8 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 728 192)
-	(pt 728 232)
-)
-(connector
-	(pt 728 232)
-	(pt 728 272)
-)
-(connector
 	(pt 1312 1016)
 	(pt 1312 1096)
-	(bus)
-)
-(connector
-	(pt 2544 1064)
-	(pt 2544 1424)
-	(bus)
-)
-(connector
-	(text "read_data[15..0]" (rect 2520 952 2541 1072)(font "Intel Clear" )(vertical))
-	(pt 2544 1032)
-	(pt 2544 1064)
 	(bus)
 )
 (connector
@@ -2066,16 +2073,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1728 1352)
 	(pt 1664 1352)
-)
-(connector
-	(pt 720 288)
-	(pt 1376 288)
-	(bus)
-)
-(connector
-	(pt 1376 288)
-	(pt 1376 520)
-	(bus)
 )
 (connector
 	(pt 1208 568)
@@ -2165,16 +2162,6 @@ refer to the applicable agreement for further details.
 (connector
 	(pt 1424 520)
 	(pt 1424 768)
-	(bus)
-)
-(connector
-	(pt 1280 520)
-	(pt 1376 520)
-	(bus)
-)
-(connector
-	(pt 1376 520)
-	(pt 1424 520)
 	(bus)
 )
 (connector
@@ -2504,18 +2491,8 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
-	(pt 456 272)
-	(pt 456 400)
-	(bus)
-)
-(connector
 	(pt 368 272)
 	(pt 368 384)
-	(bus)
-)
-(connector
-	(pt 456 272)
-	(pt 520 272)
 	(bus)
 )
 (connector
@@ -2571,6 +2548,93 @@ refer to the applicable agreement for further details.
 	(pt 2120 1168)
 	(pt 2088 1168)
 )
+(connector
+	(pt 728 248)
+	(pt 720 248)
+)
+(connector
+	(pt 1376 264)
+	(pt 720 264)
+	(bus)
+)
+(connector
+	(pt 1376 520)
+	(pt 1376 264)
+	(bus)
+)
+(connector
+	(pt 456 248)
+	(pt 520 248)
+	(bus)
+)
+(connector
+	(pt 728 192)
+	(pt 728 232)
+)
+(connector
+	(pt 728 232)
+	(pt 728 248)
+)
+(connector
+	(pt 1280 520)
+	(pt 1376 520)
+	(bus)
+)
+(connector
+	(pt 1376 520)
+	(pt 1424 520)
+	(bus)
+)
+(connector
+	(pt 456 248)
+	(pt 456 272)
+	(bus)
+)
+(connector
+	(pt 456 272)
+	(pt 456 400)
+	(bus)
+)
+(connector
+	(pt 720 280)
+	(pt 760 280)
+)
+(connector
+	(text "read_data[15..0]" (rect 2520 952 2541 1072)(font "Intel Clear" )(vertical))
+	(pt 2544 1032)
+	(pt 2544 1064)
+	(bus)
+)
+(connector
+	(pt 2496 1064)
+	(pt 2544 1064)
+	(bus)
+)
+(connector
+	(pt 2544 1064)
+	(pt 2552 1064)
+	(bus)
+)
+(connector
+	(pt 1112 1424)
+	(pt 2552 1424)
+	(bus)
+)
+(connector
+	(pt 2552 1208)
+	(pt 2568 1208)
+	(bus)
+)
+(connector
+	(pt 2552 1064)
+	(pt 2552 1208)
+	(bus)
+)
+(connector
+	(pt 2552 1208)
+	(pt 2552 1424)
+	(bus)
+)
 (junction (pt 456 272))
 (junction (pt 1312 1096))
 (junction (pt 1064 856))
@@ -2590,3 +2654,4 @@ refer to the applicable agreement for further details.
 (junction (pt 368 1240))
 (junction (pt 1312 1168))
 (junction (pt 1880 1112))
+(junction (pt 2552 1208))
