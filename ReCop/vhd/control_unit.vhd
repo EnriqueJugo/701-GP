@@ -2,6 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.recop_types.all;
+use work.opcodes.all;
+use work.various_constants.all;
+
 entity control_unit is
   port (
     clk             : in std_logic;
@@ -255,7 +259,7 @@ begin
         -- T3: compute EA
         rb_sel    <= "01";
         reset_alu <= '1';
-        alu_op    <= "000";
+        alu_op    <= alu_add;
         mar_sel   <= "01";
         mar_ld    <= '1';
         -- T4: store data
@@ -294,7 +298,7 @@ begin
         -- T3: PC ← target
         rb_sel     <= "01";
         reset_alu  <= '1';
-        alu_op     <= "000";
+        alu_op     <= alu_add;
         pc_sel     <= "01";
         next_state <= FETCH1;
 
@@ -318,7 +322,7 @@ begin
         rf_a_re   <= '1';
         rb_sel    <= "00";
         reset_alu <= '1';
-        alu_op    <= "000";
+        alu_op    <= alu_add;
         if z_flag = '1' then
           pc_sel     <= "01";
           clr_z_flag <= '1';
@@ -333,7 +337,7 @@ begin
             rf_a_re     <= '1';
             rf_b_re     <= '0';
             rb_sel      <= "01";
-            alu_op      <= "010";
+            alu_op      <= alu_and;
             reset_alu   <= '1';
             wr_data_sel <= "10";
             rf_wr       <= '1';
@@ -346,7 +350,7 @@ begin
             rf_b_re     <= '0';
             reset_alu   <= '1';
             rb_sel      <= "11";
-            alu_op      <= "010";
+            alu_op      <= alu_and;
             wr_data_sel <= "10";
             rf_wr       <= '1';
             next_state  <= FETCH1;
@@ -361,7 +365,7 @@ begin
             rf_a_re     <= '1';
             rf_b_re     <= '0';
             rb_sel      <= "01";
-            alu_op      <= "010";
+            alu_op      <= alu_or;
             reset_alu   <= '1';
             wr_data_sel <= "10";
             rf_wr       <= '1';
@@ -377,7 +381,7 @@ begin
         -- T3: Rz ← Rz + (#imm/Rx)
         rb_sel     <= "10"; -- imm or Rx
         reset_alu  <= '1';
-        alu_op     <= "000";
+        alu_op     <= alu_add;
         rf_wr      <= '1';
         next_state <= FETCH1;
 
@@ -385,7 +389,7 @@ begin
         -- T3: Rz ← Rz - Rx
         rb_sel     <= "01";
         reset_alu  <= '1';
-        alu_op     <= "110";
+        alu_op     <= alu_sub;
         rf_wr      <= '1';
         next_state <= FETCH1;
 
@@ -393,7 +397,7 @@ begin
         -- T3: Rz ← Rz - #imm
         rb_sel     <= "10";
         reset_alu  <= '1';
-        alu_op     <= "001";
+        alu_op     <= alu_sub;
         rf_wr      <= '1';
         next_state <= FETCH1;
 
@@ -406,10 +410,11 @@ begin
         -- NOP
         next_state <= FETCH1;
 
+        -- TODO: If zero flag is 1 then jump to operand else nothing
       when EXEC_SZ =>
         -- Set Z-flag based on immediate
         rb_sel     <= "10"; -- Immediate value
-        alu_op     <= "110"; -- SUB operation to test for zero
+        alu_op     <= alu_sub; -- SUB operation to test for zero
         reset_alu  <= '1';
         next_state <= FETCH1;
 
@@ -450,7 +455,7 @@ begin
       when EXEC_MAX =>
         -- MAX Rz, #imm
         rb_sel     <= "10"; -- Immediate
-        alu_op     <= "110"; -- SUB (to compare)
+        alu_op     <= alu_max; -- SUB (to compare)
         reset_alu  <= '1';
         rf_wr      <= '1'; -- Conditionally done (assuming internal logic)
         next_state <= FETCH1;
