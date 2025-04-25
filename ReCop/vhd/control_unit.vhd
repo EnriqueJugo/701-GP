@@ -133,33 +133,36 @@ begin
   end process;
 
   -- FSM next-state and outputs
-  process (state, opcode)
+  process (state, opcode, reset)
   begin
-    -- default all controls off
-    mar_sel     <= (others => '0');
-    mar_ld      <= '0';
-    mar_reset   <= '0';
-    ir_reset    <= '0';
-    ir_ld       <= '0';
-    wr_data_sel <= "00";
-    rf_reset    <= '0';
-    rf_wr       <= '0';
-    rb_sel      <= (others => '0');
-    address_sel <= '0';
-    mem_read    <= '0';
-    mem_write   <= '0';
-    reset_alu   <= '0';
-    alu_op      <= (others => '0');
-    clr_z_flag  <= '0';
-    pc_sel      <= (others => '0');
-    next_state  <= FETCH1;
+    if (reset = '1') then
+      -- default all controls off
+      mar_sel     <= (others => '0');
+      mar_ld      <= '0';
+      mar_reset   <= '0';
+      ir_reset    <= '0';
+      ir_ld       <= '0';
+      wr_data_sel <= "00";
+      rf_reset    <= '0';
+      rf_wr       <= '0';
+      rb_sel      <= (others => '0');
+      address_sel <= '0';
+      mem_read    <= '0';
+      mem_write   <= '0';
+      reset_alu   <= '0';
+      alu_op      <= (others => '0');
+      clr_z_flag  <= '0';
+      pc_sel      <= (others => '0');
+      next_state  <= FETCH1;
+    end if;
 
     case state is
       when FETCH1 =>
         -- T0: MAR ← PC ; PC ← PC+1
-        mar_sel    <= "00"; -- PC
-        mar_ld     <= '1';
-        pc_sel     <= "10"; -- PC+1
+        mar_sel <= "00"; -- PC
+        pc_sel  <= "10"; -- PC+1
+        mar_ld  <= '1';
+
         next_state <= FETCH2;
 
       when FETCH2 =>
@@ -237,6 +240,8 @@ begin
             wr_data_sel <= "01";
             rf_wr       <= '1';
             next_state  <= FETCH1;
+          when others =>
+            next_state <= FETCH1;
         end case;
       when EXEC_STR =>
         -- T3: compute EA
@@ -273,6 +278,8 @@ begin
             next_state <= FETCH1;
           when "11" => -- Indirect
             next_state <= FETCH1;
+          when others =>
+            next_state <= FETCH1;
         end case;
 
       when EXEC_JMP =>
@@ -292,6 +299,8 @@ begin
             mar_ld     <= '1';
             mem_read   <= '1';
             pc_sel     <= "11";
+            next_state <= FETCH1;
+          when others =>
             next_state <= FETCH1;
         end case;
 
@@ -333,6 +342,8 @@ begin
             wr_data_sel <= "10";
             rf_wr       <= '1';
             next_state  <= FETCH1;
+          when others =>
+            next_state <= FETCH1;
         end case;
 
       when EXEC_ORR =>
@@ -349,6 +360,8 @@ begin
 
             next_state <= FETCH1;
           when "10" => -- Direct
+            next_state <= FETCH1;
+          when others =>
             next_state <= FETCH1;
         end case;
 
