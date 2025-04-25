@@ -262,6 +262,7 @@ architecture rtl of datapath is
   signal s_data_mem_data : std_logic_vector(15 downto 0);
   signal s_alu_result    : std_logic_vector(15 downto 0);
 
+  -- ALU
   signal s_alu_ra : std_logic_vector(15 downto 0);
   signal s_alu_rb : std_logic_vector(15 downto 0);
 
@@ -394,6 +395,16 @@ begin
       rb         => s_alu_rb,
       alu_result => s_alu_result,
       z_flag     => z_flag
+    );
+
+  SOP_Register_ins : entity work.sop_register
+    port map
+    (
+      clk       => clk,
+      sop_reset => sop_reset,
+      sop_ld    => sop_ld,
+      sop_in    => s_rf_ra_data,
+      sop_out   => sop_out
     );
 
 end rtl;

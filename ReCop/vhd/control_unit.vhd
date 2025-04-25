@@ -175,10 +175,12 @@ begin
     case state is
       when FETCH1 =>
         -- T0: MAR ← PC ; PC ← PC+1
-        mar_sel <= "00"; -- PC
-        pc_sel  <= "10"; -- PC+1
-        mar_ld  <= '1';
-        rf_wr   <= '0';
+        mar_sel    <= "00"; -- PC
+        pc_sel     <= "10"; -- PC+1
+        mar_ld     <= '1';
+        rf_wr      <= '0';
+        sop_ld     <= '0';
+        clr_z_flag <= '0';
 
         next_state <= FETCH2;
 
@@ -225,22 +227,14 @@ begin
         elsif opcode = OP_ORR then
           next_state <= EXEC_ORR;
         elsif opcode = OP_ADDR then
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
           next_state <= EXEC_ADDR;
         elsif opcode = OP_SUBR then
           next_state <= EXEC_SUBR;
         elsif opcode = OP_SUBVR then
-          rf_a_re <= '1';
-          rf_b_re <= '1';
-          case addressing_mode is
-            when addr_mode_immediate =>
-              alu_ra_sel <= "01";
-              alu_rb_sel <= "10";
-            when addr_mode_register =>
-              alu_ra_sel <= "00";
-              alu_rb_sel <= "00";
-            when others =>
-              null;
-          end case;
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
           next_state <= EXEC_SUBVR;
         elsif opcode = OP_CLFZ then
           next_state <= EXEC_CLFZ;
@@ -253,6 +247,8 @@ begin
         elsif opcode = OP_SSVOP then
           next_state <= EXEC_SSVOP;
         elsif opcode = OP_SSOP then
+          rf_a_re    <= '1';
+          rf_b_re    <= '0';
           next_state <= EXEC_SSOP;
         elsif opcode = OP_LSIP then
           next_state <= EXEC_LSIP;
@@ -330,25 +326,8 @@ begin
 
       when EXEC_JMP =>
         -- T3: PC ← target
-        alu_rb_sel <= "01";
-        reset_alu  <= '1';
-        alu_op     <= alu_add;
         pc_sel     <= "01";
         next_state <= FETCH1;
-
-        case addressing_mode is
-          when "01" => -- Immediate
-            pc_sel     <= "01";
-            next_state <= FETCH1;
-          when "10" => -- Direct
-            mar_sel    <= "01";
-            mar_ld     <= '1';
-            mem_read   <= '1';
-            pc_sel     <= "11";
-            next_state <= FETCH1;
-          when others =>
-            next_state <= FETCH1;
-        end case;
 
       when EXEC_PRESENT =>
         -- T3: TEST PRESENT Rz, Rx
@@ -411,19 +390,20 @@ begin
         -- T3: Rz ← Rz + (#imm/Rx)
         case addressing_mode is
           when addr_mode_immediate =>
+            alu_ra_sel <= "01";
             alu_rb_sel <= "10";
           when addr_mode_register =>
-            alu_rb_sel <= "01";
+            alu_ra_sel <= "00";
+            alu_rb_sel <= "00";
           when others =>
             null;
         end case;
-        reset_alu  <= '1';
         alu_op     <= alu_add;
-        rf_wr      <= '1';
-        next_state <= FETCH1;
+        next_state <= WRITE_BACK;
 
       when EXEC_SUBR =>
         -- T3: Rz ← Rz - Rx
+
         alu_rb_sel <= "01";
         reset_alu  <= '1';
         alu_op     <= alu_sub;
@@ -432,6 +412,16 @@ begin
         -- TODO: Go to write back
       when EXEC_SUBVR =>
         -- T3: Rz ← Rz - #imm
+        case addressing_mode is
+          when addr_mode_immediate =>
+            alu_ra_sel <= "01";
+            alu_rb_sel <= "10";
+          when addr_mode_register =>
+            alu_ra_sel <= "00";
+            alu_rb_sel <= "00";
+          when others =>
+            null;
+        end case;
         alu_op     <= alu_sub;
         next_state <= WRITE_BACK;
       when EXEC_CLFZ =>
@@ -452,9 +442,6 @@ begin
         next_state <= FETCH1;
 
       when EXEC_SSOP =>
-        rf_a_sel   <= '1';
-        rf_a_re    <= '1';
-        rf_b_re    <= '0';
         sop_ld     <= '1';
         next_state <= FETCH1;
 
@@ -538,7 +525,7 @@ begin
             wr_data_sel <= "00"; -- default safe
         end case;
 
-        rf_wr      <= '1'; -- Always write in WRITE_BACK
+        rf_wr      <= '1';
         rf_a_re    <= '0';
         rf_b_re    <= '0';
         next_state <= FETCH1;
