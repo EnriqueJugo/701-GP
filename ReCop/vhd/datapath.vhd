@@ -9,6 +9,7 @@ entity datapath is
 
     pc_reset : in std_logic;
     pc_sel   : in std_logic_vector(1 downto 0);
+    pc_inc   : in std_logic;
 
     dcpr_ld      : in std_logic;
     dcpr_reset   : in std_logic;
@@ -148,7 +149,7 @@ architecture rtl of datapath is
     );
   end component;
 
-  component s_instruction_register
+  component instruction_register
     port (
       clk       : in std_logic;
       reset     : in std_logic;
@@ -259,7 +260,7 @@ begin
   program_counter_inst : entity work.program_counter
     port map
     (
-      clk      => clk,
+      clk      => pc_inc,
       pc_in    => s_pc_mux_out,
       pc_reset => pc_reset,
       pc_out   => s_pc_out
@@ -298,19 +299,19 @@ begin
 
   inst_out <= s_instruction;
 
-  s_instruction_register_inst : s_instruction_register
-  port map
-  (
-    clk       => clk,
-    reset     => ir_reset,
-    ir_ld     => ir_ld,
-    ir_data   => s_instruction,
-    addr_mode => s_addr_mode,
-    opcode    => opcode,
-    s_operand => s_operand,
-    rx        => s_rx,
-    rz        => s_rz
-  );
+  instruction_register_inst : entity work.instruction_register
+    port map
+    (
+      clk       => clk,
+      reset     => ir_reset,
+      ir_ld     => ir_ld,
+      ir_data   => s_instruction,
+      addr_mode => s_addr_mode,
+      opcode    => opcode,
+      operand   => s_operand,
+      rx        => s_rx,
+      rz        => s_rz
+    );
 
   s_rz_integer <= to_integer(unsigned(s_rz_mux_out));
   s_rx_integer <= to_integer(unsigned(s_rx_mux_out));

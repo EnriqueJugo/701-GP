@@ -58,7 +58,9 @@ entity control_unit is
     -- GOSH DARN IT
     pc_reset    : out std_logic;
     address_sel : out std_logic;
-    z_flag      : in std_logic
+    z_flag      : in std_logic;
+
+    pc_inc : out std_logic
   );
 end entity control_unit;
 
@@ -154,6 +156,12 @@ begin
       clr_z_flag  <= '0';
       pc_sel      <= (others => '0');
       next_state  <= FETCH1;
+    end if;
+
+    if (state = FETCH1) then
+      pc_inc <= '1';
+    else
+      pc_inc <= '0';
     end if;
 
     case state is
@@ -385,7 +393,7 @@ begin
         -- T3: Rz ← Rz - #imm
         rb_sel     <= "10";
         reset_alu  <= '1';
-        alu_op     <= "110";
+        alu_op     <= "001";
         rf_wr      <= '1';
         next_state <= FETCH1;
 

@@ -18,7 +18,7 @@ architecture sim of datapath_tb is
   signal dcpr_reset   : std_logic                    := '0';
   signal dcpr_low_set : std_logic                    := '0';
 
-  signal ir_ld    : std_logic := '0';
+  signal ir_ld    : std_logic := '1';
   signal ir_reset : std_logic := '0';
 
   signal mem_write : std_logic := '0';
@@ -59,6 +59,7 @@ architecture sim of datapath_tb is
   signal z_flag        : std_logic;
   signal read_data_out : std_logic_vector(15 downto 0);
 
+  signal s_pc_inc : std_logic;
 begin
 
   -- Clock generation
@@ -69,6 +70,17 @@ begin
       wait for clk_period / 2;
       clk <= '1';
       wait for clk_period / 2;
+    end loop;
+  end process;
+
+  -- Clock generation
+  pc_inc : process
+  begin
+    while true loop
+      s_pc_inc <= '0';
+      wait for clk_period * 4;
+      s_pc_inc <= '1';
+      wait for clk_period * 4;
     end loop;
   end process;
 
@@ -113,7 +125,8 @@ begin
       opcode        => opcode,
       sop_out       => sop_out,
       z_flag        => z_flag,
-      read_data_out => read_data_out
+      read_data_out => read_data_out,
+      pc_inc        => s_pc_inc
     );
 
   -- Stimulus process
@@ -129,13 +142,10 @@ begin
     ir_reset <= '0';
 
     -- Load instruction
-    ir_ld     <= '1';
     rf_a_read <= '1';
     rf_b_read <= '1';
     rf_write  <= '1';
     wait for clk_period;
-    ir_ld    <= '0';
-    rf_write <= '0';
 
     -- Add more stimulus here as needed...
     wait for 20 * clk_period;
