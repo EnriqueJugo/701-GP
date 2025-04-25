@@ -223,14 +223,20 @@ begin
           alu_rb_sel <= "00";
           next_state <= EXEC_PRESENT;
         elsif opcode = OP_ANDR then
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
           next_state <= EXEC_ANDR;
         elsif opcode = OP_ORR then
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
           next_state <= EXEC_ORR;
         elsif opcode = OP_ADDR then
           rf_a_re    <= '1';
           rf_b_re    <= '1';
           next_state <= EXEC_ADDR;
         elsif opcode = OP_SUBR then
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
           next_state <= EXEC_SUBR;
         elsif opcode = OP_SUBVR then
           rf_a_re    <= '1';
@@ -339,52 +345,31 @@ begin
         next_state <= FETCH1;
 
       when EXEC_ANDR =>
-        -- T3: Rz ← Rz AND Rx
         case addressing_mode is
-          when "01" => -- Immediate
-            rf_a_sel    <= '1';
-            rf_a_re     <= '1';
-            rf_b_re     <= '0';
-            alu_rb_sel  <= "01";
-            alu_op      <= alu_and;
-            reset_alu   <= '1';
-            wr_data_sel <= "10";
-            rf_wr       <= '1';
-
-            next_state <= FETCH1;
-
-          when "10" => -- Direct
-            rf_a_sel    <= '1';
-            rf_a_re     <= '1';
-            rf_b_re     <= '0';
-            reset_alu   <= '1';
-            alu_rb_sel  <= "11";
-            alu_op      <= alu_and;
-            wr_data_sel <= "10";
-            rf_wr       <= '1';
-            next_state  <= FETCH1;
+          when addr_mode_immediate =>
+            alu_ra_sel <= "01";
+            alu_rb_sel <= "10";
+          when addr_mode_register =>
+            alu_ra_sel <= "00";
+            alu_rb_sel <= "00";
           when others =>
-            next_state <= FETCH1;
+            null;
         end case;
-
+        alu_op     <= alu_and;
+        next_state <= WRITE_BACK;
       when EXEC_ORR =>
         case addressing_mode is
-          when addr_mode_immediate => -- Immediate
-            rf_a_sel    <= '1';
-            rf_a_re     <= '1';
-            rf_b_re     <= '0';
-            alu_rb_sel  <= "01";
-            alu_op      <= alu_or;
-            reset_alu   <= '1';
-            wr_data_sel <= "10";
-            rf_wr       <= '1';
-
-            next_state <= FETCH1;
-          when addr_mode_register => -- Direct
-            next_state <= FETCH1;
+          when addr_mode_immediate =>
+            alu_ra_sel <= "01";
+            alu_rb_sel <= "10";
+          when addr_mode_register =>
+            alu_ra_sel <= "00";
+            alu_rb_sel <= "00";
           when others =>
-            next_state <= FETCH1;
+            null;
         end case;
+        alu_op     <= alu_or;
+        next_state <= WRITE_BACK;
 
       when EXEC_ADDR =>
         -- T3: Rz ← Rz + (#imm/Rx)

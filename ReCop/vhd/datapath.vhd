@@ -266,6 +266,11 @@ architecture rtl of datapath is
   signal s_alu_ra : std_logic_vector(15 downto 0);
   signal s_alu_rb : std_logic_vector(15 downto 0);
 
+  -- MAR
+  signal s_mar_addr : std_logic_vector(15 downto 0);
+
+  -- Data Memory
+  signal s_data_mem_addr : std_logic_vector(15 downto 0);
 begin
 
   program_counter_inst : entity work.program_counter
@@ -406,5 +411,37 @@ begin
       sop_in    => s_rf_ra_data,
       sop_out   => sop_out
     );
+
+  mar_mux_3_inst : entity work.mux_3
+    port map
+    (
+      data0x => s_rf_rb_data,
+      data1x => s_operand,
+      data2x => s_pc_mux_out,
+      sel    => mar_sel,
+      result => s_mar_addr
+    );
+
+  addr_sel : entity work.mux_2
+    port map
+    (
+      sel    => address_sel,
+      data0x => s_alu_result,
+      data1x => s_mar_addr,
+      result => s_data_mem_addr
+    );
+
+  memory_address_register_inst : memory_address_register
+  generic map(
+    bit_width => 16
+  )
+  port map
+  (
+    clk       => clk,
+    mar_ld    => mar_ld,
+    mar_reset => mar_reset,
+    mar_in    => s_data_mem_addr,
+    mar_out   => s_data_mem_data
+  );
 
 end rtl;
