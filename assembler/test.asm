@@ -4,8 +4,8 @@ start: NOOP ;starting the program
 count: SUBV R4 R4 #1
 	PRESENT R4 start ;if R4=0 go to start
 	ADD R1 R1 ;”double” the number
-	LDR R0 #0
-	SSOP R0
+	LDR R5 #120
+	SSOP R5
 	LDR R2 #2 ;max register size, 16 bits
 time:		
 	SUBV R2 R2 #1

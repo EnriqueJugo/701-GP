@@ -412,7 +412,7 @@ begin
       clk       => clk,
       sop_reset => sop_reset,
       sop_ld    => sop_ld,
-      sop_in    => s_rf_ra_data,
+      sop_in    => s_rf_rb_data,
       sop_out   => sop_out
     );
 
