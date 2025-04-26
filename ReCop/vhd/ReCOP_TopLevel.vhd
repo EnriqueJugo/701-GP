@@ -98,7 +98,7 @@ begin
       pc_sel               => pc_sel,
       dpcr_ld              => dpcr_ld,
       dpcr_reset           => dpcr_reset,
-      dpcr_low_set         => dpcr_low_sel,
+      dpcr_low_sel         => dpcr_low_sel,
       ir_ld                => ir_ld,
       ir_reset             => ir_reset,
       mem_write            => mem_write,

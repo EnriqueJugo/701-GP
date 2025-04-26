@@ -185,6 +185,7 @@ begin
         clr_z_flag <= '0';
         mem_write  <= '0';
         mem_read   <= '0';
+        dpcr_ld    <= '0';
         next_state <= FETCH2;
 
       when FETCH2 =>
@@ -280,9 +281,11 @@ begin
         elsif opcode = OP_LSIP then
           next_state <= EXEC_LSIP;
         elsif opcode = OP_DATACALL_REG then
-          next_state <= EXEC_DATACALL_REG;
+          dpcr_low_sel <= '0';
+          next_state   <= EXEC_DATACALL_REG;
         elsif opcode = OP_DATACALL_IMM then
-          next_state <= EXEC_DATACALL_IMM;
+          dpcr_low_sel <= '1';
+          next_state   <= EXEC_DATACALL_IMM;
         elsif opcode = OP_MAX then
           next_state <= EXEC_MAX;
         elsif opcode = OP_STRPC then
@@ -294,35 +297,8 @@ begin
         end if;
 
       when EXEC_LDR =>
-        -- case addressing_mode is
-        --   when addr_mode_immediate => -- Immediate
-        --     wr_data_sel <= "00";
-        --   when addr_mode_direct => -- Direct
-        --     mar_sel     <= "01";
-        --     mar_ld      <= '1';
-        --     mem_read    <= '1';
-        --     wr_data_sel <= "01";
-        --   when addr_mode_register => -- Register
-        --     mar_sel     <= "00";
-        --     mar_ld      <= '1';
-        --     mem_read    <= '1';
-        --     wr_data_sel <= "01";
-        --   when others =>
-        --     null;
-        -- end case;
-
         next_state <= MEM_ACCESS;
       when EXEC_STR =>
-        -- -- T3: compute EA
-        -- alu_rb_sel <= "01";
-        -- reset_alu  <= '1';
-        -- alu_op     <= alu_add;
-        -- mar_sel    <= "01";
-        -- mar_ld     <= '1';
-        -- -- T4: store data
-        -- alu_rb_sel  <= "01"; -- Rx
-        -- address_sel <= '1';
-        -- mem_write   <= '1';
         alu_op <= alu_add;
         case addressing_mode is
           when addr_mode_direct => -- Direct
@@ -452,23 +428,12 @@ begin
         next_state <= FETCH1;
 
       when EXEC_DATACALL_REG =>
-        rf_a_sel     <= '1';
-        rf_b_sel     <= "00";
-        rf_a_re      <= '1';
-        rf_b_re      <= '1';
-        dpcr_low_sel <= '0';
-        dpcr_ld      <= '1';
-
+        dpcr_ld    <= '1';
         next_state <= FETCH1;
 
       when EXEC_DATACALL_IMM =>
-        -- Data Call (Immediate)
-        rf_a_sel     <= '1';
-        rf_a_re      <= '1';
-        rf_b_re      <= '0';
-        dpcr_low_sel <= '1';
-        dpcr_ld      <= '1';
-        next_state   <= FETCH1;
+        dpcr_ld    <= '1';
+        next_state <= FETCH1;
 
       when EXEC_MAX =>
         -- MAX Rz, #imm

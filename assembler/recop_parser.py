@@ -115,7 +115,7 @@ class ReCOPParser:
                 # Register
                 if arg.startswith("r"):
                     reg_num = int(arg[1:])
-                    r_inst = {instruction["instruction"]}.intersection({"ssop", "jmp", "datacall", "lsip"})
+                    r_inst = {instruction["instruction"]}.intersection({"ssop", "jmp", "datacall", "datacall2", "lsip"})
                     if r_inst:
                         # Register on only Rz
                         if ("lsip" in r_inst):
@@ -124,7 +124,7 @@ class ReCOPParser:
                             inst = inst + '0111' + utils.int_to_bin(reg_num, 4)
                         # Register on only Rx
                         else:
-                            if instruction["addr_mode"] != "immediate":
+                            if instruction["addr_mode"] != "immediate" or "datacall2" in r_inst:
                               inst = inst  + '0' * 4 + utils.int_to_bin(reg_num, 4)
                     else:
                         inst = inst + utils.int_to_bin(reg_num, 4)
@@ -132,7 +132,10 @@ class ReCOPParser:
                 # Immediate
                 elif arg.startswith("#"):
                     operand = int(arg[1:])
-                    inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
+                    if(instruction["instruction"] == "datacall2"):
+                        inst = inst + utils.int_to_bin(operand, 16)
+                    else:
+                        inst = inst + '0' * (4 * count)  + utils.int_to_bin(operand, 16)
                 
                 # Direct
                 elif arg.startswith("$"):

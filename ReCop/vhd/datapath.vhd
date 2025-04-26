@@ -13,7 +13,7 @@ entity datapath is
 
     dpcr_ld      : in std_logic;
     dpcr_reset   : in std_logic;
-    dpcr_low_set : in std_logic;
+    dpcr_low_sel : in std_logic;
 
     ir_ld    : in std_logic;
     ir_reset : in std_logic;
@@ -51,8 +51,6 @@ entity datapath is
     wr_data_sel : in std_logic_vector(1 downto 0);
 
     data_mem_wr_data_sel : in std_logic;
-
-    dpcr_low_sel : in std_logic;
 
     pc_out        : out std_logic_vector(15 downto 0);
     dpcr_out      : out std_logic_vector(31 downto 0);
