@@ -186,6 +186,7 @@ begin
         mem_write  <= '0';
         mem_read   <= '0';
         dpcr_ld    <= '0';
+        sip_ld     <= '0';
         next_state <= FETCH2;
 
       when FETCH2 =>
@@ -279,7 +280,8 @@ begin
           rf_b_re    <= '0';
           next_state <= EXEC_SSOP;
         elsif opcode = OP_LSIP then
-          next_state <= EXEC_LSIP;
+          wr_data_sel <= "11";
+          next_state  <= EXEC_LSIP;
         elsif opcode = OP_DATACALL_REG then
           dpcr_low_sel <= '0';
           next_state   <= EXEC_DATACALL_REG;
@@ -420,12 +422,8 @@ begin
         next_state <= FETCH1;
 
       when EXEC_LSIP =>
-        reg_dst     <= '0';
-        sip_ld      <= '1';
-        mem_write   <= '1';
-        wr_data_sel <= "11";
-
-        next_state <= FETCH1;
+        sip_ld     <= '1';
+        next_state <= WRITE_BACK;
 
       when EXEC_DATACALL_REG =>
         dpcr_ld    <= '1';
@@ -480,6 +478,9 @@ begin
       when WRITE_BACK =>
         case opcode is
             -- Loads
+          when OP_LSIP =>
+            wr_data_sel <= "11";
+            sip_ld      <= '0';
           when OP_LDR =>
             case addressing_mode is
               when addr_mode_immediate =>
@@ -487,7 +488,7 @@ begin
               when addr_mode_direct | addr_mode_register =>
                 wr_data_sel <= "01"; -- memory
               when others =>
-                wr_data_sel <= "00"; -- default
+                null;
             end case;
             -- ALU operations (write ALU result)
           when OP_ANDR | OP_ORR | OP_ADDR | OP_SUBR | OP_SUBVR | OP_MAX =>

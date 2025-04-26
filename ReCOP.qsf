@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY ReCOP
+set_global_assignment -name TOP_LEVEL_ENTITY ReCOP_TopLevel
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:20:47  MARCH 31, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -48,11 +48,22 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name VHDL_FILE ReCop/vhd/mux_2.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/mux_3.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/sop_register.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/sip_register.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/ReCOP_TopLevel.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/mux_4.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/mux_3_4bit.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/mux_2_4bit.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/memory_address_register.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/dcpr.vhd
+set_global_assignment -name VHDL_FILE ReCop/vhd/datapath.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/control_unit.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/adder_1.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/stack_pointer.vhd
@@ -63,23 +74,15 @@ set_global_assignment -name VHDL_FILE ReCop/vhd/recop_types.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/opcodes.vhd
 set_global_assignment -name SOURCE_FILE ReCop/vhd/constant_1.cmp
 set_global_assignment -name VHDL_FILE ReCop/vhd/ALU.vhd
-set_global_assignment -name BDF_FILE ReCOP.bdf
 set_global_assignment -name VHDL_FILE ReCop/vhd/recop_pll.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/prog_mem.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/register_general.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/program_counter.vhd
 set_global_assignment -name VHDL_FILE ReCop/vhd/instruction_register.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform2.vwf
-set_global_assignment -name QIP_FILE ReCop/vhd/constant_1.qip
-set_global_assignment -name QIP_FILE ReCop/vhd/mux_2.qip
-set_global_assignment -name QIP_FILE ReCop/vhd/mux_3.qip
-set_global_assignment -name QIP_FILE mux_4.qip
 set_global_assignment -name VHDL_FILE memory_address_register.vhd
-set_global_assignment -name BDF_FILE Datapath.bdf
 set_global_assignment -name VHDL_FILE dcpr.vhd
 set_global_assignment -name VHDL_FILE sip_register.vhd
 set_global_assignment -name VHDL_FILE sop_register.vhd
-set_global_assignment -name QIP_FILE mux_2_4_bit.qip
-set_global_assignment -name QIP_FILE mux_3_4bit.qip
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

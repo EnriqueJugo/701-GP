@@ -429,7 +429,7 @@ begin
       result => s_mar_mux_out
     );
 
-  memory_address_register_inst : memory_address_register
+  memory_address_register_inst : work.memory_address_register
   generic map(
     bit_width => 16
   )
@@ -460,7 +460,7 @@ begin
       result => s_data_mem_wr_data
     );
 
-  data_memory_inst : data_memory
+  data_memory_inst : work.data_memory
   port map
   (
     clock      => clk,
@@ -481,7 +481,7 @@ begin
       result => s_dpcr_mux_out
     );
 
-  dpcr_register_inst : dpcr_register
+  dpcr_register_inst : work.dpcr_register
   port map
   (
     clk        => clk,
@@ -490,6 +490,16 @@ begin
     high_in    => s_rf_rb_data,
     low_in     => s_dpcr_mux_out,
     dpcr_out   => dpcr_out
+  );
+
+  sip_register_inst : work.sip_register
+  port map
+  (
+    clk       => clk,
+    sip_reset => sip_reset,
+    sip_ld    => sip_ld,
+    sip_in    => sip_in,
+    sip_out   => s_sip_data
   );
 
 end rtl;

@@ -66,8 +66,6 @@ begin
   alu_result <= max_result when alu_op = alu_max else
     result;
 
-  alu_result <= result;
-
   z : process (clk, alu_reset)
   begin
     if alu_reset = '1' then

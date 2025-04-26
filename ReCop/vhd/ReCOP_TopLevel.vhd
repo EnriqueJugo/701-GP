@@ -7,6 +7,7 @@ entity ReCOP_TopLevel is
     clk        : in std_logic;
     reset      : in std_logic;
     sip_input  : in std_logic_vector(15 downto 0);
+    sop_output : out std_logic_vector(15 downto 0);
     z_flag_out : out std_logic
   );
 end entity;
@@ -127,7 +128,7 @@ begin
       inst_out             => open,
       addr_mode            => addressing_mode,
       opcode               => opcode,
-      sop_out              => open,
+      sop_out              => sop_output,
       z_flag               => z_flag,
       read_data_out        => open,
       pc_inc               => pc_inc,
