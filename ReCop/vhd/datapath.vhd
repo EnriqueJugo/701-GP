@@ -50,6 +50,8 @@ entity datapath is
 
     wr_data_sel : in std_logic_vector(1 downto 0);
 
+    data_mem_wr_data_sel : in std_logic;
+
     pc_out        : out std_logic_vector(15 downto 0);
     dcpr_out      : out std_logic_vector(31 downto 0);
     inst_out      : out std_logic_vector(31 downto 0);
@@ -258,19 +260,21 @@ architecture rtl of datapath is
   signal s_rz_mux_out : std_logic_vector(3 downto 0);
   signal s_rx_mux_out : std_logic_vector(3 downto 0);
 
-  signal s_sip_data      : std_logic_vector(15 downto 0);
-  signal s_data_mem_data : std_logic_vector(15 downto 0);
-  signal s_alu_result    : std_logic_vector(15 downto 0);
+  signal s_sip_data         : std_logic_vector(15 downto 0);
+  signal s_data_mem_re_data : std_logic_vector(15 downto 0);
+  signal s_alu_result       : std_logic_vector(15 downto 0);
 
   -- ALU
   signal s_alu_ra : std_logic_vector(15 downto 0);
   signal s_alu_rb : std_logic_vector(15 downto 0);
 
   -- MAR
-  signal s_mar_addr : std_logic_vector(15 downto 0);
+  signal s_mar_addr    : std_logic_vector(15 downto 0);
+  signal s_mar_mux_out : std_logic_vector(15 downto 0);
 
   -- Data Memory
-  signal s_data_mem_addr : std_logic_vector(15 downto 0);
+  signal s_data_mem_addr    : std_logic_vector(15 downto 0);
+  signal s_data_mem_wr_data : std_logic_vector(15 downto 0);
 begin
 
   program_counter_inst : entity work.program_counter
@@ -347,7 +351,7 @@ begin
     port map
     (
       data0x => s_operand,
-      data1x => s_data_mem_data,
+      data1x => s_data_mem_re_data,
       data2x => s_alu_result,
       data3x => s_sip_data,
       sel    => wr_data_sel,
@@ -415,20 +419,11 @@ begin
   mar_mux_3_inst : entity work.mux_3
     port map
     (
-      data0x => s_rf_rb_data,
+      data0x => s_rf_ra_data,
       data1x => s_operand,
       data2x => s_pc_mux_out,
       sel    => mar_sel,
-      result => s_mar_addr
-    );
-
-  addr_sel : entity work.mux_2
-    port map
-    (
-      sel    => address_sel,
-      data0x => s_alu_result,
-      data1x => s_mar_addr,
-      result => s_data_mem_addr
+      result => s_mar_mux_out
     );
 
   memory_address_register_inst : memory_address_register
@@ -440,8 +435,37 @@ begin
     clk       => clk,
     mar_ld    => mar_ld,
     mar_reset => mar_reset,
-    mar_in    => s_data_mem_addr,
-    mar_out   => s_data_mem_data
+    mar_in    => s_mar_mux_out,
+    mar_out   => s_mar_addr
+  );
+
+  data_mem_addr_sel_inst : entity work.mux_2
+    port map
+    (
+      sel    => addr_sel,
+      data0x => s_alu_result,
+      data1x => s_mar_addr,
+      result => s_data_mem_addr
+    );
+
+  mux_data_mem_data_write : entity work.mux_2
+    port map
+    (
+      sel    => data_mem_wr_data_sel,
+      data0x => s_rf_ra_data,
+      data1x => s_operand,
+      result => s_data_mem_wr_data
+    );
+
+  data_memory_inst : data_memory
+  port map
+  (
+    clock      => clk,
+    mem_write  => mem_write,
+    mem_read   => mem_read,
+    address    => s_mar_addr,
+    write_data => s_data_mem_wr_data,
+    read_data  => s_data_mem_re_data
   );
 
 end rtl;

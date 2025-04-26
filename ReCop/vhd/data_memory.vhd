@@ -38,12 +38,12 @@ use altera_mf.all;
 
 entity data_memory is
   port (
-	 clock   : in std_logic := '1';
-	 mem_write    : in std_logic;
-	 mem_read : in std_logic;
-    address : in std_logic_vector (15 downto 0);
-    write_data    : in std_logic_vector (15 downto 0);
-    read_data       : out std_logic_vector (15 downto 0)
+    clock      : in std_logic := '1';
+    mem_write  : in std_logic;
+    mem_read   : in std_logic;
+    address    : in std_logic_vector (15 downto 0);
+    write_data : in std_logic_vector (15 downto 0);
+    read_data  : out std_logic_vector (15 downto 0)
   );
 end data_memory;
 architecture SYN of data_memory is

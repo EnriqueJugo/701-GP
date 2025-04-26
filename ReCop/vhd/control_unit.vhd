@@ -65,6 +65,8 @@ entity control_unit is
     address_sel : out std_logic;
     z_flag      : in std_logic;
 
+    data_mem_wr_data_sel : out std_logic;
+
     pc_inc : out std_logic
   );
 end entity control_unit;
@@ -181,13 +183,14 @@ begin
         rf_wr      <= '0';
         sop_ld     <= '0';
         clr_z_flag <= '0';
-
+        mem_write  <= '0';
+        mem_read   <= '0';
         next_state <= FETCH2;
 
       when FETCH2 =>
         -- T1: IR ← ProgMem[MAR]
-        mar_ld     <= '0';
-        mem_read   <= '1';
+        mar_ld <= '0';
+        -- mem_read   <= '1';
         ir_ld      <= '1';
         next_state <= DECODE;
 
@@ -212,6 +215,24 @@ begin
           end case;
           next_state <= EXEC_LDR;
         elsif opcode = OP_STR then
+          rf_a_re <= '1';
+          rf_b_re <= '1';
+          case addressing_mode is
+            when addr_mode_immediate =>
+              alu_ra_sel           <= "01";
+              alu_rb_sel           <= "01";
+              data_mem_wr_data_sel <= '1';
+            when addr_mode_register =>
+              alu_ra_sel           <= "00";
+              alu_rb_sel           <= "00";
+              data_mem_wr_data_sel <= '0';
+            when addr_mode_direct =>
+              alu_ra_sel           <= "01"; -- Flip Rz and Rx
+              alu_rb_sel           <= "01";
+              data_mem_wr_data_sel <= '0';
+            when others =>
+              null;
+          end case;
           next_state <= EXEC_STR;
         elsif opcode = OP_JMP then
           next_state <= EXEC_JMP;
@@ -290,45 +311,37 @@ begin
         --     null;
         -- end case;
 
-        next_state <= WRITE_BACK;
+        next_state <= MEM_ACCESS;
       when EXEC_STR =>
-        -- T3: compute EA
-        alu_rb_sel <= "01";
-        reset_alu  <= '1';
-        alu_op     <= alu_add;
-        mar_sel    <= "01";
-        mar_ld     <= '1';
-        -- T4: store data
-        alu_rb_sel  <= "01"; -- Rx
-        address_sel <= '1';
-        mem_write   <= '1';
-        next_state  <= FETCH1;
+        -- -- T3: compute EA
+        -- alu_rb_sel <= "01";
+        -- reset_alu  <= '1';
+        -- alu_op     <= alu_add;
+        -- mar_sel    <= "01";
+        -- mar_ld     <= '1';
+        -- -- T4: store data
+        -- alu_rb_sel  <= "01"; -- Rx
+        -- address_sel <= '1';
+        -- mem_write   <= '1';
+        alu_op <= alu_add;
         case addressing_mode is
-          when "01" => -- Immediate
-            rf_b_sel   <= "01";
-            rf_a_sel   <= '1';
-            rf_a_re    <= '0';
-            rf_b_re    <= '1';
-            mar_sel    <= "01";
-            mar_ld     <= '1';
-            mem_write  <= '1';
-            mem_read   <= '0';
-            next_state <= FETCH1;
-          when "10" => -- Direct
-            rf_b_sel   <= "01";
-            rf_a_sel   <= '1';
-            rf_a_re    <= '0';
-            rf_b_re    <= '1';
-            mar_sel    <= "01";
-            mar_ld     <= '1';
-            mem_write  <= '1';
-            mem_read   <= '0';
-            next_state <= FETCH1;
-          when "11" => -- Indirect
-            next_state <= FETCH1;
+          when addr_mode_direct => -- Direct
+            mar_sel     <= "01";
+            mar_ld      <= '1';
+            address_sel <= '1';
+          when addr_mode_register => -- Register
+            address_sel <= '0';
+            mar_sel     <= "00";
+            mar_ld      <= '1';
+          when addr_mode_immediate =>
+            address_sel <= '0';
+            mar_sel     <= "00";
+            mar_ld      <= '1';
           when others =>
-            next_state <= FETCH1;
+            null;
         end case;
+
+        next_state <= MEM_ACCESS;
 
       when EXEC_JMP =>
         -- T3: PC ← target
@@ -483,8 +496,21 @@ begin
         next_state <= FETCH1;
 
       when MEM_ACCESS =>
+        case opcode is
+          when OP_LDR =>
+            mem_read   <= '1';
+            mem_write  <= '0';
+            next_state <= WRITE_BACK;
 
-        next_state <= WRITE_BACK;
+          when OP_STR | OP_STRPC =>
+            mem_write  <= '1';
+            mem_read   <= '0';
+            next_state <= FETCH1;
+
+          when others =>
+            null;
+        end case;
+        --next_state <= FETCH1;
 
       when WRITE_BACK =>
         case opcode is
