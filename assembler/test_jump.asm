@@ -1,4 +1,4 @@
 start: NOOP ;starting the program
-	JMP R2
+	DATACALL R4
 ENDPROG
 END  

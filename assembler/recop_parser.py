@@ -120,7 +120,8 @@ class ReCOPParser:
                         # Register on only Rz
                         if ("lsip" in r_inst):
                             inst = inst + utils.int_to_bin(reg_num, 4) + '0' * 4
-                            
+                        elif ("datacall" in r_inst):
+                            inst = inst + '0111' + utils.int_to_bin(reg_num, 4)
                         # Register on only Rx
                         else:
                             if instruction["addr_mode"] != "immediate":
