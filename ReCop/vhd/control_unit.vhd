@@ -14,8 +14,8 @@ entity control_unit is
     opcode          : in std_logic_vector(5 downto 0);
 
     -- Instruction Register (IR)
-    ir_reset : out std_logic;
-    ir_ld    : out std_logic;
+    ir_reset : out std_logic := '0';
+    ir_ld    : out std_logic := '0';
 
     rf_a_sel : out std_logic;
     rf_b_sel : out std_logic_vector(1 downto 0);
@@ -74,13 +74,15 @@ entity control_unit is
     eot_clear : out std_logic;
 
     -- GOSH DARN IT
-    pc_reset    : out std_logic;
+    pc_reset    : out std_logic := '0';
     address_sel : out std_logic;
     z_flag      : in std_logic;
 
     data_mem_wr_data_sel : out std_logic_vector(1 downto 0);
 
-    pc_inc : out std_logic
+    pc_ld : out std_logic;
+
+    state_out : out std_logic_vector(5 downto 0)
   );
 end entity control_unit;
 
@@ -118,6 +120,42 @@ architecture fsm of control_unit is
     MEM_ACCESS,
     WRITE_BACK
   );
+
+  function state_to_std6(state : state_type) return std_logic_vector is
+  begin
+    case state is
+      when FETCH1            => return "000000";
+      when FETCH2            => return "000001";
+      when DECODE            => return "000010";
+      when EXEC_LDR          => return "000011";
+      when EXEC_STR          => return "000100";
+      when EXEC_JMP          => return "000101";
+      when EXEC_PRESENT      => return "000110";
+      when EXEC_ANDR         => return "000111";
+      when EXEC_ORR          => return "001000";
+      when EXEC_ADDR         => return "001001";
+      when EXEC_SUBR         => return "001010";
+      when EXEC_SUBVR        => return "001011";
+      when EXEC_CLFZ         => return "001100";
+      when EXEC_CER          => return "001101";
+      when EXEC_CEOT         => return "001110";
+      when EXEC_SEOT         => return "001111";
+      when EXEC_NOOP         => return "010000";
+      when EXEC_SZ           => return "010001";
+      when EXEC_LER          => return "010010";
+      when EXEC_SSVOP        => return "010011";
+      when EXEC_SSOP         => return "010100";
+      when EXEC_LSIP         => return "010101";
+      when EXEC_DATACALL_REG => return "010110";
+      when EXEC_DATACALL_IMM => return "010111";
+      when EXEC_MAX          => return "011000";
+      when EXEC_STRPC        => return "011001";
+      when EXEC_SRES         => return "011010";
+      when MEM_ACCESS        => return "011011";
+      when WRITE_BACK        => return "011100";
+    end case;
+  end function;
+
   signal state, next_state : state_type;
 
   -- Opcode constants
@@ -157,422 +195,427 @@ begin
     end if;
   end process;
 
+  state_out <= state_to_std6(state);
+
   -- FSM next-state and outputs
   process (state, opcode, reset)
   begin
-    if (reset = '1') then
-      -- default all controls off
-      mar_sel     <= (others => '0');
-      mar_ld      <= '0';
-      mar_reset   <= '0';
-      ir_reset    <= '0';
-      ir_ld       <= '0';
-      wr_data_sel <= "00";
-      rf_reset    <= '0';
-      rf_wr       <= '0';
-      alu_rb_sel  <= (others => '0');
-      address_sel <= '0';
-      mem_read    <= '0';
-      mem_write   <= '0';
-      reset_alu   <= '0';
-      alu_op      <= (others => '0');
-      clr_z_flag  <= '0';
-      pc_sel      <= (others => '0');
-      next_state  <= FETCH1;
-    end if;
+    -- if (reset = '1') then
+    --   -- default all controls off
+    --   mar_sel     <= (others => '0');
+    --   mar_ld      <= '0';
+    --   mar_reset   <= '0';
+    --   ir_reset    <= '0';
+    --   ir_ld       <= '0';
+    --   wr_data_sel <= "00";
+    --   rf_reset    <= '0';
+    --   rf_wr       <= '0';
+    --   alu_rb_sel  <= (others => '0');
+    --   address_sel <= '0';
+    --   mem_read    <= '0';
+    --   mem_write   <= '0';
+    --   reset_alu   <= '0';
+    --   alu_op      <= (others => '0');
+    --   clr_z_flag  <= '0';
+    --   pc_sel      <= (others => '0');
+    --   next_state  <= FETCH1;
+    -- end if;
 
     if (state = FETCH1) then
-      pc_inc <= '1';
+      pc_ld <= '1';
     else
-      pc_inc <= '0';
+      pc_ld <= '0';
     end if;
 
-    case state is
-      when FETCH1 =>
-        -- T0: MAR ← PC ; PC ← PC+1
-        mar_sel    <= "00"; -- PC
-        pc_sel     <= "10"; -- PC+1
-        mar_ld     <= '1';
-        rf_wr      <= '0';
-        sop_ld     <= '0';
-        svop_ld    <= '0';
-        clr_z_flag <= '0';
-        mem_write  <= '0';
-        mem_read   <= '0';
-        dpcr_ld    <= '0';
-        sip_ld     <= '0';
-        er_clear   <= '0';
-        er_ld      <= '0';
-        eot_ld     <= '0';
-        eot_clear  <= '0';
-        next_state <= FETCH2;
+    if state = FETCH1 then
+      -- T0: MAR ← PC ; PC ← PC+1
+      mar_sel    <= "00"; -- PC
+      pc_sel     <= "10"; -- PC+1
+      mar_ld     <= '1';
+      rf_wr      <= '0';
+      sop_ld     <= '0';
+      svop_ld    <= '0';
+      clr_z_flag <= '0';
+      mem_write  <= '0';
+      mem_read   <= '0';
+      dpcr_ld    <= '0';
+      sip_ld     <= '0';
+      er_clear   <= '0';
+      er_ld      <= '0';
+      eot_ld     <= '0';
+      eot_clear  <= '0';
+      ir_ld      <= '1';
+      next_state <= FETCH2;
 
-      when FETCH2 =>
-        -- T1: IR ← ProgMem[MAR]
-        mar_ld <= '0';
-        -- mem_read   <= '1';
-        ir_ld      <= '1';
-        next_state <= DECODE;
+    elsif state = FETCH2 then
+      -- T1: IR ← ProgMem[MAR]
+      mar_ld <= '0';
+      -- mem_read   <= '1';
+      ir_ld      <= '1';
+      next_state <= DECODE;
 
-      when DECODE =>
-        -- T2: decode opcode
-        if opcode = OP_LDR then
-          case addressing_mode is
-            when addr_mode_immediate => -- Immediate
-              wr_data_sel <= "00";
-            when addr_mode_direct => -- Direct
-              mar_sel     <= "01";
-              mar_ld      <= '1';
-              mem_read    <= '1';
-              wr_data_sel <= "01";
-            when addr_mode_register => -- Register
-              mar_sel     <= "00";
-              mar_ld      <= '1';
-              mem_read    <= '1';
-              wr_data_sel <= "01";
-            when others =>
-              null;
-          end case;
-          next_state <= EXEC_LDR;
-        elsif opcode = OP_STR then
-          rf_a_re <= '1';
-          rf_b_re <= '1';
-          case addressing_mode is
-            when addr_mode_immediate =>
-              alu_ra_sel           <= "01";
-              alu_rb_sel           <= "01";
-              data_mem_wr_data_sel <= "01";
-            when addr_mode_register =>
-              alu_ra_sel           <= "00";
-              alu_rb_sel           <= "00";
-              data_mem_wr_data_sel <= "00";
-            when addr_mode_direct =>
-              alu_ra_sel           <= "01"; -- Flip Rz and Rx
-              alu_rb_sel           <= "01";
-              data_mem_wr_data_sel <= "00";
-            when others =>
-              null;
-          end case;
-          next_state <= EXEC_STR;
-        elsif opcode = OP_JMP then
-          next_state <= EXEC_JMP;
-        elsif opcode = OP_PRESENT then
-          -- Rb is from zero register
-          rf_a_re    <= '0';
-          rf_b_re    <= '1';
+    elsif state = DECODE then
+      -- T2: decode opcode
+      if opcode = OP_LDR then
+        case addressing_mode is
+          when addr_mode_immediate => -- Immediate
+            wr_data_sel <= "00";
+          when addr_mode_direct => -- Direct
+            mar_sel     <= "01";
+            mar_ld      <= '1';
+            mem_read    <= '1';
+            wr_data_sel <= "01";
+          when addr_mode_register => -- Register
+            mar_sel     <= "00";
+            mar_ld      <= '1';
+            mem_read    <= '1';
+            wr_data_sel <= "01";
+          when others =>
+            null;
+        end case;
+        next_state <= EXEC_LDR;
+      elsif opcode = OP_STR then
+        rf_a_re <= '1';
+        rf_b_re <= '1';
+        case addressing_mode is
+          when addr_mode_immediate =>
+            alu_ra_sel           <= "01";
+            alu_rb_sel           <= "01";
+            data_mem_wr_data_sel <= "01";
+          when addr_mode_register =>
+            alu_ra_sel           <= "00";
+            alu_rb_sel           <= "00";
+            data_mem_wr_data_sel <= "00";
+          when addr_mode_direct =>
+            alu_ra_sel           <= "01"; -- Flip Rz and Rx
+            alu_rb_sel           <= "01";
+            data_mem_wr_data_sel <= "00";
+          when others =>
+            null;
+        end case;
+        next_state <= EXEC_STR;
+      elsif opcode = OP_JMP then
+        next_state <= EXEC_JMP;
+      elsif opcode = OP_PRESENT then
+        -- Rb is from zero register
+        rf_a_re    <= '0';
+        rf_b_re    <= '1';
+        alu_ra_sel <= "00";
+        alu_rb_sel <= "00";
+        next_state <= EXEC_PRESENT;
+      elsif opcode = OP_ANDR then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_ANDR;
+      elsif opcode = OP_ORR then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_ORR;
+      elsif opcode = OP_MAX then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_MAX;
+      elsif opcode = OP_ADDR then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_ADDR;
+      elsif opcode = OP_SUBR then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_SUBR;
+      elsif opcode = OP_SUBVR then
+        rf_a_re    <= '1';
+        rf_b_re    <= '1';
+        next_state <= EXEC_SUBVR;
+      elsif opcode = OP_CLFZ then
+        next_state <= EXEC_CLFZ;
+      elsif opcode = OP_NOOP then
+        next_state <= EXEC_NOOP;
+      elsif opcode = OP_SZ then
+        next_state <= EXEC_SZ;
+
+        -- TODO: DO LER Register
+      elsif opcode = OP_LER then
+        next_state <= EXEC_LER;
+
+        -- TODO: Do SVOP Register
+      elsif opcode = OP_SSVOP then
+        rf_a_re    <= '1';
+        rf_b_re    <= '0';
+        next_state <= EXEC_SSVOP;
+      elsif opcode = OP_SSOP then
+        rf_a_re    <= '1';
+        rf_b_re    <= '0';
+        next_state <= EXEC_SSOP;
+      elsif opcode = OP_LSIP then
+        wr_data_sel <= "11";
+        next_state  <= EXEC_LSIP;
+      elsif opcode = OP_DATACALL_REG then
+        dpcr_low_sel <= '0';
+        next_state   <= EXEC_DATACALL_REG;
+      elsif opcode = OP_DATACALL_IMM then
+        dpcr_low_sel <= '1';
+        next_state   <= EXEC_DATACALL_IMM;
+      elsif opcode = OP_STRPC then
+        data_mem_wr_data_sel <= "10";
+        next_state           <= EXEC_STRPC;
+      elsif opcode = OP_SRES then
+        next_state <= EXEC_SRES;
+      elsif opcode = OP_CER then
+        next_state <= EXEC_CER;
+      elsif opcode = OP_CEOT then
+        next_state <= EXEC_CEOT;
+      elsif opcode = OP_SEOT then
+        next_state <= EXEC_SEOT;
+      else
+        next_state <= FETCH1;
+      end if;
+
+    elsif state = EXEC_LDR then
+      next_state <= MEM_ACCESS;
+
+    elsif state = EXEC_STR then
+      alu_op <= alu_add;
+      case addressing_mode is
+        when addr_mode_direct => -- Direct
+          mar_sel     <= "01";
+          mar_ld      <= '1';
+          address_sel <= '1';
+        when addr_mode_register => -- Register
+          address_sel <= '0';
+          mar_sel     <= "00";
+          mar_ld      <= '1';
+        when addr_mode_immediate =>
+          address_sel <= '0';
+          mar_sel     <= "00";
+          mar_ld      <= '1';
+        when others =>
+          null;
+      end case;
+
+      next_state <= MEM_ACCESS;
+
+    elsif state = EXEC_JMP then
+      -- T3: PC ← target
+      pc_sel     <= "01";
+      next_state <= FETCH1;
+
+    elsif state = EXEC_PRESENT then
+      -- T3: TEST PRESENT Rz, Rx
+      alu_op <= alu_add;
+      if z_flag = '1' then
+        pc_sel     <= "01";
+        clr_z_flag <= '1';
+      end if;
+      next_state <= FETCH1;
+
+    elsif state = EXEC_ANDR then
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when addr_mode_register =>
           alu_ra_sel <= "00";
           alu_rb_sel <= "00";
-          next_state <= EXEC_PRESENT;
-        elsif opcode = OP_ANDR then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_ANDR;
-        elsif opcode = OP_ORR then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_ORR;
-        elsif opcode = OP_MAX then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_MAX;
-        elsif opcode = OP_ADDR then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_ADDR;
-        elsif opcode = OP_SUBR then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_SUBR;
-        elsif opcode = OP_SUBVR then
-          rf_a_re    <= '1';
-          rf_b_re    <= '1';
-          next_state <= EXEC_SUBVR;
-        elsif opcode = OP_CLFZ then
-          next_state <= EXEC_CLFZ;
-        elsif opcode = OP_NOOP then
-          next_state <= EXEC_NOOP;
-        elsif opcode = OP_SZ then
-          next_state <= EXEC_SZ;
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_and;
+      next_state <= WRITE_BACK;
 
-          -- TODO: DO LER Register
-        elsif opcode = OP_LER then
-          next_state <= EXEC_LER;
+    elsif state = EXEC_ORR then
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when addr_mode_register =>
+          alu_ra_sel <= "00";
+          alu_rb_sel <= "00";
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_or;
+      next_state <= WRITE_BACK;
 
-          -- TODO: Do SVOP Register
-        elsif opcode = OP_SSVOP then
-          rf_a_re    <= '1';
-          rf_b_re    <= '0';
-          next_state <= EXEC_SSVOP;
-        elsif opcode = OP_SSOP then
-          rf_a_re    <= '1';
-          rf_b_re    <= '0';
-          next_state <= EXEC_SSOP;
-        elsif opcode = OP_LSIP then
-          wr_data_sel <= "11";
-          next_state  <= EXEC_LSIP;
-        elsif opcode = OP_DATACALL_REG then
-          dpcr_low_sel <= '0';
-          next_state   <= EXEC_DATACALL_REG;
-        elsif opcode = OP_DATACALL_IMM then
-          dpcr_low_sel <= '1';
-          next_state   <= EXEC_DATACALL_IMM;
-        elsif opcode = OP_STRPC then
-          data_mem_wr_data_sel <= "10";
-          next_state           <= EXEC_STRPC;
-        elsif opcode = OP_SRES then
-          next_state   <= EXEC_SRES;
-        elsif opcode <= OP_CER then
-          next_state   <= EXEC_CER;
-        elsif opcode <= OP_CEOT then
-          next_state   <= EXEC_CEOT;
-        elsif opcode <= OP_SEOT then
-          next_state   <= EXEC_SEOT;
-        else
-          next_state <= FETCH1;
-        end if;
+    elsif state = EXEC_MAX then
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when addr_mode_register =>
+          alu_ra_sel <= "00";
+          alu_rb_sel <= "00";
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_max;
+      next_state <= WRITE_BACK;
 
-      when EXEC_LDR =>
-        next_state <= MEM_ACCESS;
-      when EXEC_STR =>
-        alu_op <= alu_add;
-        case addressing_mode is
-          when addr_mode_direct => -- Direct
-            mar_sel     <= "01";
-            mar_ld      <= '1';
-            address_sel <= '1';
-          when addr_mode_register => -- Register
-            address_sel <= '0';
-            mar_sel     <= "00";
-            mar_ld      <= '1';
-          when addr_mode_immediate =>
-            address_sel <= '0';
-            mar_sel     <= "00";
-            mar_ld      <= '1';
-          when others =>
-            null;
-        end case;
+    elsif state = EXEC_ADDR then
+      -- T3: Rz ← Rz + (#imm/Rx)
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when addr_mode_register =>
+          alu_ra_sel <= "00";
+          alu_rb_sel <= "00";
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_add;
+      next_state <= WRITE_BACK;
 
-        next_state <= MEM_ACCESS;
+    elsif state = EXEC_SUBR then
+      -- Subtract immediate without writing to register
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_sub;
+      next_state <= FETCH1;
 
-      when EXEC_JMP =>
-        -- T3: PC ← target
+    elsif state = EXEC_SUBVR then
+      -- T3: Rz ← Rz - #imm
+      case addressing_mode is
+        when addr_mode_immediate =>
+          alu_ra_sel <= "01";
+          alu_rb_sel <= "10";
+        when addr_mode_register =>
+          alu_ra_sel <= "00";
+          alu_rb_sel <= "00";
+        when others =>
+          null;
+      end case;
+      alu_op     <= alu_sub;
+      next_state <= WRITE_BACK;
+
+    elsif state = EXEC_CLFZ then
+      -- T3: clear Z flag
+      clr_z_flag <= '1';
+      next_state <= FETCH1;
+
+    elsif state = EXEC_NOOP then
+      -- NOP
+      next_state <= FETCH1;
+
+    elsif state = EXEC_SZ then
+      -- Set Z-flag based on immediate
+      if z_flag = '1' then
         pc_sel     <= "01";
-        next_state <= FETCH1;
-
-      when EXEC_PRESENT =>
-        -- T3: TEST PRESENT Rz, Rx
-        alu_op <= alu_add;
-        if z_flag = '1' then
-          pc_sel     <= "01";
-          clr_z_flag <= '1';
-        end if;
-        next_state <= FETCH1;
-
-      when EXEC_ANDR =>
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when addr_mode_register =>
-            alu_ra_sel <= "00";
-            alu_rb_sel <= "00";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_and;
-        next_state <= WRITE_BACK;
-      when EXEC_ORR =>
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when addr_mode_register =>
-            alu_ra_sel <= "00";
-            alu_rb_sel <= "00";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_or;
-        next_state <= WRITE_BACK;
-
-      when EXEC_MAX =>
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when addr_mode_register =>
-            alu_ra_sel <= "00";
-            alu_rb_sel <= "00";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_max;
-        next_state <= WRITE_BACK;
-
-      when EXEC_ADDR =>
-        -- T3: Rz ← Rz + (#imm/Rx)
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when addr_mode_register =>
-            alu_ra_sel <= "00";
-            alu_rb_sel <= "00";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_add;
-        next_state <= WRITE_BACK;
-
-      when EXEC_SUBR =>
-        -- Subtract immediate without writing to register
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_sub;
-        next_state <= FETCH1;
-
-      when EXEC_SUBVR =>
-        -- T3: Rz ← Rz - #imm
-        case addressing_mode is
-          when addr_mode_immediate =>
-            alu_ra_sel <= "01";
-            alu_rb_sel <= "10";
-          when addr_mode_register =>
-            alu_ra_sel <= "00";
-            alu_rb_sel <= "00";
-          when others =>
-            null;
-        end case;
-        alu_op     <= alu_sub;
-        next_state <= WRITE_BACK;
-      when EXEC_CLFZ =>
-        -- T3: clear Z flag
         clr_z_flag <= '1';
-        next_state <= FETCH1;
+      end if;
+      next_state <= FETCH1;
 
-      when EXEC_NOOP =>
-        -- NOP
-        next_state <= FETCH1;
+    elsif state = EXEC_SSOP then
+      sop_ld     <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_SZ =>
-        -- Set Z-flag based on immediate
-        if z_flag = '1' then
-          pc_sel     <= "01";
-          clr_z_flag <= '1';
-        end if;
-        next_state <= FETCH1;
+    elsif state = EXEC_SSVOP then
+      svop_ld    <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_SSOP =>
-        sop_ld     <= '1';
-        next_state <= FETCH1;
+    elsif state = EXEC_LSIP then
+      sip_ld     <= '1';
+      next_state <= WRITE_BACK;
 
-      when EXEC_SSVOP =>
-        svop_ld    <= '1';
-        next_state <= FETCH1;
+    elsif state = EXEC_DATACALL_REG then
+      dpcr_ld    <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_LSIP =>
-        sip_ld     <= '1';
-        next_state <= WRITE_BACK;
+    elsif state = EXEC_DATACALL_IMM then
+      dpcr_ld    <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_DATACALL_REG =>
-        dpcr_ld    <= '1';
-        next_state <= FETCH1;
+    elsif state = EXEC_STRPC then
 
-      when EXEC_DATACALL_IMM =>
-        dpcr_ld    <= '1';
-        next_state <= FETCH1;
+      case addressing_mode is
+        when addr_mode_direct => -- Direct
+          mar_sel     <= "01";
+          mar_ld      <= '1';
+          address_sel <= '1';
+        when others =>
+          null;
+      end case;
+      next_state <= MEM_ACCESS;
 
-      when EXEC_STRPC =>
+    elsif state = EXEC_SRES then
+      -- System Reset
+      mar_reset  <= '1';
+      ir_reset   <= '1';
+      rf_reset   <= '1';
+      reset_alu  <= '1';
+      next_state <= FETCH1;
 
-        case addressing_mode is
-          when addr_mode_direct => -- Direct
-            mar_sel     <= "01";
-            mar_ld      <= '1';
-            address_sel <= '1';
-          when others =>
-            null;
-        end case;
-        next_state <= MEM_ACCESS;
+    elsif state = EXEC_LER then
+      next_state <= WRITE_BACK;
 
-      when EXEC_SRES =>
-        -- System Reset
-        mar_reset  <= '1';
-        ir_reset   <= '1';
-        rf_reset   <= '1';
-        reset_alu  <= '1';
-        next_state <= FETCH1;
+    elsif state = EXEC_CER then
+      er_clear   <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_LER =>
-        next_state <= WRITE_BACK;
+    elsif state = EXEC_CEOT then
+      eot_clear  <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_CER =>
-        er_clear   <= '1';
-        next_state <= FETCH1;
+    elsif state = EXEC_SEOT then
+      eot_ld     <= '1';
+      next_state <= FETCH1;
 
-      when EXEC_CEOT =>
-        eot_clear  <= '1';
-        next_state <= FETCH1;
+    elsif state = MEM_ACCESS then
+      case opcode is
+        when OP_LDR =>
+          mem_read   <= '1';
+          mem_write  <= '0';
+          next_state <= WRITE_BACK;
 
-      when EXEC_SEOT =>
-        eot_ld     <= '1';
-        next_state <= FETCH1;
+        when OP_STR | OP_STRPC =>
+          mem_write  <= '1';
+          mem_read   <= '0';
+          next_state <= FETCH1;
 
-      when MEM_ACCESS =>
-        case opcode is
-          when OP_LDR =>
-            mem_read   <= '1';
-            mem_write  <= '0';
-            next_state <= WRITE_BACK;
+        when others =>
+          null;
+      end case;
+      --next_state <= FETCH1;
 
-          when OP_STR | OP_STRPC =>
-            mem_write  <= '1';
-            mem_read   <= '0';
-            next_state <= FETCH1;
+    elsif state = WRITE_BACK then
+      case opcode is
+          -- Loads
+        when OP_LSIP =>
+          wr_data_sel <= "11";
+          sip_ld      <= '0';
+        when OP_LDR =>
+          case addressing_mode is
+            when addr_mode_immediate =>
+              wr_data_sel <= "00"; -- immediate
+            when addr_mode_direct | addr_mode_register =>
+              wr_data_sel <= "01"; -- memory
+            when others =>
+              null;
+          end case;
+          -- ALU operations (write ALU result)
+        when OP_ANDR | OP_ORR | OP_ADDR | OP_SUBR | OP_SUBVR | OP_MAX =>
+          wr_data_sel   <= "10"; -- ALU / ER
+          rf_alu_er_sel <= '0';
+          -- Other special cases
+        when OP_LER =>
+          wr_data_sel   <= "10"; -- ALU / ER
+          rf_alu_er_sel <= '1';
+        when others =>
+          wr_data_sel <= "00"; -- default safe
+      end case;
 
-          when others =>
-            null;
-        end case;
-        --next_state <= FETCH1;
-
-      when WRITE_BACK =>
-        case opcode is
-            -- Loads
-          when OP_LSIP =>
-            wr_data_sel <= "11";
-            sip_ld      <= '0';
-          when OP_LDR =>
-            case addressing_mode is
-              when addr_mode_immediate =>
-                wr_data_sel <= "00"; -- immediate
-              when addr_mode_direct | addr_mode_register =>
-                wr_data_sel <= "01"; -- memory
-              when others =>
-                null;
-            end case;
-            -- ALU operations (write ALU result)
-          when OP_ANDR | OP_ORR | OP_ADDR | OP_SUBR | OP_SUBVR | OP_MAX =>
-            wr_data_sel   <= "10"; -- ALU / ER
-            rf_alu_er_sel <= '0';
-            -- Other special cases
-          when OP_LER =>
-            wr_data_sel   <= "10"; -- ALU / ER
-            rf_alu_er_sel <= '1';
-          when others =>
-            wr_data_sel <= "00"; -- default safe
-        end case;
-
-        rf_wr      <= '1';
-        rf_a_re    <= '0';
-        rf_b_re    <= '0';
-        clr_z_flag <= '1';
-        next_state <= FETCH1;
-      when others =>
-        next_state <= FETCH1;
-    end case;
+      rf_wr      <= '1';
+      rf_a_re    <= '0';
+      rf_b_re    <= '0';
+      clr_z_flag <= '1';
+      next_state <= FETCH1;
+    else
+      next_state <= FETCH1;
+    end if;
   end process;
 end architecture fsm;

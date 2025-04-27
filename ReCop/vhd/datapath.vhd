@@ -9,7 +9,7 @@ entity datapath is
 
     pc_reset : in std_logic;
     pc_sel   : in std_logic_vector(1 downto 0);
-    pc_inc   : in std_logic;
+    pc_ld    : in std_logic;
 
     dpcr_ld      : in std_logic;
     dpcr_reset   : in std_logic;
@@ -73,7 +73,9 @@ entity datapath is
     -- SVOP
     svop_reset : in std_logic;
     svop_ld    : in std_logic;
-    svop_out   : out std_logic_vector(15 downto 0)
+    svop_out   : out std_logic_vector(15 downto 0);
+
+    pc_plus_one : out std_logic_vector(15 downto 0)
   );
 end entity datapath;
 
@@ -285,9 +287,9 @@ architecture rtl of datapath is
   end component;
 
   -- Internal Signals
-  signal s_pc_mux_out   : std_logic_vector(15 downto 0);
-  signal s_pc_out       : std_logic_vector(15 downto 0);
-  signal s_pc_plus_one  : std_logic_vector(15 downto 0);
+  signal s_pc_mux_out   : std_logic_vector(15 downto 0) := (others => '0');
+  signal s_pc_out       : std_logic_vector(15 downto 0) := (others => '0');
+  signal s_pc_plus_one  : std_logic_vector(15 downto 0) := (others => '0');
   signal s_data_mem_out : std_logic_vector(15 downto 0);
   signal s_operand      : std_logic_vector(15 downto 0);
   signal s_rx_out       : std_logic_vector(15 downto 0);
@@ -332,13 +334,14 @@ begin
   program_counter_inst : entity work.program_counter
     port map
     (
-      clk      => pc_inc,
+      clk      => pc_ld,
       pc_in    => s_pc_mux_out,
       pc_reset => pc_reset,
       pc_out   => s_pc_out
     );
 
-  pc_out <= s_pc_out;
+  pc_out      <= s_pc_out;
+  pc_plus_one <= s_pc_plus_one;
 
   adder_1_inst : entity work.adder_1
     generic map(

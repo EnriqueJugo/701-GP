@@ -4,15 +4,15 @@ use ieee.numeric_std.all;
 
 entity instruction_register is
   port (
-    clk       : in std_logic;
-    reset     : in std_logic;
-    ir_ld     : in std_logic;
+    clk       : in std_logic := '0';
+    reset     : in std_logic := '0';
+    ir_ld     : in std_logic := '0';
     ir_data   : in std_logic_vector(31 downto 0);
-    addr_mode : out std_logic_vector(1 downto 0);
-    opcode    : out std_logic_vector(5 downto 0);
-    operand   : out std_logic_vector(15 downto 0);
-    rz        : out std_logic_vector(3 downto 0);
-    rx        : out std_logic_vector(3 downto 0)
+    addr_mode : out std_logic_vector(1 downto 0)  := (others => '0');
+    opcode    : out std_logic_vector(5 downto 0)  := (others => '0');
+    operand   : out std_logic_vector(15 downto 0) := (others => '0');
+    rz        : out std_logic_vector(3 downto 0)  := (others => '0');
+    rx        : out std_logic_vector(3 downto 0)  := (others => '0')
   );
 end entity instruction_register;
 

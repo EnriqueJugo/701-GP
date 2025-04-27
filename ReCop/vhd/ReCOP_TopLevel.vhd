@@ -4,11 +4,20 @@ use ieee.numeric_std.all;
 
 entity ReCOP_TopLevel is
   port (
-    clk        : in std_logic;
-    reset      : in std_logic;
-    sip_input  : in std_logic_vector(15 downto 0);
-    sop_output : out std_logic_vector(15 downto 0);
-    z_flag_out : out std_logic
+    clk            : in std_logic;
+    reset          : in std_logic;
+    sip_input      : in std_logic_vector(15 downto 0);
+    sop_output     : out std_logic_vector(15 downto 0);
+    pc_ld_tb       : out std_logic;
+    pc_out_tb      : out std_logic_vector(15 downto 0);
+    pc_plus_one_tb : out std_logic_vector(15 downto 0);
+    pc_sel_tb      : out std_logic_vector(1 downto 0);
+    state_tb       : out std_logic_vector(5 downto 0);
+    inst_tb        : out std_logic_vector(31 downto 0);
+    ir_ld_tb       : out std_logic;
+    opcode_tb      : out std_logic_vector(5 downto 0);
+    ir_reset_tb    : out std_logic;
+    z_flag_out     : out std_logic
   );
 end entity;
 
@@ -34,7 +43,7 @@ architecture structural of ReCOP_TopLevel is
   signal svop_reset, svop_ld  : std_logic;
   signal dpcr_ld, dpcr_reset  : std_logic;
   signal dpcr_low_sel         : std_logic;
-  signal pc_inc               : std_logic;
+  signal pc_ld                : std_logic;
   signal alu_ra_sel           : std_logic_vector(1 downto 0);
   signal alu_rb_sel           : std_logic_vector(1 downto 0);
   signal data_mem_wr_data_sel : std_logic_vector(1 downto 0);
@@ -88,7 +97,7 @@ begin
       pc_reset             => pc_reset,
       address_sel          => address_sel,
       z_flag               => z_flag,
-      pc_inc               => pc_inc,
+      pc_ld                => pc_ld,
       alu_ra_sel           => alu_ra_sel,
       alu_rb_sel           => alu_rb_sel,
       data_mem_wr_data_sel => data_mem_wr_data_sel,
@@ -98,8 +107,15 @@ begin
       er_clear             => er_clear,
       eot_ld               => eot_ld,
       eot_clear            => eot_clear,
-      rf_alu_er_sel        => rf_alu_er_sel
+      rf_alu_er_sel        => rf_alu_er_sel,
+      state_out            => state_tb
     );
+
+  pc_ld_tb    <= pc_ld;
+  pc_sel_tb   <= pc_sel;
+  ir_ld_tb    <= ir_ld;
+  opcode_tb   <= opcode;
+  ir_reset_tb <= ir_reset;
 
   -- Instantiate the datapath
   datapath_inst : entity work.datapath
@@ -134,15 +150,15 @@ begin
       addr_sel             => address_sel,
       clr_z_flag           => clr_z_flag,
       wr_data_sel          => wr_data_sel,
-      pc_out               => open,
+      pc_out               => pc_out_tb,
       dpcr_out             => open,
-      inst_out             => open,
+      inst_out             => inst_tb,
       addr_mode            => addressing_mode,
       opcode               => opcode,
       sop_out              => sop_output,
       z_flag               => z_flag,
       read_data_out        => open,
-      pc_inc               => pc_inc,
+      pc_ld                => pc_ld,
       alu_ra_sel           => alu_ra_sel,
       alu_rb_sel           => alu_rb_sel,
       data_mem_wr_data_sel => data_mem_wr_data_sel,
@@ -152,7 +168,8 @@ begin
       er_clear             => er_clear,
       eot_ld               => eot_ld,
       eot_clear            => eot_clear,
-      alu_er_sel           => rf_alu_er_sel
+      alu_er_sel           => rf_alu_er_sel,
+      pc_plus_one          => pc_plus_one_tb
     );
 
   z_flag_out <= z_flag;
