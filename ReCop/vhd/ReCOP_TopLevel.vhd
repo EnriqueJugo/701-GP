@@ -31,13 +31,13 @@ architecture structural of ReCOP_TopLevel is
   signal address_sel          : std_logic;
   signal sop_reset, sop_ld    : std_logic;
   signal sip_reset, sip_ld    : std_logic;
+  signal svop_reset, svop_ld  : std_logic;
   signal dpcr_ld, dpcr_reset  : std_logic;
   signal dpcr_low_sel         : std_logic;
   signal pc_inc               : std_logic;
   signal alu_ra_sel           : std_logic_vector(1 downto 0);
   signal alu_rb_sel           : std_logic_vector(1 downto 0);
   signal data_mem_wr_data_sel : std_logic_vector(1 downto 0);
-
   -- Instruction decoder outputs
   signal addressing_mode : std_logic_vector(1 downto 0);
   signal opcode          : std_logic_vector(5 downto 0);
@@ -87,7 +87,9 @@ begin
       pc_inc               => pc_inc,
       alu_ra_sel           => alu_ra_sel,
       alu_rb_sel           => alu_rb_sel,
-      data_mem_wr_data_sel => data_mem_wr_data_sel
+      data_mem_wr_data_sel => data_mem_wr_data_sel,
+      svop_ld              => svop_ld,
+      svop_reset           => svop_reset
     );
 
   -- Instantiate the datapath
@@ -134,7 +136,9 @@ begin
       pc_inc               => pc_inc,
       alu_ra_sel           => alu_ra_sel,
       alu_rb_sel           => alu_rb_sel,
-      data_mem_wr_data_sel => data_mem_wr_data_sel
+      data_mem_wr_data_sel => data_mem_wr_data_sel,
+      svop_ld              => svop_ld,
+      svop_reset           => svop_reset
     );
 
   z_flag_out <= z_flag;

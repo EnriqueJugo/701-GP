@@ -59,7 +59,12 @@ entity datapath is
     opcode        : out std_logic_vector(5 downto 0);
     sop_out       : out std_logic_vector(15 downto 0);
     z_flag        : out std_logic;
-    read_data_out : out std_logic_vector(15 downto 0)
+    read_data_out : out std_logic_vector(15 downto 0);
+
+    -- SVOP
+    svop_reset : in std_logic;
+    svop_ld    : in std_logic;
+    svop_out   : out std_logic_vector(15 downto 0)
   );
 end entity datapath;
 
@@ -236,6 +241,16 @@ architecture rtl of datapath is
       sop_ld    : in std_logic;
       sop_in    : in std_logic_vector(15 downto 0);
       sop_out   : out std_logic_vector(15 downto 0)
+    );
+  end component;
+
+  component svop_register is
+    port (
+      clk        : in std_logic;
+      svop_reset : in std_logic;
+      svop_ld    : in std_logic; -- Load enable (used by FSM when SSOP Rx is decoded)
+      svop_in    : in std_logic_vector(15 downto 0);
+      svop_out   : out std_logic_vector(15 downto 0)
     );
   end component;
 
@@ -501,6 +516,16 @@ begin
       sip_ld    => sip_ld,
       sip_in    => sip_in,
       sip_out   => s_sip_data
+    );
+
+  svop_register_inst : entity work.svop_register
+    port map
+    (
+      clk        => clk,
+      svop_reset => svop_reset,
+      svop_ld    => svop_ld,
+      svop_in    => s_rf_rb_data,
+      svop_out   => svop_out
     );
 
 end rtl;

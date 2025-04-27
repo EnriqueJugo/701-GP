@@ -60,6 +60,10 @@ entity control_unit is
     sop_ld    : out std_logic;
     sop_reset : out std_logic;
 
+    -- SVOP
+    svop_ld    : out std_logic;
+    svop_reset : out std_logic;
+
     -- GOSH DARN IT
     pc_reset    : out std_logic;
     address_sel : out std_logic;
@@ -182,6 +186,7 @@ begin
         mar_ld     <= '1';
         rf_wr      <= '0';
         sop_ld     <= '0';
+        svop_ld    <= '0';
         clr_z_flag <= '0';
         mem_write  <= '0';
         mem_read   <= '0';
@@ -282,6 +287,8 @@ begin
 
           -- TODO: Do SVOP Register
         elsif opcode = OP_SSVOP then
+          rf_a_re    <= '1';
+          rf_b_re    <= '0';
           next_state <= EXEC_SSVOP;
         elsif opcode = OP_SSOP then
           rf_a_re    <= '1';
@@ -443,6 +450,10 @@ begin
 
       when EXEC_SSOP =>
         sop_ld     <= '1';
+        next_state <= FETCH1;
+
+      when EXEC_SSVOP =>
+        svop_ld    <= '1';
         next_state <= FETCH1;
 
       when EXEC_LSIP =>

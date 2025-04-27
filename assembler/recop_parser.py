@@ -115,7 +115,7 @@ class ReCOPParser:
                 # Register
                 if arg.startswith("r"):
                     reg_num = int(arg[1:])
-                    r_inst = {instruction["instruction"]}.intersection({"ssop", "jmp", "datacall", "datacall2", "lsip"})
+                    r_inst = {instruction["instruction"]}.intersection({"ssop", "ssvop", "jmp", "datacall", "datacall2", "lsip"})
                     if r_inst:
                         # Register on only Rz
                         if ("lsip" in r_inst):

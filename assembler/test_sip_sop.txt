@@ -1,3 +1,0 @@
-START:
-	LSIP R1
-	SSOP R1
