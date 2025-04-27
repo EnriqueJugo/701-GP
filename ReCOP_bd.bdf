@@ -23,7 +23,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 440 160 624 176)
 	(text "INPUT" (rect 141 0 183 15)(font "Arial" (font_size 6)))
-	(text "CLOCK_50" (rect 5 0 90 16)(font "Arial" ))
+	(text "CLOCK_50" (rect 5 0 89 16)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 	(input)
 	(rect 560 248 728 264)
 	(text "INPUT" (rect 125 0 167 15)(font "Arial" (font_size 6)))
-	(text "KEY[0]" (rect 5 0 56 16)(font "Arial" ))
+	(text "KEY[0]" (rect 5 0 55 16)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -288,13 +288,27 @@ refer to the applicable agreement for further details.
 		(rectangle (rect 16 16 232 352))
 	)
 )
-(connector
-	(pt 792 240)
-	(pt 784 240)
-)
-(connector
-	(pt 784 240)
-	(pt 784 168)
+(symbol
+	(rect 640 136 776 216)
+	(text "recop_pll" (rect 5 0 73 16)(font "Arial" ))
+	(text "inst1" (rect 8 64 44 85)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "inclk0" (rect 0 0 42 16)(font "Arial" ))
+		(text "inclk0" (rect 21 27 63 43)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 136 32)
+		(output)
+		(text "c0" (rect 0 0 17 16)(font "Arial" ))
+		(text "c0" (rect 101 27 118 43)(font "Arial" ))
+		(line (pt 136 32)(pt 120 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 120 64))
+	)
 )
 (connector
 	(pt 792 256)
@@ -320,6 +334,14 @@ refer to the applicable agreement for further details.
 	(bus)
 )
 (connector
+	(pt 792 240)
+	(pt 776 240)
+)
+(connector
+	(pt 776 240)
+	(pt 776 168)
+)
+(connector
 	(pt 624 168)
-	(pt 784 168)
+	(pt 640 168)
 )
