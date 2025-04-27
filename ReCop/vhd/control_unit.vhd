@@ -22,11 +22,12 @@ entity control_unit is
     reg_dst  : out std_logic;
 
     -- Register File write select
-    wr_data_sel : out std_logic_vector(1 downto 0); -- select data source for RF write
-    rf_reset    : out std_logic;
-    rf_wr       : out std_logic; -- write enable for destination register
-    rf_a_re     : out std_logic;
-    rf_b_re     : out std_logic;
+    wr_data_sel   : out std_logic_vector(1 downto 0); -- select data source for RF write
+    rf_reset      : out std_logic;
+    rf_wr         : out std_logic; -- write enable for destination register
+    rf_a_re       : out std_logic;
+    rf_b_re       : out std_logic;
+    rf_alu_er_sel : out std_logic;
 
     -- ALU inputs / memory controls
     alu_rb_sel : out std_logic_vector(1 downto 0); -- select B input for ALU
@@ -63,6 +64,14 @@ entity control_unit is
     -- SVOP
     svop_ld    : out std_logic;
     svop_reset : out std_logic;
+
+    -- ER
+    er_clear : out std_logic;
+    er_ld    : out std_logic;
+
+    -- EOT
+    eot_ld    : out std_logic;
+    eot_clear : out std_logic;
 
     -- GOSH DARN IT
     pc_reset    : out std_logic;
@@ -192,6 +201,10 @@ begin
         mem_read   <= '0';
         dpcr_ld    <= '0';
         sip_ld     <= '0';
+        er_clear   <= '0';
+        er_ld      <= '0';
+        eot_ld     <= '0';
+        eot_clear  <= '0';
         next_state <= FETCH2;
 
       when FETCH2 =>
@@ -307,7 +320,13 @@ begin
           data_mem_wr_data_sel <= "10";
           next_state           <= EXEC_STRPC;
         elsif opcode = OP_SRES then
-          next_state <= EXEC_SRES;
+          next_state   <= EXEC_SRES;
+        elsif opcode <= OP_CER then
+          next_state   <= EXEC_CER;
+        elsif opcode <= OP_CEOT then
+          next_state   <= EXEC_CEOT;
+        elsif opcode <= OP_SEOT then
+          next_state   <= EXEC_SEOT;
         else
           next_state <= FETCH1;
         end if;
@@ -488,6 +507,21 @@ begin
         reset_alu  <= '1';
         next_state <= FETCH1;
 
+      when EXEC_LER =>
+        next_state <= WRITE_BACK;
+
+      when EXEC_CER =>
+        er_clear   <= '1';
+        next_state <= FETCH1;
+
+      when EXEC_CEOT =>
+        eot_clear  <= '1';
+        next_state <= FETCH1;
+
+      when EXEC_SEOT =>
+        eot_ld     <= '1';
+        next_state <= FETCH1;
+
       when MEM_ACCESS =>
         case opcode is
           when OP_LDR =>
@@ -522,12 +556,12 @@ begin
             end case;
             -- ALU operations (write ALU result)
           when OP_ANDR | OP_ORR | OP_ADDR | OP_SUBR | OP_SUBVR | OP_MAX =>
-            wr_data_sel <= "10"; -- ALU result
+            wr_data_sel   <= "10"; -- ALU / ER
+            rf_alu_er_sel <= '0';
             -- Other special cases
           when OP_LER =>
-            wr_data_sel <= "10"; -- ALU
-          when OP_SZ =>
-            wr_data_sel <= "10"; -- ALU
+            wr_data_sel   <= "10"; -- ALU / ER
+            rf_alu_er_sel <= '1';
           when others =>
             wr_data_sel <= "00"; -- default safe
         end case;

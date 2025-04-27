@@ -52,6 +52,15 @@ entity datapath is
 
     data_mem_wr_data_sel : in std_logic_vector(1 downto 0);
 
+    -- EOT
+    eot_clear  : in std_logic;
+    eot_ld     : in std_logic;
+    alu_er_sel : in std_logic; -- Select between ALU or er for rf data write
+
+    -- ER
+    er_clear : in std_logic;
+    er_ld    : in std_logic;
+
     pc_out        : out std_logic_vector(15 downto 0);
     dpcr_out      : out std_logic_vector(31 downto 0);
     inst_out      : out std_logic_vector(31 downto 0);
@@ -254,6 +263,27 @@ architecture rtl of datapath is
     );
   end component;
 
+  component er_register is
+    port (
+      clk       : in std_logic;
+      er_ld     : in std_logic; -- Load signal
+      er_set    : in std_logic;
+      er_clear  : in std_logic;
+      er_out    : out std_logic;
+      er_out_16 : out std_logic_vector(15 downto 0)
+    );
+  end component;
+
+  component eot_register is
+    port (
+      clk       : in std_logic;
+      eot_ld    : in std_logic; -- Load signal
+      eot_set   : in std_logic;
+      eot_clear : in std_logic;
+      eot_out   : out std_logic
+    );
+  end component;
+
   -- Internal Signals
   signal s_pc_mux_out   : std_logic_vector(15 downto 0);
   signal s_pc_out       : std_logic_vector(15 downto 0);
@@ -293,6 +323,10 @@ architecture rtl of datapath is
 
   -- DPCR
   signal s_dpcr_mux_out : std_logic_vector(15 downto 0);
+
+  -- ER
+  signal s_er_16_out      : std_logic_vector(15 downto 0);
+  signal s_alu_er_mux_out : std_logic_vector(15 downto 0);
 begin
 
   program_counter_inst : entity work.program_counter
@@ -370,10 +404,19 @@ begin
     (
       data0x => s_operand,
       data1x => s_data_mem_re_data,
-      data2x => s_alu_result,
+      data2x => s_alu_er_mux_out,
       data3x => s_sip_data,
       sel    => wr_data_sel,
       result => s_rf_data_in
+    );
+
+  mux_2_inst : entity work.mux_2
+    port map
+    (
+      sel    => alu_er_sel,
+      data0x => s_alu_result,
+      data1x => s_er_16_out,
+      result => s_alu_er_mux_out
     );
 
   register_file_inst : entity work.register_file
@@ -526,6 +569,27 @@ begin
       svop_ld    => svop_ld,
       svop_in    => s_rf_rb_data,
       svop_out   => svop_out
+    );
+
+  eot_register_inst : entity work.eot_register
+    port map
+    (
+      clk       => clk,
+      eot_ld    => eot_ld,
+      eot_set   => '1',
+      eot_clear => eot_clear,
+      eot_out   => open
+    );
+
+  er_register_inst : entity work.er_register
+    port map
+    (
+      clk       => clk,
+      er_ld     => er_ld,
+      er_set    => '1',
+      er_clear  => er_clear,
+      er_out    => open,
+      er_out_16 => s_er_16_out
     );
 
 end rtl;

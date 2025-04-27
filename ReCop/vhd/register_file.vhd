@@ -34,7 +34,9 @@ begin
     elsif rising_edge(clk) then
       regs(0) <= (others => '0'); -- R0 is hardwired to 0
       if rf_wr = '1' then
-        regs(to_integer(unsigned(write_reg))) <= write_data;
+        if (write_reg /= "0000") then
+          regs(to_integer(unsigned(write_reg))) <= write_data;
+        end if;
       end if;
     end if;
   end process;
