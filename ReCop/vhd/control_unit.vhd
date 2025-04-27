@@ -54,12 +54,12 @@ entity control_unit is
     dpcr_low_sel : out std_logic;
 
     -- SIP
-    sip_ld    : out std_logic;
-    sip_reset : out std_logic;
+    sip_ld    : out std_logic := '0';
+    sip_reset : out std_logic := '0';
 
     -- SOP
-    sop_ld    : out std_logic;
-    sop_reset : out std_logic;
+    sop_ld    : out std_logic := '0';
+    sop_reset : out std_logic := '0';
 
     -- SVOP
     svop_ld    : out std_logic;
@@ -244,7 +244,7 @@ begin
       er_ld      <= '0';
       eot_ld     <= '0';
       eot_clear  <= '0';
-      ir_ld      <= '1';
+      ir_ld      <= '0';
       next_state <= FETCH2;
 
     elsif state = FETCH2 then
@@ -544,8 +544,8 @@ begin
 
     elsif state = EXEC_SRES then
       -- System Reset
-      mar_reset  <= '1';
-      ir_reset   <= '1';
+      mar_reset <= '1';
+      --ir_reset   <= '1';
       rf_reset   <= '1';
       reset_alu  <= '1';
       next_state <= FETCH1;

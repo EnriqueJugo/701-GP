@@ -75,7 +75,12 @@ entity datapath is
     svop_ld    : in std_logic;
     svop_out   : out std_logic_vector(15 downto 0);
 
-    pc_plus_one : out std_logic_vector(15 downto 0)
+    -- Debugging
+    pc_plus_one  : out std_logic_vector(15 downto 0);
+    rf_ra_out    : out std_logic_vector(15 downto 0);
+    rf_rb_out    : out std_logic_vector(15 downto 0);
+    rf_data_in   : out std_logic_vector(15 downto 0);
+    sip_data_out : out std_logic_vector(15 downto 0)
   );
 end entity datapath;
 
@@ -413,6 +418,8 @@ begin
       result => s_rf_data_in
     );
 
+  rf_data_in <= s_rf_data_in;
+
   mux_2_inst : entity work.mux_2
     port map
     (
@@ -437,6 +444,9 @@ begin
       read_data_a => s_rf_ra_data,
       read_data_b => s_rf_rb_data
     );
+
+  rf_ra_out <= s_rf_ra_data;
+  rf_rb_out <= s_rf_rb_data;
 
   mux_rb : entity work.mux_3
     port map
@@ -563,6 +573,8 @@ begin
       sip_in    => sip_in,
       sip_out   => s_sip_data
     );
+
+  sip_data_out <= s_sip_data;
 
   svop_register_inst : entity work.svop_register
     port map

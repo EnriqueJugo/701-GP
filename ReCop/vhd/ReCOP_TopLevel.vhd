@@ -17,6 +17,15 @@ entity ReCOP_TopLevel is
     ir_ld_tb       : out std_logic;
     opcode_tb      : out std_logic_vector(5 downto 0);
     ir_reset_tb    : out std_logic;
+    rf_ra_tb       : out std_logic_vector(15 downto 0);
+    rf_rb_tb       : out std_logic_vector(15 downto 0);
+    rf_data_in_tb  : out std_logic_vector(15 downto 0);
+    rf_data_sel_tb : out std_logic_vector(1 downto 0);
+    sip_ld_tb      : out std_logic;
+    sip_reset_tb   : out std_logic;
+    sip_data_tb    : out std_logic_vector(15 downto 0);
+    sop_ld_tb      : out std_logic;
+    sop_reset_tb   : out std_logic;
     z_flag_out     : out std_logic
   );
 end entity;
@@ -111,11 +120,16 @@ begin
       state_out            => state_tb
     );
 
-  pc_ld_tb    <= pc_ld;
-  pc_sel_tb   <= pc_sel;
-  ir_ld_tb    <= ir_ld;
-  opcode_tb   <= opcode;
-  ir_reset_tb <= ir_reset;
+  pc_ld_tb       <= pc_ld;
+  pc_sel_tb      <= pc_sel;
+  ir_ld_tb       <= ir_ld;
+  opcode_tb      <= opcode;
+  ir_reset_tb    <= ir_reset;
+  rf_data_sel_tb <= wr_data_sel;
+  sip_ld_tb      <= sip_ld;
+  sip_reset_tb   <= sip_reset;
+  sop_ld_tb      <= sop_ld;
+  sop_reset_tb   <= sop_reset;
 
   -- Instantiate the datapath
   datapath_inst : entity work.datapath
@@ -169,7 +183,11 @@ begin
       eot_ld               => eot_ld,
       eot_clear            => eot_clear,
       alu_er_sel           => rf_alu_er_sel,
-      pc_plus_one          => pc_plus_one_tb
+      pc_plus_one          => pc_plus_one_tb,
+      rf_ra_out            => rf_ra_tb,
+      rf_rb_out            => rf_rb_tb,
+      rf_data_in           => rf_data_in_tb,
+      sip_data_out         => sip_data_tb
     );
 
   z_flag_out <= z_flag;

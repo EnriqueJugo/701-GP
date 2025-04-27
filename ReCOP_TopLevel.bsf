@@ -1,0 +1,190 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 264 384)
+	(text "ReCOP_TopLevel" (rect 5 0 81 12)(font "Arial" ))
+	(text "inst" (rect 8 352 20 364)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 27 31 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset" (rect 0 0 20 12)(font "Arial" ))
+		(text "reset" (rect 21 43 41 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "sip_input[15..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "sip_input[15..0]" (rect 21 59 78 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 248 32)
+		(output)
+		(text "sop_output[15..0]" (rect 0 0 67 12)(font "Arial" ))
+		(text "sop_output[15..0]" (rect 160 27 227 39)(font "Arial" ))
+		(line (pt 248 32)(pt 232 32)(line_width 3))
+	)
+	(port
+		(pt 248 48)
+		(output)
+		(text "pc_ld_tb" (rect 0 0 34 12)(font "Arial" ))
+		(text "pc_ld_tb" (rect 193 43 227 55)(font "Arial" ))
+		(line (pt 248 48)(pt 232 48)(line_width 1))
+	)
+	(port
+		(pt 248 64)
+		(output)
+		(text "pc_out_tb[15..0]" (rect 0 0 63 12)(font "Arial" ))
+		(text "pc_out_tb[15..0]" (rect 164 59 227 71)(font "Arial" ))
+		(line (pt 248 64)(pt 232 64)(line_width 3))
+	)
+	(port
+		(pt 248 80)
+		(output)
+		(text "pc_plus_one_tb[15..0]" (rect 0 0 87 12)(font "Arial" ))
+		(text "pc_plus_one_tb[15..0]" (rect 140 75 227 87)(font "Arial" ))
+		(line (pt 248 80)(pt 232 80)(line_width 3))
+	)
+	(port
+		(pt 248 96)
+		(output)
+		(text "pc_sel_tb[1..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "pc_sel_tb[1..0]" (rect 170 91 227 103)(font "Arial" ))
+		(line (pt 248 96)(pt 232 96)(line_width 3))
+	)
+	(port
+		(pt 248 112)
+		(output)
+		(text "state_tb[5..0]" (rect 0 0 51 12)(font "Arial" ))
+		(text "state_tb[5..0]" (rect 176 107 227 119)(font "Arial" ))
+		(line (pt 248 112)(pt 232 112)(line_width 3))
+	)
+	(port
+		(pt 248 128)
+		(output)
+		(text "inst_tb[31..0]" (rect 0 0 49 12)(font "Arial" ))
+		(text "inst_tb[31..0]" (rect 178 123 227 135)(font "Arial" ))
+		(line (pt 248 128)(pt 232 128)(line_width 3))
+	)
+	(port
+		(pt 248 144)
+		(output)
+		(text "ir_ld_tb" (rect 0 0 29 12)(font "Arial" ))
+		(text "ir_ld_tb" (rect 198 139 227 151)(font "Arial" ))
+		(line (pt 248 144)(pt 232 144)(line_width 1))
+	)
+	(port
+		(pt 248 160)
+		(output)
+		(text "opcode_tb[5..0]" (rect 0 0 61 12)(font "Arial" ))
+		(text "opcode_tb[5..0]" (rect 166 155 227 167)(font "Arial" ))
+		(line (pt 248 160)(pt 232 160)(line_width 3))
+	)
+	(port
+		(pt 248 176)
+		(output)
+		(text "ir_reset_tb" (rect 0 0 43 12)(font "Arial" ))
+		(text "ir_reset_tb" (rect 184 171 227 183)(font "Arial" ))
+		(line (pt 248 176)(pt 232 176)(line_width 1))
+	)
+	(port
+		(pt 248 192)
+		(output)
+		(text "rf_ra_tb[15..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "rf_ra_tb[15..0]" (rect 170 187 227 199)(font "Arial" ))
+		(line (pt 248 192)(pt 232 192)(line_width 3))
+	)
+	(port
+		(pt 248 208)
+		(output)
+		(text "rf_rb_tb[15..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "rf_rb_tb[15..0]" (rect 170 203 227 215)(font "Arial" ))
+		(line (pt 248 208)(pt 232 208)(line_width 3))
+	)
+	(port
+		(pt 248 224)
+		(output)
+		(text "rf_data_in_tb[15..0]" (rect 0 0 77 12)(font "Arial" ))
+		(text "rf_data_in_tb[15..0]" (rect 150 219 227 231)(font "Arial" ))
+		(line (pt 248 224)(pt 232 224)(line_width 3))
+	)
+	(port
+		(pt 248 240)
+		(output)
+		(text "rf_data_sel_tb[1..0]" (rect 0 0 77 12)(font "Arial" ))
+		(text "rf_data_sel_tb[1..0]" (rect 150 235 227 247)(font "Arial" ))
+		(line (pt 248 240)(pt 232 240)(line_width 3))
+	)
+	(port
+		(pt 248 256)
+		(output)
+		(text "sip_ld_tb" (rect 0 0 35 12)(font "Arial" ))
+		(text "sip_ld_tb" (rect 192 251 227 263)(font "Arial" ))
+		(line (pt 248 256)(pt 232 256)(line_width 1))
+	)
+	(port
+		(pt 248 272)
+		(output)
+		(text "sip_reset_tb" (rect 0 0 49 12)(font "Arial" ))
+		(text "sip_reset_tb" (rect 178 267 227 279)(font "Arial" ))
+		(line (pt 248 272)(pt 232 272)(line_width 1))
+	)
+	(port
+		(pt 248 288)
+		(output)
+		(text "sip_data_tb[15..0]" (rect 0 0 69 12)(font "Arial" ))
+		(text "sip_data_tb[15..0]" (rect 158 283 227 295)(font "Arial" ))
+		(line (pt 248 288)(pt 232 288)(line_width 3))
+	)
+	(port
+		(pt 248 304)
+		(output)
+		(text "sop_ld_tb" (rect 0 0 38 12)(font "Arial" ))
+		(text "sop_ld_tb" (rect 189 299 227 311)(font "Arial" ))
+		(line (pt 248 304)(pt 232 304)(line_width 1))
+	)
+	(port
+		(pt 248 320)
+		(output)
+		(text "sop_reset_tb" (rect 0 0 53 12)(font "Arial" ))
+		(text "sop_reset_tb" (rect 174 315 227 327)(font "Arial" ))
+		(line (pt 248 320)(pt 232 320)(line_width 1))
+	)
+	(port
+		(pt 248 336)
+		(output)
+		(text "z_flag_out" (rect 0 0 41 12)(font "Arial" ))
+		(text "z_flag_out" (rect 186 331 227 343)(font "Arial" ))
+		(line (pt 248 336)(pt 232 336)(line_width 1))
+	)
+	(drawing
+		(rectangle (rect 16 16 232 352)(line_width 1))
+	)
+)
