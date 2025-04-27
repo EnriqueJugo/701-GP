@@ -16,7 +16,7 @@ L5
 VdTmo?JPO9ALM:5zXolAzZ1
 Z8 OV;C;10.1d;51
 32
-Z9 !s108 1745709535.223000
+Z9 !s108 1745714874.471000
 Z10 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/adder_1.vhd|
 Z11 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/adder_1.vhd|
 Z12 o-work work -O0
@@ -41,7 +41,7 @@ R13
 !s100 H9a^fhdGFKEDjblOlIHad3
 !i10b 1
 Ealu
-Z15 w1745641441
+Z15 w1745710736
 Z16 DPx4 work 17 various_constants 0 22 FaD`j54NjI?N2;ileZ?SG3
 Z17 DPx4 work 7 opcodes 0 22 2A7laXYE^XCMYo;NiS:D?2
 Z18 DPx4 work 11 recop_types 0 22 fY1D3lezHL]jNYXHNLTQY1
@@ -57,7 +57,7 @@ L10
 Vj5Wlnb`Jod9W@[2nPANgC3
 R8
 32
-Z23 !s108 1745709535.294000
+Z23 !s108 1745714874.517000
 Z24 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ALU.vhd|
 Z25 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ALU.vhd|
 R12
@@ -75,7 +75,7 @@ R4
 Z26 DEx4 work 3 alu 0 22 j5Wlnb`Jod9W@[2nPANgC3
 l27
 L24
-Vb?aj]<F5SUVgMMTTMXo=00
+V1hL]@mFJTFP8jCF4[CzhC2
 R8
 32
 R23
@@ -83,7 +83,7 @@ R24
 R25
 R12
 R13
-!s100 cZz6_[e113>E5CPW1c0[V2
+!s100 =Re@:c[L1fP7`0]d0Z<Ed3
 !i10b 1
 Econstant_1
 Z27 w1745557940
@@ -97,7 +97,7 @@ L42
 VaGN@;GLKcOaT=<0^zUAII0
 R8
 32
-Z30 !s108 1745709535.365000
+Z30 !s108 1745714874.565000
 Z31 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/constant_1.vhd|
 Z32 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/constant_1.vhd|
 R12
@@ -121,7 +121,7 @@ R13
 !s100 Ik^dnEF;_Q0Jo`4iG=V933
 !i10b 1
 Econtrol_unit
-Z33 w1745709747
+Z33 w1745714414
 R16
 R17
 R18
@@ -133,15 +133,15 @@ Z34 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vh
 Z35 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/control_unit.vhd
 l0
 L9
-VMPe]6Y5zdojbJGcK>Xc<j1
+VX@mTFAYWMQN`h^0dSOfj?3
 R8
 32
-Z36 !s108 1745709752.571000
+Z36 !s108 1745714874.612000
 Z37 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/control_unit.vhd|
 Z38 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/control_unit.vhd|
 R12
 R13
-!s100 fzO4oWJ4HU>6U`EN:]`5J0
+!s100 @]@R?d9[hUN`@fD2k1MEP3
 !i10b 1
 Afsm
 R16
@@ -150,10 +150,10 @@ R18
 R2
 R3
 R4
-Z39 DEx4 work 12 control_unit 0 22 MPe]6Y5zdojbJGcK>Xc<j1
+Z39 DEx4 work 12 control_unit 0 22 X@mTFAYWMQN`h^0dSOfj?3
 l136
 L74
-VNKWP=Djj;T8SJL]92YnoI2
+V4H[YiB@kU3jCJ=cE@25nk1
 R8
 32
 R36
@@ -161,7 +161,7 @@ R37
 R38
 R12
 R13
-!s100 gjZgeWcT@Cco`L_naJ1o=3
+!s100 ?EaDoJW?H^c>mEU8O;g;D0
 !i10b 1
 Artl
 R18
@@ -230,7 +230,7 @@ L39
 VCH?YHUkE_PLKIbGW<:S762
 R8
 32
-Z46 !s108 1745709535.475000
+Z46 !s108 1745714874.659000
 Z47 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/data_memory.vhd|
 R44
 R12
@@ -240,7 +240,7 @@ R13
 Asyn
 R3
 R4
-DEx4 work 11 data_memory 0 22 CH?YHUkE_PLKIbGW<:S762
+Z48 DEx4 work 11 data_memory 0 22 CH?YHUkE_PLKIbGW<:S762
 l79
 L49
 VD=g:mUi@l;iiQK8`haon`3
@@ -254,81 +254,85 @@ R13
 !s100 HeOWdG535<=<g4@eJ;17;0
 !i10b 1
 Edatapath
-Z48 w1745708435
-Z49 DPx4 ieee 9 math_real 0 22 :iME`dTX54_U49lJNF5JI3
+Z49 w1745715352
+Z50 DPx4 ieee 9 math_real 0 22 :iME`dTX54_U49lJNF5JI3
 R2
 R3
 R4
 R5
-Z50 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd
-Z51 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd
+Z51 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd
+Z52 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd
 l0
 L6
-VmTSfWbX]1TKaK_UZzXXhW3
+VH8<MROJ=BA<O[a;4fXBk<1
 R8
 32
-Z52 !s108 1745709535.522000
-Z53 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd|
-Z54 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd|
+Z53 !s108 1745715383.088000
+Z54 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd|
+Z55 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath.vhd|
 R12
 R13
-!s100 dFWN]SUJTj<@lHD_H[z>Z3
+!s100 ?k_NT3YoiLDHC8cZdVAU?3
 !i10b 1
 Artl
-Z55 DEx4 work 5 mux_2 0 22 IoC2WB>J5oD_5O^akg[AR2
-Z56 DEx4 work 12 sop_register 0 22 GX=_mTkc6GPC04KZmHoZA0
+Z56 DEx4 work 12 sip_register 0 22 d3[<<BDLLV5nOd;>AfdzN3
+Z57 DEx4 work 13 dpcr_register 0 22 ]X=bD4oIbIG[BIRU2[jaD1
+R48
+Z58 DEx4 work 5 mux_2 0 22 IoC2WB>J5oD_5O^akg[AR2
+Z59 DEx4 work 23 memory_address_register 0 22 ;EOz;eaU2ADT2Nn3MWI8K0
+Z60 DEx4 work 12 sop_register 0 22 GX=_mTkc6GPC04KZmHoZA0
 R17
 R19
 R20
 R26
-Z57 DEx4 work 5 mux_3 0 22 UBnh8EojjP5od9=BWf]DR1
+Z61 DEx4 work 5 mux_3 0 22 UBnh8EojjP5od9=BWf]DR1
 R16
 R18
-Z58 DEx4 work 13 register_file 0 22 F<WWED8eIjS<aVl=;KJKO3
-Z59 DEx4 work 20 instruction_register 0 22 8A`d7DnKgmH?f1BAHDU8S2
-Z60 DEx4 work 8 prog_mem 0 22 CSiNe3`la?9ofAj?47IK?0
-Z61 DEx4 work 5 mux_4 0 22 Aa8Oii9Qe2UDLa;cNkYZi1
+Z62 DEx4 work 13 register_file 0 22 F<WWED8eIjS<aVl=;KJKO3
+Z63 DEx4 work 20 instruction_register 0 22 8A`d7DnKgmH?f1BAHDU8S2
+Z64 DEx4 work 8 prog_mem 0 22 CSiNe3`la?9ofAj?47IK?0
+Z65 DEx4 work 5 mux_4 0 22 Aa8Oii9Qe2UDLa;cNkYZi1
 R14
-Z62 DEx4 work 15 program_counter 0 22 ?a_ooCCCO:l`XF8YhFbd13
-R49
+Z66 DEx4 work 15 program_counter 0 22 ?a_ooCCCO:l`XF8YhFbd13
+R50
 R2
 R3
 R4
-Z63 DEx4 work 8 datapath 0 22 mTSfWbX]1TKaK_UZzXXhW3
+Z67 DEx4 work 8 datapath 0 22 H8<MROJ=BA<O[a;4fXBk<1
 l281
 L66
-VHBi>HiiG9Y1ShbNb_[f7:0
+VlM;ib`089SFLZEj@h49:?1
 R8
 32
-R52
 R53
 R54
+R55
 R12
 R13
-!s100 d6>m1k:PXckY4e>=>BFa`3
+!s100 7Cz4LK28dYUGKWIdMc8Oc1
 !i10b 1
 Edatapath_tb
-Z64 w1745568747
+Z68 w1745568747
 R2
 R3
 R4
 R5
-Z65 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd
-Z66 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd
+Z69 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd
+Z70 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd
 l0
 L5
 VS^=mUQR0Zm0^mP4lW;ON13
+!s100 `AzPkkE]LbH2j=^TlcXBk2
 R8
 32
-Z67 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd|
+!i10b 1
+!s108 1745715383.717000
+Z71 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd|
+!s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd|
 R12
 R13
-Z68 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd|
-!s100 `AzPkkE]LbH2j=^TlcXBk2
-!i10b 1
-!s108 1745638140.041000
 Asim
-R49
+R50
 DEx4 work 8 datapath 0 22 MOF;i`][okQ96[cYnC16M2
 R2
 R3
@@ -339,10 +343,10 @@ L8
 V>lYO_TXm^3c5g:D9nAaL62
 R8
 32
-R67
+R71
 R12
 R13
-R68
+!s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/datapath_testsbench.vhd|
 !s108 1745585900.068000
 !s100 S=o5fWC2gcanJh`XC2_D33
 !i10b 1
@@ -351,16 +355,16 @@ R1
 R3
 R4
 R5
-Z69 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd
-Z70 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd
+Z72 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd
+Z73 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd
 l0
 L4
 V]X=bD4oIbIG[BIRU2[jaD1
 R8
 32
-Z71 !s108 1745709535.601000
-Z72 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd|
-Z73 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd|
+Z74 !s108 1745714874.754000
+Z75 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd|
+Z76 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/dcpr.vhd|
 R12
 R13
 !s100 ;m@f6M=Gf^i_YRGIRS@kc0
@@ -368,15 +372,15 @@ R13
 Artl
 R3
 R4
-DEx4 work 13 dpcr_register 0 22 ]X=bD4oIbIG[BIRU2[jaD1
+R57
 l17
 L15
 V<VFgX:1^NHcQa;jYJQAgl3
 R8
 32
-R71
-R72
-R73
+R74
+R75
+R76
 R12
 R13
 !s100 lDJE45zgnE6QCR]9:zm6D2
@@ -387,34 +391,34 @@ R2
 R3
 R4
 R5
-Z74 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd
-Z75 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd
+Z77 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd
+Z78 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd
 l0
 L5
 V8A`d7DnKgmH?f1BAHDU8S2
 R8
 32
-Z76 !s108 1745709535.648000
-Z77 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd|
-Z78 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd|
+Z79 !s108 1745714874.802000
+Z80 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd|
+Z81 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/instruction_register.vhd|
 R12
 R13
 !s100 OMce[BWWUJ6K[67gB9;490
 !i10b 1
 Artl
-Z79 DEx4 work 16 register_general 0 22 Mz9O4mC;;SoiR6aPYHAma2
+Z82 DEx4 work 16 register_general 0 22 Mz9O4mC;;SoiR6aPYHAma2
 R2
 R3
 R4
-R59
+R63
 l32
 L19
 V4LS2_J?o:VE=niU@l_il33
 R8
 32
-R76
-R77
-R78
+R79
+R80
+R81
 R12
 R13
 !s100 RW]jZJm<HC[P@<NYdGO3b0
@@ -424,16 +428,16 @@ R1
 R3
 R4
 R5
-Z80 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd
-Z81 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd
+Z83 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd
+Z84 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd
 l0
 L4
 V;EOz;eaU2ADT2Nn3MWI8K0
 R8
 32
-Z82 !s108 1745709535.694000
-Z83 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd|
-Z84 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd|
+Z85 !s108 1745714874.850000
+Z86 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd|
+Z87 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/memory_address_register.vhd|
 R12
 R13
 !s100 C`I?dJ3nU^95G:d<6]D0;1
@@ -441,34 +445,34 @@ R13
 Abeh
 R3
 R4
-DEx4 work 23 memory_address_register 0 22 ;EOz;eaU2ADT2Nn3MWI8K0
+R59
 l17
 L15
 VChTK<DO7lJB28>@7<hW`E0
 R8
 32
-R82
-R83
-R84
+R85
+R86
+R87
 R12
 R13
 !s100 dBJ^j9gz;O5F;63:K;S;R3
 !i10b 1
 Emux_2
-Z85 w1745560077
+Z88 w1745560077
 R3
 R4
 R5
-Z86 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd
-Z87 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd
+Z89 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd
+Z90 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd
 l0
 L4
 VIoC2WB>J5oD_5O^akg[AR2
 R8
 32
-Z88 !s108 1745709535.741000
-Z89 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd|
-Z90 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd|
+Z91 !s108 1745714874.897000
+Z92 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd|
+Z93 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2.vhd|
 R12
 R13
 !s100 QMj]Hzco8Izo=QGzWQRFS0
@@ -476,34 +480,34 @@ R13
 Artl
 R3
 R4
-R55
+R58
 l14
 L13
 VE0WkJ2jZDFfDB8K6_M3fF2
 R8
 32
-R88
-R89
-R90
+R91
+R92
+R93
 R12
 R13
 !s100 <h^C[_5M=Rj[VL2CoDJPT3
 !i10b 1
 Emux_2_4bit
-Z91 w1745559645
+Z94 w1745559645
 R3
 R4
 R5
-Z92 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd
-Z93 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd
+Z95 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd
+Z96 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd
 l0
 L4
 VUQHzDfXXizYTJW_k]d2EQ1
 R8
 32
-Z94 !s108 1745709535.795000
-Z95 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd|
-Z96 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd|
+Z97 !s108 1745714874.944000
+Z98 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd|
+Z99 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_2_4bit.vhd|
 R12
 R13
 !s100 leX^MB@OlloRZd]^73c330
@@ -517,28 +521,28 @@ L13
 VN`JKF=c0;^0cz3O1:JHVI0
 R8
 32
-R94
-R95
-R96
+R97
+R98
+R99
 R12
 R13
 !s100 5`4bAg]9lZVnPZi3mCFhU3
 !i10b 1
 Emux_3
-Z97 w1745560127
+Z100 w1745560127
 R3
 R4
 R5
-Z98 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd
-Z99 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd
+Z101 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd
+Z102 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd
 l0
 L4
 VUBnh8EojjP5od9=BWf]DR1
 R8
 32
-Z100 !s108 1745709535.836000
-Z101 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd|
-Z102 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd|
+Z103 !s108 1745714874.991000
+Z104 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd|
+Z105 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3.vhd|
 R12
 R13
 !s100 VMTk;lN=9d>4;AI2DX0Vi0
@@ -546,34 +550,34 @@ R13
 Artl
 R3
 R4
-R57
+R61
 l15
 L14
 Vn9j@d0S2LX]1l>c4Z`c4j3
 R8
 32
-R100
-R101
-R102
+R103
+R104
+R105
 R12
 R13
 !s100 iDl`KBTg?PHG1;h7Kz8WJ1
 !i10b 1
 Emux_3_4bit
-Z103 w1745559674
+Z106 w1745559674
 R3
 R4
 R5
-Z104 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd
-Z105 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd
+Z107 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd
+Z108 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd
 l0
 L4
 VgK?zVFLbbnaM?NjaKKEZG3
 R8
 32
-Z106 !s108 1745709535.882000
-Z107 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd|
-Z108 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd|
+Z109 !s108 1745714875.039000
+Z110 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd|
+Z111 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_3_4bit.vhd|
 R12
 R13
 !s100 73Ad4EN]VnnaQGTG=5E8?3
@@ -587,28 +591,28 @@ L14
 VN]iC5?[LM]Y2AUW1@c[=m1
 R8
 32
-R106
-R107
-R108
+R109
+R110
+R111
 R12
 R13
 !s100 lnl9AnkiRTRX?J3fXJ_282
 !i10b 1
 Emux_4
-Z109 w1745559623
+Z112 w1745559623
 R3
 R4
 R5
-Z110 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd
-Z111 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd
+Z113 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd
+Z114 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd
 l0
 L4
 VAa8Oii9Qe2UDLa;cNkYZi1
 R8
 32
-Z112 !s108 1745709535.930000
-Z113 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd|
-Z114 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd|
+Z115 !s108 1745714875.085000
+Z116 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd|
+Z117 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/mux_4.vhd|
 R12
 R13
 !s100 G[F;ceBeX:>kbI=PC`I;02
@@ -616,15 +620,15 @@ R13
 Artl
 R3
 R4
-R61
+R65
 l16
 L15
 Vg:;FmE3i<L9B>4ndXFeXY0
 R8
 32
-R112
-R113
-R114
+R115
+R116
+R117
 R12
 R13
 !s100 aP=eV9FbV>i`6bd`>5;BN0
@@ -646,24 +650,24 @@ R12
 R13
 !s100 @13H`YQMb^noee]JO68O02
 !i10b 1
-!s108 1745709535.977000
+!s108 1745714875.133000
 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/opcodes.vhd|
 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/opcodes.vhd|
 Eprog_mem
-Z115 w1745709515
+Z118 w1745714858
 R3
 R4
 R5
-Z116 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd
-Z117 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd
+Z119 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd
+Z120 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd
 l0
 L41
 VCSiNe3`la?9ofAj?47IK?0
 R8
 32
-Z118 !s108 1745709536.024000
-Z119 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd|
-Z120 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd|
+Z121 !s108 1745714875.164000
+Z122 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd|
+Z123 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/prog_mem.vhd|
 R12
 R13
 !s100 Ijz@KQblEg7l]e:WnbQ3k2
@@ -671,34 +675,34 @@ R13
 Asyn
 R3
 R4
-R60
+R64
 l77
 L48
-V2SJjhUKaiON=bgcXAO>341
+ViIzMZLQPAj`kECWmmWFjL0
 R8
 32
-R118
-R119
-R120
+R121
+R122
+R123
 R12
 R13
-!s100 Ul0K23UOl2@Qea?]^9@`o1
+!s100 5SSW[8TWn<l_g2^jEzg@h1
 !i10b 1
 Eprogram_counter
-Z121 w1745566898
+Z124 w1745566898
 R3
 R4
 R5
-Z122 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd
-Z123 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd
+Z125 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd
+Z126 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd
 l0
 L4
 V?a_ooCCCO:l`XF8YhFbd13
 R8
 32
-Z124 !s108 1745709536.071000
-Z125 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd|
-Z126 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd|
+Z127 !s108 1745714875.211000
+Z128 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd|
+Z129 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/program_counter.vhd|
 R12
 R13
 !s100 41N;IIGT^cG;f9kEPWkYV3
@@ -706,15 +710,15 @@ R13
 Abeh
 R3
 R4
-R62
+R66
 l15
 L13
 VQlT?emDLfo_D9Jl>nDiC12
 R8
 32
-R124
-R125
-R126
+R127
+R128
+R129
 R12
 R13
 !s100 G0JGSDU>`LcG4_SlBAKV41
@@ -724,16 +728,16 @@ R27
 R3
 R4
 R5
-Z127 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd
-Z128 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd
+Z130 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd
+Z131 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd
 l0
 L43
 VI^^=LihSklOEZc@z53V:n3
 R8
 32
-Z129 !s108 1745709536.118000
-Z130 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd|
-Z131 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd|
+Z132 !s108 1745714875.258000
+Z133 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd|
+Z134 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_pll.vhd|
 R12
 R13
 !s100 zY`XWgfj5Qi[ez5`9z3O[3
@@ -747,36 +751,36 @@ L52
 V5f@GaSM1gigTDOKbR8ZJM1
 R8
 32
-R129
-R130
-R131
+R132
+R133
+R134
 R12
 R13
 !s100 XH4DNEPjT`eEWU]:fT6af0
 !i10b 1
 Erecop_toplevel
-Z132 w1745708795
+Z135 w1745714904
 R2
 R3
 R4
 R5
-Z133 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd
-Z134 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd
+Z136 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd
+Z137 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd
 l0
 L5
 VRE9n0zL^VhE^NH3a_Jf^L2
 R8
 32
-Z135 !s108 1745709759.254000
-Z136 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd|
-Z137 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd|
+Z138 !s108 1745714910.715000
+Z139 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd|
+Z140 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel.vhd|
 R12
 R13
 !s100 XfBKFV0FOL6W5o16zX2Ge0
 !i10b 1
 Astructural
-R49
-R63
+R50
+R67
 R16
 R17
 R18
@@ -784,56 +788,56 @@ R39
 R2
 R3
 R4
-Z138 DEx4 work 14 recop_toplevel 0 22 RE9n0zL^VhE^NH3a_Jf^L2
+Z141 DEx4 work 14 recop_toplevel 0 22 RE9n0zL^VhE^NH3a_Jf^L2
 l48
 L15
-VSR2l_]oh4fZQ_Rj:dJECG0
-!s100 UZST2`6lJdlk<mX7Q`oan1
+V:V1d1[SiHHYj?Aeb@;80`3
 R8
 32
-R135
-R136
-R137
+R138
+R139
+R140
 R12
 R13
+!s100 b6`>^YQf]gY5iB8Wd7DJ=2
 !i10b 1
 Erecop_toplevel_tb
-Z139 w1745708859
+Z142 w1745708859
 R3
 R4
 R5
-Z140 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd
-Z141 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd
+Z143 8C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd
+Z144 FC:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd
 l0
 L4
 V[[7WHJ]13Sg47M<M_0`aF1
-!s100 C:S=mA1M<TKoT<?j5_0h`3
 R8
 32
-!i10b 1
-Z142 !s108 1745709759.803000
-Z143 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd|
-Z144 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd|
+Z145 !s108 1745714911.470000
+Z146 !s90 -reportprogress|300|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd|
+Z147 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/ReCOP_TopLevel_testbench.vhd|
 R12
 R13
+!s100 C:S=mA1M<TKoT<?j5_0h`3
+!i10b 1
 Atestbench
 R2
-R138
+R141
 R3
 R4
-Z145 DEx4 work 17 recop_toplevel_tb 0 22 [[7WHJ]13Sg47M<M_0`aF1
+DEx4 work 17 recop_toplevel_tb 0 22 [[7WHJ]13Sg47M<M_0`aF1
 l16
 L7
-Z146 VkcS[L=ek7^czc^gT0PBiO0
-Z147 !s100 eAlnBm1zS82G4R^^ihdBz1
+VkcS[L=ek7^czc^gT0PBiO0
 R8
 32
-!i10b 1
-R142
-R143
-R144
+R145
+R146
+R147
 R12
 R13
+!s100 eAlnBm1zS82G4R^^ihdBz1
+!i10b 1
 Precop_types
 R3
 R4
@@ -850,7 +854,7 @@ R12
 R13
 !s100 2o[aSILejOTa_Yg=TbPmJ2
 !i10b 1
-!s108 1745709536.259000
+!s108 1745714875.400000
 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_types.vhd|
 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/recop_types.vhd|
 Eregister_file
@@ -868,7 +872,7 @@ L8
 VF<WWED8eIjS<aVl=;KJKO3
 R8
 32
-Z151 !s108 1745709536.296000
+Z151 !s108 1745714875.448000
 Z152 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/register_file.vhd|
 Z153 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/register_file.vhd|
 R12
@@ -881,7 +885,7 @@ R18
 R2
 R3
 R4
-R58
+R62
 l27
 L24
 VEHlUjO^6Rad44bCKQZB>O0
@@ -906,7 +910,7 @@ L4
 VMz9O4mC;;SoiR6aPYHAma2
 R8
 32
-Z156 !s108 1745709536.353000
+Z156 !s108 1745714875.495000
 Z157 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/register_general.vhd|
 Z158 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/register_general.vhd|
 R12
@@ -916,7 +920,7 @@ R13
 Abeh
 R3
 R4
-R79
+R82
 l17
 L15
 ViPHcGkF>f:P]=jQi;?nZN2
@@ -941,7 +945,7 @@ L4
 Vd3[<<BDLLV5nOd;>AfdzN3
 R8
 32
-Z161 !s108 1745709536.400000
+Z161 !s108 1745714875.526000
 Z162 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/sip_register.vhd|
 Z163 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/sip_register.vhd|
 R12
@@ -951,7 +955,7 @@ R13
 Artl
 R3
 R4
-DEx4 work 12 sip_register 0 22 d3[<<BDLLV5nOd;>AfdzN3
+R56
 l16
 L14
 V@C]j;261T<aAKM1IA?Ig[0
@@ -976,7 +980,7 @@ L4
 VGX=_mTkc6GPC04KZmHoZA0
 R8
 32
-Z166 !s108 1745709536.432000
+Z166 !s108 1745714875.574000
 Z167 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/sop_register.vhd|
 Z168 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/sop_register.vhd|
 R12
@@ -986,7 +990,7 @@ R13
 Artl
 R3
 R4
-R56
+R60
 l16
 L14
 Va[e95?9`VIkOW[BAE@2>42
@@ -1012,7 +1016,7 @@ L5
 VY[8?N36c?2ZP`iPJP^hZn1
 R8
 32
-Z171 !s108 1745709536.479000
+Z171 !s108 1745714875.653000
 Z172 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/stack_pointer.vhd|
 Z173 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/stack_pointer.vhd|
 R12
@@ -1053,6 +1057,6 @@ R12
 R13
 !s100 T7oOcWZSh7]bT6e2ffBmk2
 !i10b 1
-!s108 1745709536.526000
+!s108 1745714875.700000
 !s90 -reportprogress|30|-work|work|C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/various_constants.vhd|
 !s107 C:/Users/juane/Desktop/University/ENG_Part4/701/THE PROJECT/701-GP/ReCop/vhd/various_constants.vhd|

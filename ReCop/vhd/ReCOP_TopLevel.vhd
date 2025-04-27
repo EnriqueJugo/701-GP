@@ -36,7 +36,7 @@ architecture structural of ReCOP_TopLevel is
   signal pc_inc               : std_logic;
   signal alu_ra_sel           : std_logic_vector(1 downto 0);
   signal alu_rb_sel           : std_logic_vector(1 downto 0);
-  signal data_mem_wr_data_sel : std_logic;
+  signal data_mem_wr_data_sel : std_logic_vector(1 downto 0);
 
   -- Instruction decoder outputs
   signal addressing_mode : std_logic_vector(1 downto 0);

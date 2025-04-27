@@ -5,7 +5,9 @@ start: NOOP ;starting the program
 	LDR R2 #600
 	STR R2 #302
 	LDR R4 R2
+	STRPC $902
 	STR R2 $750
 	LDR R5 $750
+	LDR R6 $902
 ENDPROG
 END  

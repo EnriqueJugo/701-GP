@@ -65,7 +65,7 @@ entity control_unit is
     address_sel : out std_logic;
     z_flag      : in std_logic;
 
-    data_mem_wr_data_sel : out std_logic;
+    data_mem_wr_data_sel : out std_logic_vector(1 downto 0);
 
     pc_inc : out std_logic
   );
@@ -223,15 +223,15 @@ begin
             when addr_mode_immediate =>
               alu_ra_sel           <= "01";
               alu_rb_sel           <= "01";
-              data_mem_wr_data_sel <= '1';
+              data_mem_wr_data_sel <= "01";
             when addr_mode_register =>
               alu_ra_sel           <= "00";
               alu_rb_sel           <= "00";
-              data_mem_wr_data_sel <= '0';
+              data_mem_wr_data_sel <= "00";
             when addr_mode_direct =>
               alu_ra_sel           <= "01"; -- Flip Rz and Rx
               alu_rb_sel           <= "01";
-              data_mem_wr_data_sel <= '0';
+              data_mem_wr_data_sel <= "00";
             when others =>
               null;
           end case;
@@ -253,6 +253,10 @@ begin
           rf_a_re    <= '1';
           rf_b_re    <= '1';
           next_state <= EXEC_ORR;
+        elsif opcode = OP_MAX then
+          rf_a_re    <= '1';
+          rf_b_re    <= '1';
+          next_state <= EXEC_MAX;
         elsif opcode = OP_ADDR then
           rf_a_re    <= '1';
           rf_b_re    <= '1';
@@ -271,8 +275,12 @@ begin
           next_state <= EXEC_NOOP;
         elsif opcode = OP_SZ then
           next_state <= EXEC_SZ;
+
+          -- TODO: DO LER Register
         elsif opcode = OP_LER then
           next_state <= EXEC_LER;
+
+          -- TODO: Do SVOP Register
         elsif opcode = OP_SSVOP then
           next_state <= EXEC_SSVOP;
         elsif opcode = OP_SSOP then
@@ -288,10 +296,9 @@ begin
         elsif opcode = OP_DATACALL_IMM then
           dpcr_low_sel <= '1';
           next_state   <= EXEC_DATACALL_IMM;
-        elsif opcode = OP_MAX then
-          next_state <= EXEC_MAX;
         elsif opcode = OP_STRPC then
-          next_state <= EXEC_STRPC;
+          data_mem_wr_data_sel <= "10";
+          next_state           <= EXEC_STRPC;
         elsif opcode = OP_SRES then
           next_state <= EXEC_SRES;
         else
@@ -362,6 +369,20 @@ begin
         alu_op     <= alu_or;
         next_state <= WRITE_BACK;
 
+      when EXEC_MAX =>
+        case addressing_mode is
+          when addr_mode_immediate =>
+            alu_ra_sel <= "01";
+            alu_rb_sel <= "10";
+          when addr_mode_register =>
+            alu_ra_sel <= "00";
+            alu_rb_sel <= "00";
+          when others =>
+            null;
+        end case;
+        alu_op     <= alu_max;
+        next_state <= WRITE_BACK;
+
       when EXEC_ADDR =>
         -- T3: Rz ← Rz + (#imm/Rx)
         case addressing_mode is
@@ -378,14 +399,17 @@ begin
         next_state <= WRITE_BACK;
 
       when EXEC_SUBR =>
-        -- T3: Rz ← Rz - Rx
-
-        alu_rb_sel <= "01";
-        reset_alu  <= '1';
+        -- Subtract immediate without writing to register
+        case addressing_mode is
+          when addr_mode_immediate =>
+            alu_ra_sel <= "01";
+            alu_rb_sel <= "10";
+          when others =>
+            null;
+        end case;
         alu_op     <= alu_sub;
         next_state <= FETCH1;
 
-        -- TODO: Go to write back
       when EXEC_SUBVR =>
         -- T3: Rz ← Rz - #imm
         case addressing_mode is
@@ -409,12 +433,12 @@ begin
         -- NOP
         next_state <= FETCH1;
 
-        -- TODO: If zero flag is 1 then jump to operand else nothing
       when EXEC_SZ =>
         -- Set Z-flag based on immediate
-        alu_rb_sel <= "10"; -- Immediate value
-        alu_op     <= alu_sub; -- SUB operation to test for zero
-        reset_alu  <= '1';
+        if z_flag = '1' then
+          pc_sel     <= "01";
+          clr_z_flag <= '1';
+        end if;
         next_state <= FETCH1;
 
       when EXEC_SSOP =>
@@ -433,22 +457,17 @@ begin
         dpcr_ld    <= '1';
         next_state <= FETCH1;
 
-      when EXEC_MAX =>
-        -- MAX Rz, #imm
-        alu_rb_sel <= "10"; -- Immediate
-        alu_op     <= alu_max; -- SUB (to compare)
-        reset_alu  <= '1';
-        rf_wr      <= '1'; -- Conditionally done (assuming internal logic)
-        next_state <= FETCH1;
-
       when EXEC_STRPC =>
-        -- Store PC to Address
-        mar_sel     <= "10"; -- Immediate address
-        mar_ld      <= '1';
-        address_sel <= '1';
-        mem_write   <= '1';
-        pc_sel      <= "00"; -- Current PC
-        next_state  <= FETCH1;
+
+        case addressing_mode is
+          when addr_mode_direct => -- Direct
+            mar_sel     <= "01";
+            mar_ld      <= '1';
+            address_sel <= '1';
+          when others =>
+            null;
+        end case;
+        next_state <= MEM_ACCESS;
 
       when EXEC_SRES =>
         -- System Reset
@@ -505,6 +524,7 @@ begin
         rf_wr      <= '1';
         rf_a_re    <= '0';
         rf_b_re    <= '0';
+        clr_z_flag <= '1';
         next_state <= FETCH1;
       when others =>
         next_state <= FETCH1;
