@@ -89,7 +89,6 @@ Each instruction flows through FETCH1 -> FETCH2 → DECODE → EXECUTE → (MEM_
 1. **Synthesize** and **program** the design in Quartus Prime.
 2. **Simulate** using ModelSim if needed — testbenches should stimulate instructions and monitor outputs.
 3. **Load** machine code into program memory (`prog_mem`) via a Memory Initialization File (`.mif`).
-4. **Monitor** debug signals such as program counter (`pc_out_tb`), current instruction (`inst_tb`), and FSM state (`state_tb`).
 
 ---
 
