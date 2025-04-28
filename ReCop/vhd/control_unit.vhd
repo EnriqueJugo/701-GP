@@ -202,26 +202,32 @@ begin
   -- FSM next-state and outputs
   process (state, opcode, reset)
   begin
-    -- if (reset = '1') then
-    --   -- default all controls off
-    --   mar_sel     <= (others => '0');
-    --   mar_ld      <= '0';
-    --   mar_reset   <= '0';
-    --   ir_reset    <= '0';
-    --   ir_ld       <= '0';
-    --   wr_data_sel <= "00";
-    --   rf_reset    <= '0';
-    --   rf_wr       <= '0';
-    --   alu_rb_sel  <= (others => '0');
-    --   address_sel <= '0';
-    --   mem_read    <= '0';
-    --   mem_write   <= '0';
-    --   reset_alu   <= '0';
-    --   alu_op      <= (others => '0');
-    --   clr_z_flag  <= '0';
-    --   pc_sel      <= (others => '0');
-    --   next_state  <= FETCH1;
-    -- end if;
+    if (reset = '1') then
+      -- default all controls off
+      mar_sel     <= (others => '0');
+      mar_ld      <= '0';
+      mar_reset   <= '1';
+      ir_reset    <= '1';
+      ir_ld       <= '0';
+      wr_data_sel <= "00";
+      rf_reset    <= '1';
+      rf_wr       <= '0';
+      address_sel <= '0';
+      mem_read    <= '0';
+      mem_write   <= '0';
+      reset_alu   <= '1';
+      alu_op      <= (others => '0');
+      clr_z_flag  <= '1';
+      pc_sel      <= (others => '0');
+      sop_reset   <= '1';
+      sip_reset   <= '1';
+      pc_reset    <= '1';
+      er_clear    <= '1';
+      eot_clear   <= '1';
+      dpcr_reset  <= '1';
+      svop_reset  <= '1';
+      next_state  <= FETCH1;
+    end if;
 
     mar_reset     <= '0';
     ir_reset      <= '0';
