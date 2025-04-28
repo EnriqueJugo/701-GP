@@ -7,7 +7,7 @@ Note: if both ModelSim-Altera and ModelSim executables are available, ModelSim-A
 
 **** Generating the ModelSim Testbench ****
 
-quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ReCOP -c ReCOP --vector_source="C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform32.vwf" --testbench_file="C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/Waveform32.vwf.vht"
+quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ReCOP -c ReCOP --vector_source="C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform35.vwf" --testbench_file="C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/Waveform35.vwf.vht"
 
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
@@ -25,11 +25,11 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Mon Apr 28 08:21:19 2025
-Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ReCOP -c ReCOP --vector_source=C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform32.vwf --testbench_file=C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/Waveform32.vwf.vht
+    Info: Processing started: Mon Apr 28 11:48:27 2025
+Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off ReCOP -c ReCOP --vector_source=C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform35.vwf --testbench_file=C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/Waveform35.vwf.vht
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 
-ut pin "sop_output[9]" in vector source file when writing test bench files
+1]" in vector source file when writing test bench files
 
 Completed successfully. 
 
@@ -53,13 +53,13 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Mon Apr 28 08:21:20 2025
+    Info: Processing started: Mon Apr 28 11:48:28 2025
 Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory=C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/ ReCOP -c ReCOP
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (204019): Generated file ReCOP.vho in folder "C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim//" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4753 megabytes
-    Info: Processing ended: Mon Apr 28 08:21:21 2025
+    Info: Peak virtual memory: 4763 megabytes
+    Info: Processing ended: Mon Apr 28 11:48:29 2025
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:00
 
@@ -94,22 +94,22 @@ Reading C:/altera/13.0/modelsim_ase/tcl/vsim/pref.tcl
 # -- Loading package altera_lnsim_components
 # -- Loading package cyclonev_atom_pack
 # -- Loading package cyclonev_components
-# -- Compiling entity ReCOP_System
-# -- Compiling architecture structure of ReCOP_System
+# -- Compiling entity ReCOP_bd
+# -- Compiling architecture structure of ReCOP_bd
 
 # Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
-# -- Compiling entity ReCOP_System_vhd_vec_tst
-# -- Compiling architecture ReCOP_System_arch of ReCOP_System_vhd_vec_tst
+# -- Compiling entity ReCOP_bd_vhd_vec_tst
+# -- Compiling architecture ReCOP_bd_arch of ReCOP_bd_vhd_vec_tst
 
-# vsim -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim -c -t 1ps -novopt work.ReCOP_System_vhd_vec_tst 
+# vsim -L cyclonev -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim -c -t 1ps -novopt work.ReCOP_bd_vhd_vec_tst 
 
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading work.recop_system_vhd_vec_tst(recop_system_arch)
+# Loading work.recop_bd_vhd_vec_tst(recop_bd_arch)
 # Loading ieee.vital_timing(body)
 # Loading ieee.vital_primitives(body)
 # Loading altera.dffeas_pack
@@ -117,34 +117,34 @@ Reading C:/altera/13.0/modelsim_ase/tcl/vsim/pref.tcl
 # Loading altera_lnsim.altera_lnsim_components
 # Loading cyclonev.cyclonev_atom_pack(body)
 # Loading cyclonev.cyclonev_components
-# Loading work.recop_system(structure)
+# Loading work.recop_bd(structure)
 # Loading ieee.std_logic_arith(body)
 # Loading cyclonev.cyclonev_io_obuf(arch)
 # Loading cyclonev.cyclonev_io_ibuf(arch)
 # Loading cyclonev.cyclonev_clkena(behavior)
 # Loading cyclonev.cyclonev_lcell_comb(vital_lcell_comb)
+# Loading altera.dffeas(vital_dffeas)
 # Loading cyclonev.cyclonev_ram_block(block_arch)
 # Loading sv_std.std
-# Loading altera.dffeas(vital_dffeas)
 
 # ** Warning: Design size of 4 instances exceeds ModelSim ALTERA recommended capacity.
 # This may because you are loading cell libraries which are not recommended with
 # the ModelSim Altera version. Expect performance to be adversely affected.
 # after#28
 
-# Simulation time: 1000000 ps 
+# Simulation time: 855001 ps 
 
 Completed successfully. 
 
 **** Converting ModelSim VCD to vector waveform ****
 
-Reading C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform32.vwf...
+Reading C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/Waveform35.vwf...
 
 Reading C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/ReCOP.msim.vcd...
 
 Processing channel transitions... 
 
-Writing the resulting VWF to C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/ReCOP_20250428082128.sim.vwf
+Writing the resulting VWF to C:/Users/juane/Desktop/University/ENG_Part4/701/NEW_NEW_P/701-GP/simulation/qsim/ReCOP_20250428114836.sim.vwf
 
 Finished VCD to VWF conversion.
 

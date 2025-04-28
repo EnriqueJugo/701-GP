@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY ReCOP_System
+set_global_assignment -name TOP_LEVEL_ENTITY ReCOP_bd
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:20:47  MARCH 31, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -377,10 +377,15 @@ set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE output_files/Waveform1.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE simulation/Waveform1.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE simulation/bdf_test.vwf
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VECTOR_WAVEFORM_FILE output_files/Waveform2.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform31.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform32.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE output_files/Waveform3.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform33.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform34.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform35.vwf
+set_global_assignment -name BDF_FILE SIP_SOP_TEST.bdf
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

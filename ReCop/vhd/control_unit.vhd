@@ -89,6 +89,7 @@ end entity control_unit;
 architecture fsm of control_unit is
   -- Micro-state declarations
   type state_type is (
+    INIT,
     FETCH1,
     FETCH2,
     DECODE,
@@ -124,6 +125,7 @@ architecture fsm of control_unit is
   function state_to_std6(state : state_type) return std_logic_vector is
   begin
     case state is
+      when INIT              => return "111111";
       when FETCH1            => return "000000";
       when FETCH2            => return "000001";
       when DECODE            => return "000010";
@@ -156,7 +158,7 @@ architecture fsm of control_unit is
     end case;
   end function;
 
-  signal state, next_state : state_type;
+  signal state, next_state : state_type := INIT;
 
   -- Opcode constants
   constant OP_LDR          : std_logic_vector(5 downto 0) := "000000";
@@ -220,6 +222,26 @@ begin
     --   pc_sel      <= (others => '0');
     --   next_state  <= FETCH1;
     -- end if;
+
+    mar_reset            <= '0';
+    ir_reset             <= '0';
+    wr_data_sel          <= "00";
+    rf_reset             <= '0';
+    rf_a_re              <= '0';
+    rf_b_re              <= '0';
+    rf_alu_er_sel        <= '0';
+    alu_rb_sel           <= "00";
+    alu_ra_sel           <= "00";
+    reset_alu            <= '0';
+    alu_op               <= (others => '0');
+    dpcr_reset           <= '0';
+    dpcr_low_sel         <= '0';
+    sip_reset            <= '0';
+    sop_reset            <= '0';
+    svop_reset           <= '0';
+    pc_ld                <= '0';
+    address_sel          <= '0';
+    data_mem_wr_data_sel <= "00";
 
     if (state = FETCH1) then
       pc_ld <= '1';
