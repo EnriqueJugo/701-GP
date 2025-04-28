@@ -1,5 +1,4 @@
 # ReCOP (Reactive Concurrency-Oriented Processor)
-## ECSE Capstone Project - Semester 1, 2025
 
 ---
 
