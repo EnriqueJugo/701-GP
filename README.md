@@ -1,5 +1,4 @@
-# ReCOP (Reactive Concurrency-Oriented Processor)
-
+# ReCOP
 ---
 
 ## Overview
