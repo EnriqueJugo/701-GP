@@ -36,13 +36,83 @@
 # Loading ieee.std_logic_arith(body)
 # Loading cyclonev.cyclonev_io_obuf(arch)
 # Loading cyclonev.cyclonev_io_ibuf(arch)
+# Loading cyclonev.cyclonev_pll_refclk_select(behavior)
+# Loading cyclonev.cyclonev_fractional_pll(behavior)
+# Loading sv_std.std
+# Loading cyclonev.cyclonev_pll_reconfig(behavior)
+# Loading cyclonev.cyclonev_pll_output_counter(behavior)
 # Loading cyclonev.cyclonev_clkena(behavior)
 # Loading cyclonev.cyclonev_lcell_comb(vital_lcell_comb)
 # Loading altera.dffeas(vital_dffeas)
 # Loading cyclonev.cyclonev_ram_block(block_arch)
-# Loading sv_std.std
 # ** Warning: Design size of 4 instances exceeds ModelSim ALTERA recommended capacity.
 # This may because you are loading cell libraries which are not recommended with
 # the ModelSim Altera version. Expect performance to be adversely affected.
 # after#28
-# Simulation time: 855001 ps 
+# 
+# Warning: por to CB BFM is not connected, internal por is used.
+# 
+# Info: =================================================
+# Info:           Generic PLL Summary
+# Info: =================================================
+# Time scale of (recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>) is  1ps /  1ps
+# Info: hierarchical_name = recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>
+# Info: reference_clock_frequency = 50.0 mhz
+# Info: output_clock_frequency = 320.0 mhz
+# Info: phase_shift = 0 ps
+# Info: duty_cycle = 50
+# Info: sim_additional_refclk_cycles_to_lock = 0
+# Info: output_clock_high_period = 1562.500000
+# Info: output_clock_low_period = 1562.500000
+# Info: =================================================
+# Info:           Generic PLL Summary
+# Info: =================================================
+# Time scale of (recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>) is  1ps /  1ps
+# Info: hierarchical_name = recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>
+# Info: reference_clock_frequency = 50.0 mhz
+# Info: output_clock_frequency = 320.0 mhz
+# Info: phase_shift = 390 ps
+# Info: duty_cycle = 50
+# Info: sim_additional_refclk_cycles_to_lock = 0
+# Info: output_clock_high_period = 1562.500000
+# Info: output_clock_low_period = 1562.500000
+# Info: =================================================
+# Info:           Generic PLL Summary
+# Info: =================================================
+# Time scale of (recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>) is  1ps /  1ps
+# Info: hierarchical_name = recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>
+# Info: reference_clock_frequency = 50.0 mhz
+# Info: output_clock_frequency = 320.0 mhz
+# Info: phase_shift = 780 ps
+# Info: duty_cycle = 50
+# Info: sim_additional_refclk_cycles_to_lock = 0
+# Info: output_clock_high_period = 1562.500000
+# Info: output_clock_low_period = 1562.500000
+# Info: =================================================
+# Info:           Generic PLL Summary
+# Info: =================================================
+# Time scale of (recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>) is  1ps /  1ps
+# Info: hierarchical_name = recop_bd_vhd_vec_tst.i1.\inst1|altpll_component|auto_generated|generic_pll1~FRACTIONAL_PLL\.inst.<protected>.<protected>.<protected>.<protected>
+# Info: reference_clock_frequency = 50.0 mhz
+# Info: output_clock_frequency = 320.0 mhz
+# Info: phase_shift = 1170 ps
+# Info: duty_cycle = 50
+# Info: sim_additional_refclk_cycles_to_lock = 0
+# Info: output_clock_high_period = 1562.500000
+# Info: output_clock_low_period = 1562.500000
+# 
+# Warning: por to CB BFM is not connected, internal por is used.
+# 
+# Warning: The frequency of the reference clock signal differs from the specified frequency.
+# Warning: The frequency of the reference clock signal differs from the specified frequency.
+# Warning: The frequency of the reference clock signal differs from the specified frequency.
+# Warning: The frequency of the reference clock signal differs from the specified frequency.
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 963116 ps 
+# Simulation time: 35993060 ps 

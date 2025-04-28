@@ -223,25 +223,20 @@ begin
     --   next_state  <= FETCH1;
     -- end if;
 
-    mar_reset            <= '0';
-    ir_reset             <= '0';
-    wr_data_sel          <= "00";
-    rf_reset             <= '0';
-    rf_a_re              <= '0';
-    rf_b_re              <= '0';
-    rf_alu_er_sel        <= '0';
-    alu_rb_sel           <= "00";
-    alu_ra_sel           <= "00";
-    reset_alu            <= '0';
-    alu_op               <= (others => '0');
-    dpcr_reset           <= '0';
-    dpcr_low_sel         <= '0';
-    sip_reset            <= '0';
-    sop_reset            <= '0';
-    svop_reset           <= '0';
-    pc_ld                <= '0';
-    address_sel          <= '0';
-    data_mem_wr_data_sel <= "00";
+    mar_reset     <= '0';
+    ir_reset      <= '0';
+    rf_reset      <= '0';
+    rf_a_re       <= '0';
+    rf_b_re       <= '0';
+    rf_alu_er_sel <= '0';
+    reset_alu     <= '0';
+    dpcr_reset    <= '0';
+    dpcr_low_sel  <= '0';
+    sip_reset     <= '0';
+    sop_reset     <= '0';
+    svop_reset    <= '0';
+    pc_ld         <= '0';
+    address_sel   <= '0';
 
     if (state = FETCH1) then
       pc_ld <= '1';
@@ -475,16 +470,13 @@ begin
 
     elsif state = EXEC_ADDR then
       -- T3: Rz ← Rz + (#imm/Rx)
-      case addressing_mode is
-        when addr_mode_immediate =>
-          alu_ra_sel <= "01";
-          alu_rb_sel <= "10";
-        when addr_mode_register =>
-          alu_ra_sel <= "00";
-          alu_rb_sel <= "00";
-        when others =>
-          null;
-      end case;
+      if addressing_mode = addr_mode_immediate then
+        alu_ra_sel <= "01";
+        alu_rb_sel <= "10";
+      elsif addressing_mode = addr_mode_register then
+        alu_ra_sel <= "00";
+        alu_rb_sel <= "00";
+      end if;
       alu_op     <= alu_add;
       next_state <= WRITE_BACK;
 
